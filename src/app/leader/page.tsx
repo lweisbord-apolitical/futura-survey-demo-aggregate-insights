@@ -14,18 +14,6 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "action", label: "Recommendations" },
 ];
 
-// Treemap data
-const TREEMAP_DATA = [
-  { task: "Email responses", hours: "186k", adoption: 12, size: "col-span-5 row-span-2", color: "bg-neutral-300 hover:bg-neutral-400", textColor: "text-neutral-700" },
-  { task: "Meetings & calls", hours: "152k", adoption: 6, size: "col-span-4 row-span-2", color: "bg-neutral-200 hover:bg-neutral-300", textColor: "text-neutral-600" },
-  { task: "Code", hours: "95k", adoption: 72, size: "col-span-3 row-span-2", color: "bg-violet-400 hover:bg-violet-500", textColor: "text-white" },
-  { task: "Briefings", hours: "78k", adoption: 18, size: "col-span-3 row-span-2", color: "bg-neutral-300 hover:bg-neutral-400", textColor: "text-neutral-700" },
-  { task: "Calendar", hours: "68k", adoption: 8, size: "col-span-3 row-span-2", color: "bg-neutral-200 hover:bg-neutral-300", textColor: "text-neutral-600" },
-  { task: "Docs", hours: "53k", adoption: 78, size: "col-span-2 row-span-2", color: "bg-violet-500 hover:bg-violet-600", textColor: "text-white" },
-  { task: "Social", hours: "43k", adoption: 75, size: "col-span-2 row-span-2", color: "bg-violet-400 hover:bg-violet-500", textColor: "text-white" },
-  { task: "Analysis", hours: "38k", adoption: 28, size: "col-span-2 row-span-2", color: "bg-neutral-300 hover:bg-neutral-400", textColor: "text-neutral-700" },
-];
-
 const HIGH_ADOPTION_TASKS = [
   { task: "Write technical documentation", category: "Software Engineering • Content", adoption: 78 },
   { task: "Create social media content", category: "Communications • Content", adoption: 75 },
@@ -53,7 +41,9 @@ const ROLE_GAPS = [
   { role: "Senior Advisor", dept: "Policy & Strategy", employees: 8, gap: 40, using: 15, exposed: 55 },
   { role: "HR Specialist", dept: "Human Resources", employees: 10, gap: 36, using: 22, exposed: 58 },
   { role: "Policy Analyst", dept: "Policy & Strategy", employees: 18, gap: 34, using: 28, exposed: 62 },
+  { role: "Data Analyst", dept: "Technology", employees: 8, gap: 31, using: 41, exposed: 72 },
   { role: "Software Engineer", dept: "Technology", employees: 14, gap: 26, using: 52, exposed: 78 },
+  { role: "Content Writer", dept: "Communications", employees: 5, gap: 23, using: 62, exposed: 85 },
 ];
 
 export default function LeaderDashboard() {
@@ -63,24 +53,24 @@ export default function LeaderDashboard() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white border-b border-neutral-100">
-        <div className="px-6 sm:px-8 max-w-5xl mx-auto py-3 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="px-6 sm:px-8 max-w-5xl mx-auto py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <Image
               src="/apolitical-logo.png"
               alt="Apolitical"
-              width={140}
-              height={33}
+              width={120}
+              height={28}
               priority
             />
             <span className="text-neutral-300">·</span>
-            <span className="text-sm font-medium text-neutral-900">Workforce AI Readiness</span>
+            <span className="text-lg font-semibold text-neutral-900">Workforce AI Readiness</span>
           </div>
-          <div className="text-sm text-neutral-400">1,847 responses • Demo data</div>
+          <div className="text-sm text-neutral-400">1,847 responses • Updated today</div>
         </div>
       </header>
 
       {/* Navigation */}
-      <nav className="border-b border-neutral-100 bg-white sticky top-[57px] z-40">
+      <nav className="border-b border-neutral-100 bg-white">
         <div className="px-6 sm:px-8 max-w-5xl mx-auto flex gap-8">
           {TABS.map((tab) => (
             <button
@@ -156,46 +146,173 @@ export default function LeaderDashboard() {
               </div>
             </div>
 
-            {/* Treemap */}
+            {/* Treemap - matching original exactly */}
             <div className="mb-10">
               <h2 className="text-lg font-medium text-neutral-900 mb-1">Where the hours go</h2>
               <p className="text-sm text-neutral-500 mb-4">Size = total hours across org. Color = AI adoption rate.</p>
 
               <div className="border border-neutral-100 p-4">
-                <div className="grid gap-1" style={{ gridTemplateColumns: "repeat(12, 1fr)", gridTemplateRows: "repeat(4, 48px)" }}>
-                  {TREEMAP_DATA.map((item) => (
-                    <div
-                      key={item.task}
-                      className={`${item.size} ${item.color} rounded-lg flex items-center justify-center cursor-pointer transition-colors`}
-                    >
-                      <div className="text-center px-2">
-                        <p className={`text-sm font-medium ${item.textColor}`}>{item.task}</p>
-                        <p className={`text-xs ${item.adoption > 50 ? "text-violet-100" : "text-neutral-500"}`}>
-                          {item.hours} hrs • {item.adoption}% AI
-                        </p>
-                      </div>
+                <div
+                  className="grid gap-1"
+                  style={{
+                    gridTemplateColumns: "repeat(12, 1fr)",
+                    gridTemplateRows: "repeat(6, 48px)"
+                  }}
+                >
+                  {/* Row 1-2 */}
+                  <div
+                    className="bg-neutral-300 hover:bg-neutral-400 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 5", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-2">
+                      <p className="text-sm font-medium text-neutral-700">Email responses</p>
+                      <p className="text-xs text-neutral-500">186k hrs • 12% AI</p>
                     </div>
-                  ))}
+                  </div>
+                  <div
+                    className="bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 4", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-2">
+                      <p className="text-sm font-medium text-neutral-600">Meetings & calls</p>
+                      <p className="text-xs text-neutral-400">152k hrs • 6% AI</p>
+                    </div>
+                  </div>
+                  <div
+                    className="bg-violet-400 hover:bg-violet-500 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 3", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-2">
+                      <p className="text-sm font-medium text-white">Code</p>
+                      <p className="text-xs text-violet-100">95k hrs • 72% AI</p>
+                    </div>
+                  </div>
+
+                  {/* Row 3-4 */}
+                  <div
+                    className="bg-neutral-300 hover:bg-neutral-400 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 3", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-2">
+                      <p className="text-sm font-medium text-neutral-700">Briefings</p>
+                      <p className="text-xs text-neutral-500">78k hrs • 18% AI</p>
+                    </div>
+                  </div>
+                  <div
+                    className="bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 3", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-2">
+                      <p className="text-sm font-medium text-neutral-600">Calendar</p>
+                      <p className="text-xs text-neutral-400">68k hrs • 8% AI</p>
+                    </div>
+                  </div>
+                  <div
+                    className="bg-violet-500 hover:bg-violet-600 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 2", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-2">
+                      <p className="text-sm font-medium text-white">Docs</p>
+                      <p className="text-xs text-violet-100">53k • 78%</p>
+                    </div>
+                  </div>
+                  <div
+                    className="bg-violet-400 hover:bg-violet-500 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 2", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-2">
+                      <p className="text-sm font-medium text-white">Social</p>
+                      <p className="text-xs text-violet-100">43k • 75%</p>
+                    </div>
+                  </div>
+                  <div
+                    className="bg-neutral-300 hover:bg-neutral-400 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 2", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-2">
+                      <p className="text-sm font-medium text-neutral-700">Analysis</p>
+                      <p className="text-xs text-neutral-500">38k • 28%</p>
+                    </div>
+                  </div>
+
+                  {/* Row 5-6 */}
+                  <div
+                    className="bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 2", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-1">
+                      <p className="text-xs font-medium text-neutral-600">Notes</p>
+                      <p className="text-xs text-neutral-400">34k • 6%</p>
+                    </div>
+                  </div>
+                  <div
+                    className="bg-neutral-300 hover:bg-neutral-400 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 2", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-1">
+                      <p className="text-xs font-medium text-neutral-700">Budget</p>
+                      <p className="text-xs text-neutral-500">33k • 22%</p>
+                    </div>
+                  </div>
+                  <div
+                    className="bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 2", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-1">
+                      <p className="text-xs font-medium text-neutral-600">Filing</p>
+                      <p className="text-xs text-neutral-400">29k • 4%</p>
+                    </div>
+                  </div>
+                  <div
+                    className="bg-violet-300 hover:bg-violet-400 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 2", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-1">
+                      <p className="text-xs font-medium text-violet-800">Research</p>
+                      <p className="text-xs text-violet-600">26k • 52%</p>
+                    </div>
+                  </div>
+                  <div
+                    className="bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 2", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-1">
+                      <p className="text-xs font-medium text-neutral-600">Coord</p>
+                      <p className="text-xs text-neutral-400">22k • 8%</p>
+                    </div>
+                  </div>
+                  <div
+                    className="bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    style={{ gridColumn: "span 2", gridRow: "span 2" }}
+                  >
+                    <div className="text-center px-1">
+                      <p className="text-xs font-medium text-neutral-600">Other</p>
+                      <p className="text-xs text-neutral-400">18k • 15%</p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Legend */}
-                <div className="flex items-center gap-4 mt-4 pt-3 border-t border-neutral-200 text-xs">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-3 h-3 bg-neutral-200 rounded" />
-                    <span className="text-neutral-500">0-20% AI</span>
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-3 h-3 bg-neutral-300 rounded" />
-                    <span className="text-neutral-500">20-40% AI</span>
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-3 h-3 bg-violet-300 rounded" />
-                    <span className="text-neutral-500">40-60% AI</span>
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-3 h-3 bg-violet-500 rounded" />
-                    <span className="text-neutral-500">60%+ AI</span>
-                  </span>
+                <div className="flex items-center justify-between mt-4 pt-3 border-t border-neutral-200">
+                  <div className="flex items-center gap-4 text-xs">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 bg-neutral-200 rounded" />
+                      <span className="text-neutral-500">0-20% AI</span>
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 bg-neutral-300 rounded" />
+                      <span className="text-neutral-500">20-40% AI</span>
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 bg-violet-300 rounded" />
+                      <span className="text-neutral-500">40-60% AI</span>
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 bg-violet-500 rounded" />
+                      <span className="text-neutral-500">60%+ AI</span>
+                    </span>
+                  </div>
+                  <p className="text-xs text-neutral-400">Click any task for details</p>
                 </div>
               </div>
 
@@ -313,9 +430,6 @@ export default function LeaderDashboard() {
                 <span className="px-3 py-1.5 rounded-full text-sm bg-neutral-100 text-neutral-600">
                   Claude <span className="text-neutral-400 ml-1">28%</span>
                 </span>
-                <span className="px-3 py-1.5 rounded-full text-sm bg-neutral-100 text-neutral-600">
-                  Perplexity <span className="text-neutral-400 ml-1">15%</span>
-                </span>
               </div>
             </div>
           </div>
@@ -339,12 +453,12 @@ export default function LeaderDashboard() {
                 <p className="text-xs text-neutral-400 mt-1">2x+ ahead of role average</p>
               </div>
               <div className="py-4 px-5 border-b-2 border-neutral-200">
-                <p className="text-xl font-semibold text-neutral-900">Engineering, Admin, Policy</p>
+                <p className="text-2xl font-semibold text-neutral-900">Engineering, Admin, Policy</p>
                 <p className="text-sm text-neutral-600">Roles with most pioneers</p>
                 <p className="text-xs text-neutral-400 mt-1">68 pioneers across high-gap roles</p>
               </div>
               <div className="py-4 px-5 border-b-2 border-violet-200">
-                <p className="text-xl font-semibold text-violet-600">Email, Notes, Briefings</p>
+                <p className="text-2xl font-semibold text-violet-600">Email, Notes, Briefings</p>
                 <p className="text-sm text-neutral-600">Tasks pioneers cracked</p>
                 <p className="text-xs text-neutral-400 mt-1">Interview them for playbooks</p>
               </div>
@@ -364,7 +478,7 @@ export default function LeaderDashboard() {
                         <p className="text-xs text-neutral-400">{item.dept} • {item.employees} employees</p>
                       </div>
                       <div className="text-right">
-                        <p className={`text-lg font-semibold ${item.gap > 40 ? "text-neutral-900" : "text-violet-600"}`}>
+                        <p className={`text-lg font-semibold ${item.gap > 35 ? "text-neutral-900" : "text-violet-600"}`}>
                           {item.gap}pt
                         </p>
                         <p className="text-xs text-neutral-400">gap</p>
@@ -463,7 +577,7 @@ export default function LeaderDashboard() {
                 <div className="flex justify-between text-xs text-neutral-400 mt-2">
                   <span className="text-neutral-600 font-medium">24% exposed today</span>
                   <span>→ 32% by 2028</span>
-                  <span className="text-violet-600 font-medium">→ 65% by 2033 (agents)</span>
+                  <span className="text-violet-600 font-medium">→ 65% by 2033 (agents, robotics)</span>
                 </div>
               </div>
             </div>
@@ -485,6 +599,54 @@ export default function LeaderDashboard() {
               <div className="text-center py-4 border-b-2 border-violet-500">
                 <p className="text-2xl font-semibold text-violet-600">85%</p>
                 <p className="text-xs text-neutral-400">2033</p>
+              </div>
+            </div>
+
+            {/* Roles Most Affected */}
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div>
+                <h2 className="text-lg font-medium text-neutral-900 mb-4">Roles most affected by 2030</h2>
+                <div className="space-y-3">
+                  <div className="py-3 border-b-2 border-neutral-200 flex items-center justify-between">
+                    <span className="text-sm text-neutral-700">Administrative Assistant</span>
+                    <span className="text-sm"><span className="text-neutral-400">82% →</span> <span className="font-semibold text-neutral-900">94%</span></span>
+                  </div>
+                  <div className="py-3 border-b-2 border-neutral-200 flex items-center justify-between">
+                    <span className="text-sm text-neutral-700">Content Writer</span>
+                    <span className="text-sm"><span className="text-neutral-400">85% →</span> <span className="font-semibold text-neutral-900">95%</span></span>
+                  </div>
+                  <div className="py-3 border-b-2 border-neutral-200 flex items-center justify-between">
+                    <span className="text-sm text-neutral-700">Data Analyst</span>
+                    <span className="text-sm"><span className="text-neutral-400">72% →</span> <span className="font-semibold text-neutral-900">88%</span></span>
+                  </div>
+                  <div className="py-3 border-b-2 border-neutral-200 flex items-center justify-between">
+                    <span className="text-sm text-neutral-700">Financial Analyst</span>
+                    <span className="text-sm"><span className="text-neutral-400">68% →</span> <span className="font-semibold text-neutral-900">85%</span></span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-lg font-medium text-neutral-900 mb-4">Tasks becoming exposed (2026-2030)</h2>
+                <div className="space-y-3">
+                  <div className="py-3 border-b-2 border-neutral-200">
+                    <p className="text-sm font-medium text-neutral-900">Conduct user interviews</p>
+                    <p className="text-xs text-neutral-400">18% → 55% (AI transcription + synthesis)</p>
+                  </div>
+                  <div className="py-3 border-b-2 border-neutral-200">
+                    <p className="text-sm font-medium text-neutral-900">Collect field samples</p>
+                    <p className="text-xs text-neutral-400">15% → 42% (sensor automation)</p>
+                  </div>
+                  <div className="py-3 border-b-2 border-neutral-200">
+                    <p className="text-sm font-medium text-neutral-900">Facilitate workshops</p>
+                    <p className="text-xs text-neutral-400">32% → 58% (AI facilitation tools)</p>
+                  </div>
+                </div>
+                <div className="mt-4 pl-4 border-l-2 border-neutral-200">
+                  <p className="text-sm text-neutral-500">
+                    <strong className="text-neutral-700">Driver:</strong> Multimodal AI + autonomous agents will expose interpersonal and collaborative tasks.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
