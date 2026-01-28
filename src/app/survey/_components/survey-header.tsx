@@ -10,8 +10,8 @@ export function SurveyHeader() {
         <Image
           src="/apolitical-logo.png"
           alt="Apolitical"
-          width={120}
-          height={28}
+          width={150}
+          height={35}
           priority
         />
       </div>

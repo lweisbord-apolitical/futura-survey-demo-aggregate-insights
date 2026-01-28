@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 export default function Home() {
@@ -13,6 +14,18 @@ export default function Home() {
       />
 
       <div className="max-w-md text-center relative z-10">
+        {/* Logo */}
+        <div className="mb-10">
+          <Image
+            src="/apolitical-logo.png"
+            alt="Apolitical"
+            width={180}
+            height={42}
+            priority
+            className="mx-auto"
+          />
+        </div>
+
         {/* Heading */}
         <h1 className="text-3xl sm:text-4xl font-semibold text-neutral-900 tracking-tight">
           The world of work is changing.
