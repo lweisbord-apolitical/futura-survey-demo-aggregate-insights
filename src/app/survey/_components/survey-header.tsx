@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function SurveyHeader() {
   return (
-    <header className="border-b border-neutral-100">
+    <header>
       <div className="px-6 sm:px-8 py-1.5">
         {/* Logo */}
         <Image
