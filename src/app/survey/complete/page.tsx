@@ -89,9 +89,23 @@ export default function CompletePage() {
           </div>
         </div>
 
+        {/* Demo: Leader View */}
+        <div className="mt-10 pt-8 border-t border-neutral-100">
+          <p className="text-sm text-neutral-500 mb-3">
+            See what it looks like when your whole workforce completes the survey:
+          </p>
+          <Link
+            href="/leader"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-violet-600 text-white rounded-lg text-sm font-medium hover:bg-violet-700 transition-colors"
+          >
+            View aggregate dashboard
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
         {/* CTA */}
         <Link href="/survey" onClick={handleStartOver}>
-          <button className="mt-10 inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-600 transition-colors">
+          <button className="mt-8 inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-600 transition-colors">
             Start new survey
             <ArrowRight className="h-4 w-4" />
           </button>

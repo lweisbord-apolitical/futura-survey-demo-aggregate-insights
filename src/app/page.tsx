@@ -48,6 +48,18 @@ export default function Home() {
         <p className="mt-8 text-sm text-neutral-400">
           Takes about 5 minutes
         </p>
+
+        {/* Skip to leader view */}
+        <div className="mt-12 pt-8 border-t border-neutral-200">
+          <p className="text-xs text-neutral-400 mb-2">Demo: See what leaders see</p>
+          <Link
+            href="/leader"
+            className="inline-flex items-center gap-2 text-sm text-violet-600 hover:text-violet-700 transition-colors"
+          >
+            Skip to aggregate dashboard
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
     </main>
   );
