@@ -1,0 +1,71 @@
+{
+  "categories": {
+    "informationInput": {
+      "label": "Information Input",
+      "description": "Gathering data, observing, and monitoring",
+      "color": "blue",
+      "gwaIds": ["4.A.1.a.1", "4.A.1.a.2", "4.A.1.b.1", "4.A.1.b.2", "4.A.1.c.1"]
+    },
+    "mentalProcesses": {
+      "label": "Mental Processes",
+      "description": "Analyzing, deciding, and problem-solving",
+      "color": "purple",
+      "gwaIds": ["4.A.2.a.1", "4.A.2.a.2", "4.A.2.a.3", "4.A.2.a.4", "4.A.2.b.1", "4.A.2.b.2", "4.A.2.b.3", "4.A.2.b.4", "4.A.2.b.5", "4.A.2.b.6"]
+    },
+    "workOutput": {
+      "label": "Work Output",
+      "description": "Producing, documenting, and technical work",
+      "color": "green",
+      "gwaIds": ["4.A.3.a.1", "4.A.3.a.2", "4.A.3.a.3", "4.A.3.a.4", "4.A.3.b.1", "4.A.3.b.2", "4.A.3.b.4", "4.A.3.b.5", "4.A.3.b.6"]
+    },
+    "interactingWithOthers": {
+      "label": "Interacting with Others",
+      "description": "Communicating, coordinating, and leading",
+      "color": "orange",
+      "gwaIds": ["4.A.4.a.1", "4.A.4.a.2", "4.A.4.a.3", "4.A.4.a.4", "4.A.4.a.5", "4.A.4.a.6", "4.A.4.a.7", "4.A.4.a.8", "4.A.4.b.1", "4.A.4.b.2", "4.A.4.b.3", "4.A.4.b.4", "4.A.4.b.5", "4.A.4.b.6", "4.A.4.c.1", "4.A.4.c.2", "4.A.4.c.3"]
+    }
+  },
+  "gwaIdToCategory": {
+    "4.A.1.a.1": "informationInput",
+    "4.A.1.a.2": "informationInput",
+    "4.A.1.b.1": "informationInput",
+    "4.A.1.b.2": "informationInput",
+    "4.A.1.c.1": "informationInput",
+    "4.A.2.a.1": "mentalProcesses",
+    "4.A.2.a.2": "mentalProcesses",
+    "4.A.2.a.3": "mentalProcesses",
+    "4.A.2.a.4": "mentalProcesses",
+    "4.A.2.b.1": "mentalProcesses",
+    "4.A.2.b.2": "mentalProcesses",
+    "4.A.2.b.3": "mentalProcesses",
+    "4.A.2.b.4": "mentalProcesses",
+    "4.A.2.b.5": "mentalProcesses",
+    "4.A.2.b.6": "mentalProcesses",
+    "4.A.3.a.1": "workOutput",
+    "4.A.3.a.2": "workOutput",
+    "4.A.3.a.3": "workOutput",
+    "4.A.3.a.4": "workOutput",
+    "4.A.3.b.1": "workOutput",
+    "4.A.3.b.2": "workOutput",
+    "4.A.3.b.4": "workOutput",
+    "4.A.3.b.5": "workOutput",
+    "4.A.3.b.6": "workOutput",
+    "4.A.4.a.1": "interactingWithOthers",
+    "4.A.4.a.2": "interactingWithOthers",
+    "4.A.4.a.3": "interactingWithOthers",
+    "4.A.4.a.4": "interactingWithOthers",
+    "4.A.4.a.5": "interactingWithOthers",
+    "4.A.4.a.6": "interactingWithOthers",
+    "4.A.4.a.7": "interactingWithOthers",
+    "4.A.4.a.8": "interactingWithOthers",
+    "4.A.4.b.1": "interactingWithOthers",
+    "4.A.4.b.2": "interactingWithOthers",
+    "4.A.4.b.3": "interactingWithOthers",
+    "4.A.4.b.4": "interactingWithOthers",
+    "4.A.4.b.5": "interactingWithOthers",
+    "4.A.4.b.6": "interactingWithOthers",
+    "4.A.4.c.1": "interactingWithOthers",
+    "4.A.4.c.2": "interactingWithOthers",
+    "4.A.4.c.3": "interactingWithOthers"
+  }
+}

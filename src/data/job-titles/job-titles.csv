@@ -1,0 +1,167 @@
+common_title,onet_code,onet_title,confidence
+"Software Engineer",15-1252.00,"Software Developers",0.95
+"Software Developer",15-1252.00,"Software Developers",0.99
+"SWE",15-1252.00,"Software Developers",0.85
+"Full Stack Developer",15-1252.00,"Software Developers",0.90
+"Backend Developer",15-1252.00,"Software Developers",0.88
+"Frontend Developer",15-1252.00,"Software Developers",0.88
+"Web Developer",15-1254.00,"Web Developers",0.95
+"Data Scientist",15-2051.00,"Data Scientists",0.98
+"Data Analyst",15-2041.01,"Statisticians",0.85
+"Machine Learning Engineer",15-2051.00,"Data Scientists",0.88
+"ML Engineer",15-2051.00,"Data Scientists",0.85
+"AI Engineer",15-2051.00,"Data Scientists",0.82
+"DevOps Engineer",15-1244.00,"Network and Computer Systems Administrators",0.80
+"Site Reliability Engineer",15-1244.00,"Network and Computer Systems Administrators",0.78
+"SRE",15-1244.00,"Network and Computer Systems Administrators",0.75
+"Cloud Engineer",15-1244.00,"Network and Computer Systems Administrators",0.80
+"Systems Administrator",15-1244.00,"Network and Computer Systems Administrators",0.95
+"Database Administrator",15-1242.00,"Database Administrators",0.98
+"DBA",15-1242.00,"Database Administrators",0.90
+"Security Engineer",15-1212.00,"Information Security Analysts",0.88
+"Cybersecurity Analyst",15-1212.00,"Information Security Analysts",0.95
+"UX Designer",27-1024.00,"Graphic Designers",0.80
+"UI Designer",27-1024.00,"Graphic Designers",0.78
+"Product Designer",27-1024.00,"Graphic Designers",0.75
+"Graphic Designer",27-1024.00,"Graphic Designers",0.98
+"Product Manager",11-2021.00,"Marketing Managers",0.78
+"PM",11-2021.00,"Marketing Managers",0.65
+"Project Manager",11-9199.00,"Managers, All Other",0.85
+"Program Manager",11-9199.00,"Managers, All Other",0.82
+"Engineering Manager",11-9041.00,"Architectural and Engineering Managers",0.90
+"Technical Lead",15-1252.00,"Software Developers",0.80
+"Tech Lead",15-1252.00,"Software Developers",0.78
+"CTO",11-1021.00,"General and Operations Managers",0.75
+"VP of Engineering",11-9041.00,"Architectural and Engineering Managers",0.85
+"Policy Analyst",13-1199.02,"Policy Analysts",0.98
+"Policy Advisor",13-1199.02,"Policy Analysts",0.95
+"Policy Officer",13-1199.02,"Policy Analysts",0.90
+"Public Policy Analyst",13-1199.02,"Policy Analysts",0.95
+"Government Analyst",13-1199.02,"Policy Analysts",0.85
+"Civil Servant",13-1199.00,"Business Operations Specialists, All Other",0.70
+"Legislative Analyst",13-1199.02,"Policy Analysts",0.88
+"Research Analyst",19-3094.00,"Political Scientists",0.80
+"Political Scientist",19-3094.00,"Political Scientists",0.98
+"Economist",19-3011.00,"Economists",0.98
+"Accountant",13-2011.00,"Accountants and Auditors",0.98
+"CPA",13-2011.00,"Accountants and Auditors",0.95
+"Auditor",13-2011.00,"Accountants and Auditors",0.92
+"Financial Analyst",13-2051.00,"Financial and Investment Analysts",0.98
+"Investment Analyst",13-2051.00,"Financial and Investment Analysts",0.95
+"Business Analyst",13-1111.00,"Management Analysts",0.88
+"Management Consultant",13-1111.00,"Management Analysts",0.95
+"Strategy Consultant",13-1111.00,"Management Analysts",0.90
+"Consultant",13-1111.00,"Management Analysts",0.75
+"Marketing Manager",11-2021.00,"Marketing Managers",0.98
+"Marketing Director",11-2021.00,"Marketing Managers",0.95
+"Digital Marketing Manager",11-2021.00,"Marketing Managers",0.90
+"Content Manager",27-3043.00,"Writers and Authors",0.75
+"Content Strategist",27-3043.00,"Writers and Authors",0.72
+"Copywriter",27-3043.00,"Writers and Authors",0.90
+"Technical Writer",27-3042.00,"Technical Writers",0.98
+"Communications Manager",11-2031.00,"Public Relations Managers",0.88
+"PR Manager",11-2031.00,"Public Relations Managers",0.90
+"Public Relations Specialist",27-3031.00,"Public Relations Specialists",0.98
+"Social Media Manager",27-3031.00,"Public Relations Specialists",0.80
+"HR Manager",11-3121.00,"Human Resources Managers",0.98
+"Human Resources Manager",11-3121.00,"Human Resources Managers",0.99
+"HR Business Partner",13-1071.00,"Human Resources Specialists",0.85
+"Recruiter",13-1071.00,"Human Resources Specialists",0.90
+"Talent Acquisition Specialist",13-1071.00,"Human Resources Specialists",0.92
+"People Operations Manager",11-3121.00,"Human Resources Managers",0.85
+"Nurse",29-1141.00,"Registered Nurses",0.90
+"Registered Nurse",29-1141.00,"Registered Nurses",0.99
+"RN",29-1141.00,"Registered Nurses",0.95
+"Nurse Practitioner",29-1171.00,"Nurse Practitioners",0.98
+"NP",29-1171.00,"Nurse Practitioners",0.90
+"Licensed Practical Nurse",29-2061.00,"Licensed Practical and Licensed Vocational Nurses",0.98
+"LPN",29-2061.00,"Licensed Practical and Licensed Vocational Nurses",0.92
+"Physician",29-1215.00,"Family Medicine Physicians",0.85
+"Doctor",29-1215.00,"Family Medicine Physicians",0.80
+"Medical Doctor",29-1215.00,"Family Medicine Physicians",0.88
+"MD",29-1215.00,"Family Medicine Physicians",0.85
+"Surgeon",29-1248.00,"Surgeons, All Other",0.90
+"Pharmacist",29-1051.00,"Pharmacists",0.98
+"Physical Therapist",29-1123.00,"Physical Therapists",0.98
+"Occupational Therapist",29-1122.00,"Occupational Therapists",0.98
+"Psychologist",19-3031.00,"Clinical and Counseling Psychologists",0.90
+"Clinical Psychologist",19-3031.00,"Clinical and Counseling Psychologists",0.98
+"Therapist",21-1014.00,"Mental Health Counselors",0.78
+"Counselor",21-1014.00,"Mental Health Counselors",0.85
+"Social Worker",21-1021.00,"Child, Family, and School Social Workers",0.88
+"Teacher",25-2021.00,"Elementary School Teachers, Except Special Education",0.80
+"Elementary School Teacher",25-2021.00,"Elementary School Teachers, Except Special Education",0.98
+"High School Teacher",25-2031.00,"Secondary School Teachers, Except Special and Career/Technical Education",0.98
+"Middle School Teacher",25-2022.00,"Middle School Teachers, Except Special and Career/Technical Education",0.98
+"Professor",25-1099.00,"Postsecondary Teachers",0.85
+"University Professor",25-1099.00,"Postsecondary Teachers",0.92
+"Lecturer",25-1099.00,"Postsecondary Teachers",0.88
+"Teaching Assistant",25-9042.00,"Teaching Assistants, Postsecondary",0.90
+"Research Assistant",19-4061.00,"Social Science Research Assistants",0.85
+"Lawyer",23-1011.00,"Lawyers",0.98
+"Attorney",23-1011.00,"Lawyers",0.98
+"Solicitor",23-1011.00,"Lawyers",0.92
+"Barrister",23-1011.00,"Lawyers",0.90
+"Paralegal",23-2011.00,"Paralegals and Legal Assistants",0.98
+"Legal Assistant",23-2011.00,"Paralegals and Legal Assistants",0.95
+"Legal Counsel",23-1011.00,"Lawyers",0.92
+"General Counsel",23-1011.00,"Lawyers",0.88
+"Sales Manager",11-2022.00,"Sales Managers",0.98
+"Account Manager",41-3091.00,"Sales Representatives of Services, Except Advertising, Insurance, Financial Services, and Travel",0.85
+"Account Executive",41-3091.00,"Sales Representatives of Services, Except Advertising, Insurance, Financial Services, and Travel",0.82
+"Sales Representative",41-4012.00,"Sales Representatives, Wholesale and Manufacturing, Except Technical and Scientific Products",0.90
+"Business Development Manager",11-2022.00,"Sales Managers",0.82
+"Customer Success Manager",43-4051.00,"Customer Service Representatives",0.75
+"Customer Service Representative",43-4051.00,"Customer Service Representatives",0.98
+"Support Specialist",43-4051.00,"Customer Service Representatives",0.80
+"Executive Assistant",43-6011.00,"Executive Secretaries and Executive Administrative Assistants",0.98
+"Administrative Assistant",43-6014.00,"Secretaries and Administrative Assistants, Except Legal, Medical, and Executive",0.95
+"Office Manager",43-1011.00,"First-Line Supervisors of Office and Administrative Support Workers",0.90
+"Operations Manager",11-1021.00,"General and Operations Managers",0.92
+"COO",11-1011.00,"Chief Executives",0.85
+"CEO",11-1011.00,"Chief Executives",0.98
+"Chief Executive Officer",11-1011.00,"Chief Executives",0.99
+"CFO",11-3031.00,"Financial Managers",0.90
+"Chief Financial Officer",11-3031.00,"Financial Managers",0.95
+"Finance Manager",11-3031.00,"Financial Managers",0.95
+"Controller",11-3031.00,"Financial Managers",0.88
+"Architect",17-1011.00,"Architects, Except Landscape and Naval",0.98
+"Solutions Architect",15-1252.00,"Software Developers",0.82
+"Enterprise Architect",15-1299.08,"Computer and Information Technology Occupations",0.80
+"Civil Engineer",17-2051.00,"Civil Engineers",0.98
+"Mechanical Engineer",17-2141.00,"Mechanical Engineers",0.98
+"Electrical Engineer",17-2071.00,"Electrical Engineers",0.98
+"Chemical Engineer",17-2041.00,"Chemical Engineers",0.98
+"Environmental Engineer",17-2081.00,"Environmental Engineers",0.98
+"Industrial Engineer",17-2112.00,"Industrial Engineers",0.98
+"Biomedical Engineer",17-2031.00,"Bioengineers and Biomedical Engineers",0.98
+"Quality Assurance Engineer",17-2112.00,"Industrial Engineers",0.80
+"QA Engineer",17-2112.00,"Industrial Engineers",0.78
+"Test Engineer",17-2199.00,"Engineers, All Other",0.82
+"Research Scientist",19-1042.00,"Medical Scientists, Except Epidemiologists",0.80
+"Scientist",19-1042.00,"Medical Scientists, Except Epidemiologists",0.70
+"Biologist",19-1029.00,"Biological Scientists, All Other",0.90
+"Chemist",19-2031.00,"Chemists",0.98
+"Physicist",19-2012.00,"Physicists",0.98
+"Journalist",27-3022.00,"Reporters and Correspondents",0.92
+"Reporter",27-3022.00,"Reporters and Correspondents",0.98
+"Editor",27-3041.00,"Editors",0.98
+"Video Editor",27-4032.00,"Film and Video Editors",0.95
+"Photographer",27-4021.00,"Photographers",0.98
+"Videographer",27-4031.00,"Camera Operators, Television, Video, and Film",0.92
+"Chef",35-1011.00,"Chefs and Head Cooks",0.98
+"Cook",35-2014.00,"Cooks, Restaurant",0.90
+"Restaurant Manager",11-9051.00,"Food Service Managers",0.95
+"Real Estate Agent",41-9022.00,"Real Estate Sales Agents",0.98
+"Realtor",41-9022.00,"Real Estate Sales Agents",0.95
+"Insurance Agent",41-3021.00,"Insurance Sales Agents",0.98
+"Financial Advisor",13-2052.00,"Personal Financial Advisors",0.98
+"Wealth Manager",13-2052.00,"Personal Financial Advisors",0.92
+"Investment Banker",13-2051.00,"Financial and Investment Analysts",0.88
+"Trader",41-3031.00,"Securities, Commodities, and Financial Services Sales Agents",0.85
+"Analyst",13-1199.00,"Business Operations Specialists, All Other",0.60
+"Manager",11-9199.00,"Managers, All Other",0.55
+"Director",11-1021.00,"General and Operations Managers",0.60
+"Coordinator",43-1011.00,"First-Line Supervisors of Office and Administrative Support Workers",0.65
+"Specialist",13-1199.00,"Business Operations Specialists, All Other",0.55
+"Associate",43-9061.00,"Office Clerks, General",0.50

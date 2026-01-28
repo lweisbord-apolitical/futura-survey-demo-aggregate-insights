@@ -1,118 +1,166 @@
-import { NextResponse } from 'next/server';
-import { graph, createInitialMessages, toGraphMessages } from '@/lib/graph';
+import { NextRequest, NextResponse } from "next/server";
+import { chatService } from "@/lib/chat";
+import type { SendMessageRequest, StartSessionRequest } from "@/lib/chat/types";
 
-interface ChatMessage {
-  role: 'user' | 'assistant';
-  content: string;
-}
-
-interface ChatRequest {
-  messages: ChatMessage[];
-  system_prompt: string;
-  scenario_context: string;
-  thread_id: string;
-}
-
-export async function POST(request: Request) {
+/**
+ * POST /api/chat
+ * Process a chat message or start a new session
+ */
+export async function POST(request: NextRequest) {
   try {
-    const body: ChatRequest = await request.json();
-    const { messages, system_prompt, scenario_context, thread_id } = body;
+    const body = await request.json();
 
-    // Build the full message list with system prompt
-    const systemMessages = createInitialMessages(system_prompt, scenario_context);
-    const conversationMessages = toGraphMessages(messages);
-    const allMessages = [...systemMessages, ...conversationMessages];
-
-    // Configure with thread_id for conversation memory
-    const config = {
-      configurable: { thread_id: thread_id || 'default' }
-    };
-
-    // Invoke the graph
-    const result = await graph.invoke(
-      { messages: allMessages },
-      config
-    );
-
-    // Get the last message (AI response)
-    const lastMessage = result.messages[result.messages.length - 1];
-    const content = typeof lastMessage.content === 'string'
-      ? lastMessage.content
-      : '';
-
-    return NextResponse.json({ content });
-  } catch (error) {
-    console.error('Chat API error:', error);
-
-    if (error instanceof Error) {
-      if (error.message.includes('API key')) {
-        return NextResponse.json(
-          { error: 'API key not configured. Please set ANTHROPIC_API_KEY environment variable.' },
-          { status: 500 }
-        );
-      }
+    // Check if this is a start session request (no sessionId or message)
+    if (!body.sessionId && !body.message) {
+      return handleStartSession(body as StartSessionRequest);
     }
 
+    // Otherwise, process as a message
+    return handleSendMessage(body as SendMessageRequest);
+  } catch (error) {
+    console.error("Chat API error:", error);
     return NextResponse.json(
-      { error: 'Failed to generate response' },
+      { error: "Failed to process request", details: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 }
     );
   }
 }
 
-// Streaming endpoint for real-time token delivery
-export async function PUT(request: Request) {
+/**
+ * Start a new chat session
+ */
+async function handleStartSession(body: StartSessionRequest) {
+  const { jobTitle, occupationCode, initialTasks } = body;
+
+  if (!jobTitle) {
+    return NextResponse.json(
+      { error: "jobTitle is required" },
+      { status: 400 }
+    );
+  }
+
+  const result = await chatService.startSession(jobTitle, occupationCode, initialTasks);
+
+  return NextResponse.json(result, { status: 201 });
+}
+
+/**
+ * Process a user message
+ */
+async function handleSendMessage(body: SendMessageRequest) {
+  const { sessionId, message, jobTitle, occupationCode } = body;
+
+  // Validate required fields
+  if (!message) {
+    return NextResponse.json(
+      { error: "message is required" },
+      { status: 400 }
+    );
+  }
+
+  // If no sessionId, start a new session first
+  let activeSessionId = sessionId;
+  if (!activeSessionId) {
+    if (!jobTitle) {
+      return NextResponse.json(
+        { error: "jobTitle is required when starting a new session" },
+        { status: 400 }
+      );
+    }
+
+    const newSession = await chatService.startSession(jobTitle, occupationCode);
+    activeSessionId = newSession.sessionId;
+  }
+
+  // Check if session exists
+  const session = await chatService.getSession(activeSessionId);
+  if (!session) {
+    return NextResponse.json(
+      { error: "Session not found or expired" },
+      { status: 404 }
+    );
+  }
+
+  // Process the message
+  const result = await chatService.processMessage(activeSessionId, message);
+
+  return NextResponse.json(result);
+}
+
+/**
+ * GET /api/chat?sessionId=xxx
+ * Get session state
+ */
+export async function GET(request: NextRequest) {
   try {
-    const body: ChatRequest = await request.json();
-    const { messages, system_prompt, scenario_context, thread_id } = body;
+    const sessionId = request.nextUrl.searchParams.get("sessionId");
 
-    const systemMessages = createInitialMessages(system_prompt, scenario_context);
-    const conversationMessages = toGraphMessages(messages);
-    const allMessages = [...systemMessages, ...conversationMessages];
+    if (!sessionId) {
+      return NextResponse.json(
+        { error: "sessionId query parameter is required" },
+        { status: 400 }
+      );
+    }
 
-    const config = {
-      configurable: { thread_id: thread_id || 'default' }
-    };
+    const session = await chatService.getSession(sessionId);
 
-    // Create a streaming response
-    const encoder = new TextEncoder();
-    const stream = new ReadableStream({
-      async start(controller) {
-        try {
-          // Stream with messages mode for token-by-token output
-          for await (const [messageChunk, metadata] of await graph.stream(
-            { messages: allMessages },
-            { ...config, streamMode: 'messages' }
-          )) {
-            if (messageChunk.content) {
-              const chunk = typeof messageChunk.content === 'string'
-                ? messageChunk.content
-                : '';
-              if (chunk) {
-                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content: chunk })}\n\n`));
-              }
-            }
-          }
-          controller.enqueue(encoder.encode('data: [DONE]\n\n'));
-          controller.close();
-        } catch (error) {
-          console.error('Streaming error:', error);
-          controller.error(error);
-        }
-      }
-    });
+    if (!session) {
+      return NextResponse.json(
+        { error: "Session not found or expired" },
+        { status: 404 }
+      );
+    }
 
-    return new Response(stream, {
-      headers: {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-      },
+    return NextResponse.json({
+      sessionId: session.sessionId,
+      jobTitle: session.jobTitle,
+      occupationCode: session.occupationCode,
+      messages: session.messages,
+      extractedTasks: session.extractedTasks,
+      turnCount: session.turnCount,
     });
   } catch (error) {
-    console.error('Stream API error:', error);
+    console.error("Chat GET API error:", error);
     return NextResponse.json(
-      { error: 'Failed to start stream' },
+      { error: "Failed to get session" },
+      { status: 500 }
+    );
+  }
+}
+
+/**
+ * PATCH /api/chat
+ * Update session (e.g., select suggestions)
+ */
+export async function PATCH(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { sessionId, selectedSuggestionIds } = body;
+
+    if (!sessionId) {
+      return NextResponse.json(
+        { error: "sessionId is required" },
+        { status: 400 }
+      );
+    }
+
+    const session = await chatService.getSession(sessionId);
+    if (!session) {
+      return NextResponse.json(
+        { error: "Session not found or expired" },
+        { status: 404 }
+      );
+    }
+
+    if (selectedSuggestionIds) {
+      await chatService.selectSuggestions(sessionId, selectedSuggestionIds);
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Chat PATCH API error:", error);
+    return NextResponse.json(
+      { error: "Failed to update session" },
       { status: 500 }
     );
   }
