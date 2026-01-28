@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Scenario Testing Suite",
-  description: "Prototype and iterate on AI-powered learning scenarios",
+  title: "Futura Survey Demo",
+  description: "AI-powered survey with aggregate insights",
 };
 
 export default function RootLayout({
