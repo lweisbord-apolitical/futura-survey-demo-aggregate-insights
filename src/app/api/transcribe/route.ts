@@ -4,10 +4,6 @@ import OpenAI from "openai";
 // Force Node.js runtime (not Edge) for OpenAI SDK
 export const runtime = "nodejs";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 /**
  * POST /api/transcribe
  * Transcribe audio using OpenAI Whisper
@@ -16,6 +12,17 @@ export async function POST(request: NextRequest) {
   console.log("[Transcribe API] Request received");
 
   try {
+    if (!process.env.OPENAI_API_KEY) {
+      return NextResponse.json(
+        { error: "OpenAI API key not configured" },
+        { status: 500 }
+      );
+    }
+
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
     const formData = await request.formData();
     const audioFile = formData.get("audio") as File | null;
 
