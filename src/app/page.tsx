@@ -15,12 +15,12 @@ export default function Home() {
 
       <div className="max-w-md text-center relative z-10">
         {/* Logo */}
-        <div className="mb-10">
+        <div className="mb-12">
           <Image
             src="/apolitical-logo.png"
             alt="Apolitical"
-            width={180}
-            height={42}
+            width={220}
+            height={52}
             priority
             className="mx-auto"
           />
