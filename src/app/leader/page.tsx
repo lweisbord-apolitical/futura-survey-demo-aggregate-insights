@@ -469,22 +469,26 @@ export default function LeaderDashboard() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header - matches survey pages */}
-      <header className="sticky top-0 z-50 bg-white">
-        <div className="px-6 sm:px-8 py-1.5 flex items-center justify-between">
-          <Image
-            src="/apolitical-logo.png"
-            alt="Apolitical"
-            width={200}
-            height={47}
-            priority
-          />
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-white border-b border-neutral-100">
+        <div className="px-6 sm:px-8 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Image
+              src="/apolitical-logo.png"
+              alt="Apolitical"
+              width={160}
+              height={38}
+              priority
+            />
+            <div className="h-6 w-px bg-neutral-200" />
+            <span className="text-sm font-medium text-neutral-600">Department of Natural Resources</span>
+          </div>
           <div className="text-sm text-neutral-400">1,847 responses • Demo data</div>
         </div>
       </header>
 
       {/* Navigation */}
-      <nav className="border-b border-neutral-100 bg-white">
+      <nav className="border-b border-neutral-100 bg-white sticky top-[62px] z-40">
         <div className="px-6 sm:px-8 max-w-5xl mx-auto flex gap-8">
           {TABS.map((tab) => (
             <button
