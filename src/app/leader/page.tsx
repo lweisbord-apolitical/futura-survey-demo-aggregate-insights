@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -46,26 +46,440 @@ const ROLE_GAPS = [
   { role: "Content Writer", dept: "Communications", employees: 5, gap: 23, using: 62, exposed: 85 },
 ];
 
+const RESKILLING_ROLES = [
+  {
+    role: "Administrative Assistant",
+    exposure2030: "94%",
+    currentExposure: "82%",
+    employees: 12,
+    dept: "Operations",
+    tasks: ["Email responses (88%)", "Meeting notes (85%)", "Calendar mgmt (72%)"],
+    pathways: ["→ Project Coordinator", "→ Operations Analyst", "→ AI Tool Specialist"],
+    adjacentSkills: "stakeholder communication, process optimization, tool configuration"
+  },
+  {
+    role: "Content Writer",
+    exposure2030: "95%",
+    currentExposure: "85%",
+    employees: 5,
+    dept: "Communications",
+    tasks: ["Social content (92%)", "Press releases (88%)", "Proofreading (85%)"],
+    pathways: ["→ Content Strategist", "→ Brand Manager", "→ AI Prompt Engineer"],
+    adjacentSkills: "editorial judgment, brand voice, AI output curation"
+  },
+  {
+    role: "Data Analyst",
+    exposure2030: "88%",
+    currentExposure: "72%",
+    employees: 8,
+    dept: "Technology",
+    tasks: ["SQL queries (82%)", "Visualizations (78%)", "Reports (75%)"],
+    pathways: ["→ Data Scientist", "→ ML Engineer", "→ Analytics Manager"],
+    adjacentSkills: "statistical modeling, machine learning, stakeholder insight translation"
+  },
+];
+
+// Chart component for Opportunity Matrix
+function OpportunityMatrixChart({ exposureYear }: { exposureYear: "2026" | "2033" }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const chartRef = useRef<unknown>(null);
+
+  useEffect(() => {
+    const loadChart = async () => {
+      const ChartJS = (await import("chart.js/auto")).default;
+
+      if (!canvasRef.current) return;
+
+      // Destroy existing chart
+      if (chartRef.current) {
+        (chartRef.current as { destroy: () => void }).destroy();
+      }
+
+      const tasks2026 = {
+        untapped: [
+          {x: 88, y: 12, r: 12, name: 'Customer emails'},
+          {x: 85, y: 6, r: 10, name: 'Meeting notes'},
+          {x: 72, y: 8, r: 11, name: 'Calendar management'},
+          {x: 82, y: 18, r: 9, name: 'Briefing docs'},
+          {x: 78, y: 18, r: 10, name: 'Legislative monitoring'},
+          {x: 82, y: 35, r: 10, name: 'Resume screening'},
+          {x: 68, y: 4, r: 10, name: 'Document filing'},
+          {x: 78, y: 28, r: 11, name: 'Budget reports'},
+        ],
+        realized: [
+          {x: 92, y: 78, r: 8, name: 'Technical docs'},
+          {x: 92, y: 75, r: 10, name: 'Social content'},
+          {x: 88, y: 72, r: 14, name: 'Software code'},
+          {x: 88, y: 68, r: 9, name: 'Press releases'},
+          {x: 85, y: 58, r: 8, name: 'Code review'},
+          {x: 82, y: 62, r: 9, name: 'SQL queries'},
+          {x: 85, y: 62, r: 8, name: 'Media monitoring'},
+        ],
+        unexpected: [
+          {x: 35, y: 38, r: 6, name: 'Team coordination'},
+          {x: 42, y: 32, r: 5, name: 'Stakeholder comms'},
+        ],
+        manual: [
+          {x: 25, y: 8, r: 11, name: 'Stakeholder meetings'},
+          {x: 8, y: 0, r: 8, name: 'Greeting visitors'},
+          {x: 18, y: 2, r: 11, name: 'Employee interviews'},
+          {x: 15, y: 5, r: 8, name: 'Field samples'},
+          {x: 12, y: 0, r: 7, name: 'Site inspections'},
+          {x: 15, y: 2, r: 8, name: 'Mentoring'},
+          {x: 32, y: 5, r: 9, name: 'Workshops'},
+          {x: 28, y: 5, r: 8, name: 'Strategic guidance'},
+        ]
+      };
+
+      const tasks2033 = {
+        untapped: [
+          {x: 95, y: 12, r: 12, name: 'Customer emails'},
+          {x: 92, y: 6, r: 10, name: 'Meeting notes'},
+          {x: 88, y: 8, r: 11, name: 'Calendar management'},
+          {x: 90, y: 18, r: 9, name: 'Briefing docs'},
+          {x: 88, y: 18, r: 10, name: 'Legislative monitoring'},
+          {x: 92, y: 35, r: 10, name: 'Resume screening'},
+          {x: 85, y: 4, r: 10, name: 'Document filing'},
+          {x: 90, y: 28, r: 11, name: 'Budget reports'},
+          {x: 65, y: 8, r: 11, name: 'Stakeholder meetings'},
+          {x: 58, y: 2, r: 11, name: 'Employee interviews'},
+          {x: 55, y: 5, r: 8, name: 'Field samples'},
+          {x: 72, y: 5, r: 9, name: 'Workshops'},
+        ],
+        realized: [
+          {x: 95, y: 78, r: 8, name: 'Technical docs'},
+          {x: 95, y: 75, r: 10, name: 'Social content'},
+          {x: 92, y: 72, r: 14, name: 'Software code'},
+          {x: 92, y: 68, r: 9, name: 'Press releases'},
+          {x: 90, y: 58, r: 8, name: 'Code review'},
+          {x: 88, y: 62, r: 9, name: 'SQL queries'},
+          {x: 90, y: 62, r: 8, name: 'Media monitoring'},
+        ],
+        unexpected: [
+          {x: 58, y: 38, r: 6, name: 'Team coordination'},
+          {x: 62, y: 32, r: 5, name: 'Stakeholder comms'},
+        ],
+        manual: [
+          {x: 28, y: 0, r: 8, name: 'Greeting visitors'},
+          {x: 42, y: 0, r: 7, name: 'Site inspections'},
+          {x: 45, y: 2, r: 8, name: 'Mentoring'},
+          {x: 48, y: 5, r: 8, name: 'Strategic guidance'},
+        ]
+      };
+
+      const tasks = exposureYear === "2033" ? tasks2033 : tasks2026;
+
+      chartRef.current = new ChartJS(canvasRef.current, {
+        type: 'bubble',
+        data: {
+          datasets: [
+            {
+              label: 'Opportunity',
+              data: tasks.untapped,
+              backgroundColor: 'rgba(249, 115, 22, 0.7)',
+              borderColor: 'rgba(234, 88, 12, 0.9)',
+              borderWidth: 1
+            },
+            {
+              label: 'Adopting',
+              data: tasks.realized,
+              backgroundColor: 'rgba(139, 92, 246, 0.65)',
+              borderColor: 'rgba(124, 58, 237, 0.85)',
+              borderWidth: 1
+            },
+            {
+              label: 'Adopting (low)',
+              data: tasks.unexpected,
+              backgroundColor: 'rgba(167, 139, 250, 0.6)',
+              borderColor: 'rgba(139, 92, 246, 0.8)',
+              borderWidth: 1
+            },
+            {
+              label: 'Low exposure',
+              data: tasks.manual,
+              backgroundColor: 'rgba(212, 212, 212, 0.5)',
+              borderColor: 'rgba(163, 163, 163, 0.6)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          layout: { padding: { top: 10, right: 10, bottom: 10, left: 10 } },
+          scales: {
+            x: {
+              min: 0,
+              max: 100,
+              title: {
+                display: true,
+                text: 'AI Exposure →',
+                color: '#737373',
+                font: { size: 12, weight: 500 }
+              },
+              grid: { color: '#e5e5e5' },
+              ticks: {
+                callback: (v) => v + '%',
+                color: '#a3a3a3',
+                font: { size: 11 }
+              }
+            },
+            y: {
+              min: 0,
+              max: 100,
+              title: {
+                display: true,
+                text: '↑ Current Adoption',
+                color: '#737373',
+                font: { size: 12, weight: 500 }
+              },
+              grid: { color: '#e5e5e5' },
+              ticks: {
+                callback: (v) => v + '%',
+                color: '#a3a3a3',
+                font: { size: 11 }
+              }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#171717',
+              titleColor: '#fff',
+              bodyColor: '#e5e5e5',
+              padding: 12,
+              cornerRadius: 6,
+              callbacks: {
+                title: (items) => {
+                  const item = items[0];
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  return (item.raw as any).name || '';
+                },
+                label: (item) => {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  const raw = item.raw as any;
+                  return [`Exposure: ${raw.x}%`, `Adoption: ${raw.y}%`];
+                }
+              }
+            }
+          }
+        }
+      });
+    };
+
+    loadChart();
+
+    return () => {
+      if (chartRef.current) {
+        (chartRef.current as { destroy: () => void }).destroy();
+      }
+    };
+  }, [exposureYear]);
+
+  return <canvas ref={canvasRef} />;
+}
+
+// Chart component for Pioneer Map
+function PioneerMapChart() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const chartRef = useRef<unknown>(null);
+
+  useEffect(() => {
+    const loadChart = async () => {
+      const ChartJS = (await import("chart.js/auto")).default;
+
+      if (!canvasRef.current) return;
+
+      if (chartRef.current) {
+        (chartRef.current as { destroy: () => void }).destroy();
+      }
+
+      // Generate realistic pioneer data based on role clusters
+      const pioneers: { x: number; y: number; r: number }[] = [];
+      const others: { x: number; y: number; r: number }[] = [];
+
+      // Define role clusters with their characteristics
+      // { avgAdoption, spread, count, pioneerRatio }
+      const roleClusters = [
+        { name: 'Software Engineers', avgAdoption: 52, spread: 12, count: 140, pioneerRatio: 0.18 },
+        { name: 'Content Writers', avgAdoption: 62, spread: 10, count: 50, pioneerRatio: 0.16 },
+        { name: 'Data Analysts', avgAdoption: 41, spread: 14, count: 80, pioneerRatio: 0.12 },
+        { name: 'Policy Analysts', avgAdoption: 28, spread: 15, count: 180, pioneerRatio: 0.08 },
+        { name: 'Financial Analysts', avgAdoption: 25, spread: 12, count: 120, pioneerRatio: 0.06 },
+        { name: 'HR Specialists', avgAdoption: 22, spread: 10, count: 100, pioneerRatio: 0.05 },
+        { name: 'Senior Advisors', avgAdoption: 15, spread: 8, count: 80, pioneerRatio: 0.04 },
+        { name: 'Admin Assistants', avgAdoption: 8, spread: 6, count: 120, pioneerRatio: 0.15 }, // High pioneer ratio despite low avg
+        { name: 'Other Roles', avgAdoption: 24, spread: 18, count: 200, pioneerRatio: 0.07 },
+      ];
+
+      // Gaussian-ish random for more realistic distribution
+      const gaussRandom = () => {
+        let u = 0, v = 0;
+        while (u === 0) u = Math.random();
+        while (v === 0) v = Math.random();
+        return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+      };
+
+      roleClusters.forEach(cluster => {
+        const numPioneers = Math.round(cluster.count * cluster.pioneerRatio);
+        const numOthers = cluster.count - numPioneers;
+
+        // Generate pioneers (significantly above their role average)
+        for (let i = 0; i < numPioneers; i++) {
+          const roleAvg = cluster.avgAdoption + gaussRandom() * (cluster.spread * 0.3);
+          const clampedRoleAvg = Math.max(5, Math.min(85, roleAvg));
+          // Pioneers are 1.5x to 3x their role average
+          const multiplier = 1.5 + Math.random() * 1.5;
+          const individual = Math.min(98, clampedRoleAvg * multiplier + gaussRandom() * 8);
+          pioneers.push({
+            x: clampedRoleAvg,
+            y: Math.max(clampedRoleAvg + 10, individual),
+            r: 2.5 + Math.random() * 2.5
+          });
+        }
+
+        // Generate others (at or below role average, with natural variation)
+        for (let i = 0; i < numOthers; i++) {
+          const roleAvg = cluster.avgAdoption + gaussRandom() * cluster.spread;
+          const clampedRoleAvg = Math.max(3, Math.min(80, roleAvg));
+          // Most people cluster around their role average, some below
+          const variance = gaussRandom() * 12;
+          const individual = clampedRoleAvg + variance - 5; // Slight downward bias
+          others.push({
+            x: clampedRoleAvg,
+            y: Math.max(0, Math.min(clampedRoleAvg + 8, individual)),
+            r: 2 + Math.random() * 2
+          });
+        }
+      });
+
+      // Add some outliers for realism
+      // Low adopters in high-adoption roles
+      for (let i = 0; i < 30; i++) {
+        const roleAvg = 45 + Math.random() * 25;
+        others.push({ x: roleAvg, y: Math.random() * 15, r: 2 + Math.random() * 1.5 });
+      }
+      // High adopters who are exactly at average (not pioneers, just consistent)
+      for (let i = 0; i < 40; i++) {
+        const roleAvg = 30 + Math.random() * 40;
+        others.push({ x: roleAvg, y: roleAvg + (Math.random() - 0.5) * 6, r: 2 + Math.random() * 2 });
+      }
+
+      chartRef.current = new ChartJS(canvasRef.current, {
+        type: 'bubble',
+        data: {
+          datasets: [
+            {
+              label: 'Pioneers',
+              data: pioneers,
+              backgroundColor: 'rgba(139, 92, 246, 0.6)',
+              borderColor: 'rgba(124, 58, 237, 0.8)',
+              borderWidth: 1
+            },
+            {
+              label: 'Others',
+              data: others,
+              backgroundColor: 'rgba(163, 163, 163, 0.4)',
+              borderColor: 'rgba(163, 163, 163, 0.6)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              min: 0,
+              max: 100,
+              title: {
+                display: true,
+                text: 'Role Average AI Adoption →',
+                color: '#737373',
+                font: { size: 12, weight: 500 }
+              },
+              grid: { color: '#e5e5e5' },
+              ticks: {
+                callback: (v) => v + '%',
+                color: '#a3a3a3',
+                font: { size: 11 }
+              }
+            },
+            y: {
+              min: 0,
+              max: 100,
+              title: {
+                display: true,
+                text: '↑ Individual AI Adoption',
+                color: '#737373',
+                font: { size: 12, weight: 500 }
+              },
+              grid: { color: '#e5e5e5' },
+              ticks: {
+                callback: (v) => v + '%',
+                color: '#a3a3a3',
+                font: { size: 11 }
+              }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#171717',
+              titleColor: '#fff',
+              bodyColor: '#e5e5e5',
+              padding: 12,
+              cornerRadius: 6
+            }
+          }
+        }
+      });
+
+      // Draw diagonal line after chart renders
+      const chart = chartRef.current as { ctx: CanvasRenderingContext2D; chartArea: { left: number; right: number; top: number; bottom: number } };
+      const ctx = chart.ctx;
+      const chartArea = chart.chartArea;
+
+      ctx.save();
+      ctx.strokeStyle = '#a3a3a3';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      ctx.moveTo(chartArea.left, chartArea.bottom);
+      ctx.lineTo(chartArea.right, chartArea.top);
+      ctx.stroke();
+      ctx.restore();
+    };
+
+    loadChart();
+
+    return () => {
+      if (chartRef.current) {
+        (chartRef.current as { destroy: () => void }).destroy();
+      }
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} />;
+}
+
 export default function LeaderDashboard() {
   const [activeTab, setActiveTab] = useState<TabId>("now");
+  const [exposureYear, setExposureYear] = useState<"2026" | "2033">("2026");
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white border-b border-neutral-100">
-        <div className="px-6 sm:px-8 max-w-5xl mx-auto py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/apolitical-logo.png"
-              alt="Apolitical"
-              width={120}
-              height={28}
-              priority
-            />
-            <span className="text-neutral-300">·</span>
-            <span className="text-lg font-semibold text-neutral-900">Workforce AI Readiness</span>
-          </div>
-          <div className="text-sm text-neutral-400">1,847 responses • Updated today</div>
+      {/* Header - matches survey pages */}
+      <header className="sticky top-0 z-50 bg-white">
+        <div className="px-6 sm:px-8 py-1.5 flex items-center justify-between">
+          <Image
+            src="/apolitical-logo.png"
+            alt="Apolitical"
+            width={200}
+            height={47}
+            priority
+          />
+          <div className="text-sm text-neutral-400">1,847 responses • Demo data</div>
         </div>
       </header>
 
@@ -113,20 +527,33 @@ export default function LeaderDashboard() {
 
               {/* Three metrics */}
               <div className="grid grid-cols-3 gap-8">
-                <div className="border-b-2 border-violet-600 pb-4">
+                <div className="group relative border-b-2 border-violet-600 pb-4 cursor-help">
                   <p className="text-sm text-neutral-500 mb-1">Current usage</p>
                   <p className="text-3xl font-semibold text-neutral-900">24%</p>
                   <p className="text-xs text-neutral-400 mt-1">Survey responses</p>
+                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
+                    <strong className="text-white">What people actually do today.</strong><br /><br />
+                    Tasks where respondents report using AI &quot;often&quot; or &quot;always&quot;.
+                  </div>
                 </div>
-                <div className="border-b-2 border-violet-400 pb-4">
+                <div className="group relative border-b-2 border-violet-400 pb-4 cursor-help">
                   <p className="text-sm text-neutral-500 mb-1">2026 exposure</p>
                   <p className="text-3xl font-semibold text-neutral-900">38%</p>
                   <p className="text-xs text-neutral-400 mt-1">Anthropic Economic Index</p>
+                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
+                    <strong className="text-white">What AI can do right now.</strong><br /><br />
+                    Based on real-world Claude usage patterns across occupations.
+                  </div>
                 </div>
-                <div className="border-b-2 border-violet-200 pb-4">
+                <div className="group relative border-b-2 border-violet-200 pb-4 cursor-help">
                   <p className="text-sm text-neutral-500 mb-1">2033 exposure</p>
                   <p className="text-3xl font-semibold text-neutral-900">57%</p>
                   <p className="text-xs text-neutral-400 mt-1">Elondou et al. · 7yr horizon</p>
+                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
+                    <strong className="text-white">What AI could do by ~2033.</strong><br /><br />
+                    Based on GPT-4 exposure research. Technical ceiling.<br /><br />
+                    <a href="#" className="text-violet-400 underline">View methodology →</a>
+                  </div>
                 </div>
               </div>
 
@@ -146,7 +573,7 @@ export default function LeaderDashboard() {
               </div>
             </div>
 
-            {/* Treemap - matching original exactly */}
+            {/* Treemap */}
             <div className="mb-10">
               <h2 className="text-lg font-medium text-neutral-900 mb-1">Where the hours go</h2>
               <p className="text-sm text-neutral-500 mb-4">Size = total hours across org. Color = AI adoption rate.</p>
@@ -445,22 +872,93 @@ export default function LeaderDashboard() {
               </h1>
             </div>
 
-            {/* Pioneer callouts */}
-            <div className="grid sm:grid-cols-3 gap-4 mb-10">
-              <div className="py-4 px-5 border-b-2 border-violet-400">
-                <p className="text-2xl font-semibold text-violet-600">127</p>
-                <p className="text-sm text-neutral-600">Pioneers identified</p>
-                <p className="text-xs text-neutral-400 mt-1">2x+ ahead of role average</p>
+            {/* Task Opportunity Chart */}
+            <div className="mb-10">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-lg font-medium text-neutral-900">Task opportunities</h2>
+                <div className="inline-flex rounded-full bg-neutral-100 p-0.5">
+                  <button
+                    onClick={() => setExposureYear("2026")}
+                    className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
+                      exposureYear === "2026" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-700"
+                    }`}
+                  >
+                    2026
+                  </button>
+                  <button
+                    onClick={() => setExposureYear("2033")}
+                    className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
+                      exposureYear === "2033" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-700"
+                    }`}
+                  >
+                    2033
+                  </button>
+                </div>
               </div>
-              <div className="py-4 px-5 border-b-2 border-neutral-200">
-                <p className="text-2xl font-semibold text-neutral-900">Engineering, Admin, Policy</p>
-                <p className="text-sm text-neutral-600">Roles with most pioneers</p>
-                <p className="text-xs text-neutral-400 mt-1">68 pioneers across high-gap roles</p>
+              <p className="text-sm text-neutral-500 mb-4">Tasks plotted by AI exposure (x) vs current adoption (y). Bubble size = hours.</p>
+
+              <div className="border border-neutral-100 p-6">
+                <div className="relative" style={{ height: "420px" }}>
+                  <OpportunityMatrixChart exposureYear={exposureYear} />
+                </div>
+                <div className="flex items-center gap-6 mt-4 pt-4 border-t border-neutral-100 text-xs">
+                  <span className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full" style={{ background: "#f97316" }} />
+                    <span className="text-neutral-600">Opportunity — high exposure, low adoption</span>
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-violet-500" />
+                    <span className="text-neutral-600">Already adopting</span>
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-neutral-300" />
+                    <span className="text-neutral-500">Low exposure</span>
+                  </span>
+                </div>
               </div>
-              <div className="py-4 px-5 border-b-2 border-violet-200">
-                <p className="text-2xl font-semibold text-violet-600">Email, Notes, Briefings</p>
-                <p className="text-sm text-neutral-600">Tasks pioneers cracked</p>
-                <p className="text-xs text-neutral-400 mt-1">Interview them for playbooks</p>
+            </div>
+
+            {/* Pioneer Map */}
+            <div className="mb-10">
+              <h2 className="text-lg font-medium text-neutral-900 mb-1">Find your pioneers</h2>
+              <p className="text-sm text-neutral-500 mb-4">Each dot is a person. Dots above the line are ahead of their role&apos;s average — your internal champions.</p>
+
+              <div className="border border-neutral-100 p-6">
+                <div className="relative" style={{ height: "360px" }}>
+                  <PioneerMapChart />
+                </div>
+                <div className="flex items-center justify-between mt-4 pt-4 border-t border-neutral-200">
+                  <div className="flex items-center gap-4 text-xs">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 bg-violet-500 rounded-full" />
+                      <span className="text-neutral-500">Pioneers (above line)</span>
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 bg-neutral-400 rounded-full" />
+                      <span className="text-neutral-500">At or below average</span>
+                    </span>
+                  </div>
+                  <p className="text-xs text-neutral-400">Sample view • 1,847 total responses</p>
+                </div>
+              </div>
+
+              {/* Pioneer callouts */}
+              <div className="grid sm:grid-cols-3 gap-4 mt-4">
+                <div className="py-4 px-5 border-b-2 border-violet-400">
+                  <p className="text-2xl font-semibold text-violet-600">127</p>
+                  <p className="text-sm text-neutral-600">Pioneers identified</p>
+                  <p className="text-xs text-neutral-400 mt-1">2x+ ahead of role average</p>
+                </div>
+                <div className="py-4 px-5 border-b-2 border-neutral-200">
+                  <p className="text-2xl font-semibold text-neutral-900">Engineering, Admin, Policy</p>
+                  <p className="text-sm text-neutral-600">Roles with most pioneers</p>
+                  <p className="text-xs text-neutral-400 mt-1">68 pioneers across high-gap roles</p>
+                </div>
+                <div className="py-4 px-5 border-b-2 border-violet-200">
+                  <p className="text-2xl font-semibold text-violet-600">Email, Notes, Briefings</p>
+                  <p className="text-sm text-neutral-600">Tasks pioneers cracked</p>
+                  <p className="text-xs text-neutral-400 mt-1">Interview them for playbooks</p>
+                </div>
               </div>
             </div>
 
@@ -649,6 +1147,57 @@ export default function LeaderDashboard() {
                 </div>
               </div>
             </div>
+
+            {/* Reskilling Priorities */}
+            <div className="mt-10 pt-10 border-t border-neutral-100">
+              <h2 className="text-lg font-medium text-neutral-900 mb-1">Reskilling priorities</h2>
+              <p className="text-sm text-neutral-500 mb-6">Roles with 85%+ exposure by 2030 — consider proactive skill development</p>
+
+              <div className="space-y-6">
+                {RESKILLING_ROLES.map((role) => (
+                  <div key={role.role} className="border border-neutral-100 p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="text-base font-medium text-neutral-900">{role.role}</p>
+                          <span className="text-xs bg-violet-50 text-violet-600 px-2 py-0.5 rounded-full">{role.exposure2030} by 2030</span>
+                        </div>
+                        <p className="text-sm text-neutral-500 mt-1">{role.employees} employees • {role.dept}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-neutral-400">Current exposure</p>
+                        <p className="text-lg font-semibold text-neutral-900">{role.currentExposure}</p>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <p className="text-xs text-neutral-500 mb-2">Most exposed tasks</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {role.tasks.map((task) => (
+                          <span key={task} className="px-2 py-1 bg-neutral-50 rounded text-xs text-neutral-600">{task}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="pl-4 border-l-2 border-neutral-200">
+                      <p className="text-xs text-neutral-500 mb-1">Suggested reskilling pathways</p>
+                      <div className="flex flex-wrap gap-2">
+                        {role.pathways.map((pathway) => (
+                          <span key={pathway} className="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">{pathway}</span>
+                        ))}
+                      </div>
+                      <p className="text-xs text-neutral-400 mt-2">Adjacent skills: {role.adjacentSkills}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 pl-4 border-l-2 border-neutral-200">
+                <p className="text-sm text-neutral-500">
+                  <strong className="text-neutral-700">Methodology:</strong> Reskilling pathways based on skill adjacency analysis and projected skill demand growth.
+                </p>
+              </div>
+            </div>
           </div>
         )}
 
@@ -658,67 +1207,316 @@ export default function LeaderDashboard() {
             <div className="mb-10">
               <p className="text-sm text-neutral-400 mb-2">Recommendations</p>
               <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
-                Three moves to close the gap.
+                Three priorities to close the gap.
               </h1>
             </div>
 
-            <div className="space-y-8">
-              {/* Recommendation 1 */}
-              <div className="border border-neutral-100 p-6">
+            {/* Priority 1 */}
+            <div className="mb-10 border border-neutral-200">
+              <div className="px-6 py-4 border-b border-neutral-100">
                 <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center font-semibold text-sm flex-shrink-0">
-                    1
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-neutral-900">Enable Admin & Policy teams first</h3>
-                    <p className="text-sm text-neutral-500 mt-1">
-                      74pt and 40pt gaps respectively. Same tasks as high-adoption teams, 10x less AI usage.
-                    </p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <span className="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">Email drafting workshops</span>
-                      <span className="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">Meeting notes automation</span>
-                      <span className="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">Briefing templates</span>
+                  <span className="w-8 h-8 bg-neutral-900 text-white rounded-full flex items-center justify-center font-semibold flex-shrink-0">1</span>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-lg font-semibold text-neutral-900">Launch an AI pilot for Administrative teams</h2>
+                      <span className="text-xs bg-violet-50 text-violet-600 px-2.5 py-1 rounded-full font-medium">Highest ROI</span>
                     </div>
+                    <p className="text-sm text-neutral-600 mt-1">74-point gap between exposure and adoption — the largest in the organization</p>
                   </div>
                 </div>
               </div>
 
-              {/* Recommendation 2 */}
-              <div className="border border-neutral-100 p-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center font-semibold text-sm flex-shrink-0">
-                    2
+              <div className="p-6">
+                <div className="mb-6">
+                  <h3 className="text-sm font-medium text-neutral-900 mb-2">Why this matters</h3>
+                  <p className="text-sm text-neutral-600">Admin Assistants spend 186,400 hours/year on email alone — at 12% AI adoption. The same task in Tech teams runs at 68% adoption. This isn&apos;t a capability gap; it&apos;s an enablement gap. We identified <strong className="text-violet-600">23 pioneers</strong> in Admin roles already using AI effectively — they&apos;re proving it works.</p>
+                </div>
+
+                <div className="grid grid-cols-4 gap-3 mb-6">
+                  <div className="border-b-2 border-neutral-200 p-3 text-center">
+                    <p className="text-xl font-semibold text-neutral-900">186</p>
+                    <p className="text-xs text-neutral-500">People affected</p>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-neutral-900">Deploy pioneers as internal champions</h3>
-                    <p className="text-sm text-neutral-500 mt-1">
-                      127 employees are 2x+ ahead of their role average. Interview them for playbooks.
-                    </p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <span className="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">Peer training sessions</span>
-                      <span className="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">Best practice docs</span>
-                      <span className="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">Slack/Teams channels</span>
+                  <div className="border-b-2 border-neutral-200 p-3 text-center">
+                    <p className="text-xl font-semibold text-neutral-900">4,200</p>
+                    <p className="text-xs text-neutral-500">Hours/week recoverable</p>
+                  </div>
+                  <div className="border-b-2 border-violet-400 p-3 text-center">
+                    <p className="text-xl font-semibold text-violet-600">$9.8M</p>
+                    <p className="text-xs text-neutral-500">Annual value</p>
+                  </div>
+                  <div className="border-b-2 border-violet-200 p-3 text-center">
+                    <p className="text-xl font-semibold text-violet-600">4 wks</p>
+                    <p className="text-xs text-neutral-500">To first results</p>
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <h3 className="text-sm font-medium text-neutral-900 mb-3">Action steps</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3 py-3 border-b border-neutral-100">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">1</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Interview the 23 Admin pioneers identified in the survey</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">Document their workflows, prompts, and workarounds. Create a playbook.</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Week 1</span>
                     </div>
+                    <div className="flex items-start gap-3 py-3 border-b border-neutral-100">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">2</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Deploy meeting transcription + summary tools org-wide</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">Microsoft Copilot or Otter.ai. No integration required — just turn it on.</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Week 2</span>
+                    </div>
+                    <div className="flex items-start gap-3 py-3 border-b border-neutral-100">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">3</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Run 2-hour &quot;AI for Email&quot; workshops led by pioneers</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">Peer-led training. Cover: drafting replies, summarizing threads, extracting action items.</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Week 3-4</span>
+                    </div>
+                    <div className="flex items-start gap-3 py-3">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">4</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Measure adoption weekly via pulse survey</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">Track ai_frequency for email, meetings, calendar tasks. Target: 40% adoption in 8 weeks.</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Ongoing</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-t border-neutral-100 pt-4">
+                  <h3 className="text-sm font-medium text-neutral-900 mb-2">Success looks like</h3>
+                  <div className="flex flex-wrap gap-4 text-sm">
+                    <span className="text-neutral-600">Admin AI adoption: <strong>12% → 45%</strong> in 90 days</span>
+                    <span className="text-neutral-600">Avg email time: <strong>-35%</strong></span>
+                    <span className="text-neutral-600">Meeting notes: <strong>auto-generated for 80%</strong> of meetings</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Priority 2 */}
+            <div className="mb-10 border border-neutral-200">
+              <div className="px-6 py-4 border-b border-neutral-100">
+                <div className="flex items-start gap-4">
+                  <span className="w-8 h-8 bg-neutral-700 text-white rounded-full flex items-center justify-center font-semibold flex-shrink-0">2</span>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-lg font-semibold text-neutral-900">Cross-pollinate from Tech to Policy & Finance</h2>
+                      <span className="text-xs bg-neutral-100 text-neutral-600 px-2.5 py-1 rounded-full font-medium">Knowledge transfer</span>
+                    </div>
+                    <p className="text-sm text-neutral-600 mt-1">Same writing tasks, 3x adoption difference — this is a sharing problem, not a tool problem</p>
                   </div>
                 </div>
               </div>
 
-              {/* Recommendation 3 */}
-              <div className="border border-neutral-100 p-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center font-semibold text-sm flex-shrink-0">
-                    3
+              <div className="p-6">
+                <div className="mb-6">
+                  <h3 className="text-sm font-medium text-neutral-900 mb-2">Why this matters</h3>
+                  <p className="text-sm text-neutral-600">Policy Analysts and Software Engineers both write documents, synthesize research, and create briefings. But Tech is at 68% adoption while Policy is at 28%. The survey shows Policy teams <em>want</em> to use AI (72% expressed interest) but lack guidance on how to apply it to their specific work. We found <strong className="text-violet-600">31 pioneers</strong> in Policy/Finance who&apos;ve figured it out.</p>
+                </div>
+
+                <div className="grid grid-cols-4 gap-3 mb-6">
+                  <div className="border-b-2 border-neutral-200 p-3 text-center">
+                    <p className="text-xl font-semibold text-neutral-900">380</p>
+                    <p className="text-xs text-neutral-500">People affected</p>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-neutral-900">Prepare for 2028+ exposure wave</h3>
-                    <p className="text-sm text-neutral-500 mt-1">
-                      Physical & interpersonal tasks go from 24% → 65% exposed. Start reskilling now.
-                    </p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <span className="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">Admin → Project Coordinator</span>
-                      <span className="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">Writer → Content Strategist</span>
-                      <span className="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">Analyst → AI Tool Specialist</span>
+                  <div className="border-b-2 border-neutral-200 p-3 text-center">
+                    <p className="text-xl font-semibold text-neutral-900">2,800</p>
+                    <p className="text-xs text-neutral-500">Hours/week recoverable</p>
+                  </div>
+                  <div className="border-b-2 border-violet-400 p-3 text-center">
+                    <p className="text-xl font-semibold text-violet-600">$6.5M</p>
+                    <p className="text-xs text-neutral-500">Annual value</p>
+                  </div>
+                  <div className="border-b-2 border-violet-200 p-3 text-center">
+                    <p className="text-xl font-semibold text-violet-600">8 wks</p>
+                    <p className="text-xs text-neutral-500">To first results</p>
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <h3 className="text-sm font-medium text-neutral-900 mb-3">Action steps</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3 py-3 border-b border-neutral-100">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">1</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Create a &quot;Prompt Library&quot; for policy-specific tasks</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">Briefing summaries, legislative analysis, stakeholder mapping. Curate from pioneer interviews.</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Week 1-2</span>
                     </div>
+                    <div className="flex items-start gap-3 py-3 border-b border-neutral-100">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">2</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Pair 10 Policy Analysts with Tech mentors for 4 weeks</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">30-min weekly check-ins. Focus on their actual current projects, not hypotheticals.</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Week 2-6</span>
+                    </div>
+                    <div className="flex items-start gap-3 py-3 border-b border-neutral-100">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">3</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Run &quot;Show & Tell&quot; sessions — 15 min demos of real work</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">Weekly, open to all. &quot;Here&apos;s how I used AI on the climate brief last week.&quot;</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Week 3+</span>
+                    </div>
+                    <div className="flex items-start gap-3 py-3">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">4</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Embed AI usage into existing workflows</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">Add &quot;AI-assisted?&quot; checkbox to briefing templates. Normalize the behavior.</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Week 4</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-t border-neutral-100 pt-4">
+                  <h3 className="text-sm font-medium text-neutral-900 mb-2">Success looks like</h3>
+                  <div className="flex flex-wrap gap-4 text-sm">
+                    <span className="text-neutral-600">Policy/Finance adoption: <strong>26% → 50%</strong> in 90 days</span>
+                    <span className="text-neutral-600">Prompt library: <strong>50+ vetted prompts</strong></span>
+                    <span className="text-neutral-600">Cross-team pairs: <strong>20 active mentorships</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Priority 3 */}
+            <div className="mb-10 border border-neutral-200">
+              <div className="px-6 py-4 border-b border-neutral-100">
+                <div className="flex items-start gap-4">
+                  <span className="w-8 h-8 bg-neutral-500 text-white rounded-full flex items-center justify-center font-semibold flex-shrink-0">3</span>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-lg font-semibold text-neutral-900">Build AI infrastructure for analysis tasks</h2>
+                      <span className="text-xs bg-neutral-100 text-neutral-600 px-2.5 py-1 rounded-full font-medium">Requires IT</span>
+                    </div>
+                    <p className="text-sm text-neutral-600 mt-1">Data analysis, financial modeling, and compliance tasks need AI connected to internal systems</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6">
+                <div className="mb-6">
+                  <h3 className="text-sm font-medium text-neutral-900 mb-2">Why this matters</h3>
+                  <p className="text-sm text-neutral-600">Analysis tasks show a 30-point gap, but the barrier isn&apos;t training — it&apos;s access. Data Analysts can&apos;t use ChatGPT on proprietary data. Financial Analysts need AI that connects to your ERP. This requires IT investment, but unlocks the highest-value work: the 38,400 hours/year spent on analysis could be 60% faster with proper tooling.</p>
+                </div>
+
+                <div className="grid grid-cols-4 gap-3 mb-6">
+                  <div className="border-b-2 border-neutral-200 p-3 text-center">
+                    <p className="text-xl font-semibold text-neutral-900">254</p>
+                    <p className="text-xs text-neutral-500">People affected</p>
+                  </div>
+                  <div className="border-b-2 border-neutral-200 p-3 text-center">
+                    <p className="text-xl font-semibold text-neutral-900">1,850</p>
+                    <p className="text-xs text-neutral-500">Hours/week recoverable</p>
+                  </div>
+                  <div className="border-b-2 border-violet-400 p-3 text-center">
+                    <p className="text-xl font-semibold text-violet-600">$4.3M</p>
+                    <p className="text-xs text-neutral-500">Annual value</p>
+                  </div>
+                  <div className="border-b-2 border-violet-200 p-3 text-center">
+                    <p className="text-xl font-semibold text-violet-600">16 wks</p>
+                    <p className="text-xs text-neutral-500">To first results</p>
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <h3 className="text-sm font-medium text-neutral-900 mb-3">Action steps</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3 py-3 border-b border-neutral-100">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">1</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Audit data access requirements for top 5 analysis tasks</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">SQL queries, budget reports, compliance monitoring. Map data sources and sensitivity levels.</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Week 1-2</span>
+                    </div>
+                    <div className="flex items-start gap-3 py-3 border-b border-neutral-100">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">2</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Pilot GitHub Copilot for Data team (8 users)</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">Low-risk starting point. Measure: time-to-complete for standard queries.</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Week 3-6</span>
+                    </div>
+                    <div className="flex items-start gap-3 py-3 border-b border-neutral-100">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">3</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Evaluate enterprise AI platforms with data connectors</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">Microsoft Copilot for M365, Claude for Enterprise, or custom RAG solution. RFP process.</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Week 4-10</span>
+                    </div>
+                    <div className="flex items-start gap-3 py-3">
+                      <span className="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">4</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-neutral-900">Deploy to Finance for budget analysis pilot</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">Connect AI to ERP read-only access. Start with variance analysis and forecasting support.</p>
+                      </div>
+                      <span className="text-xs text-neutral-400">Week 12-16</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-l-2 border-neutral-300 pl-4 mb-6">
+                  <h3 className="text-sm font-medium text-neutral-700 mb-2">Potential blockers</h3>
+                  <ul className="text-sm text-neutral-600 space-y-1">
+                    <li>• Security review for data access (start early — can take 6+ weeks)</li>
+                    <li>• Budget approval for enterprise licensing (~$30-50/user/month)</li>
+                    <li>• IT capacity for integration work</li>
+                  </ul>
+                </div>
+
+                <div className="border-t border-neutral-100 pt-4">
+                  <h3 className="text-sm font-medium text-neutral-900 mb-2">Success looks like</h3>
+                  <div className="flex flex-wrap gap-4 text-sm">
+                    <span className="text-neutral-600">Analysis task adoption: <strong>28% → 55%</strong> in 6 months</span>
+                    <span className="text-neutral-600">Query time: <strong>-40%</strong> for standard reports</span>
+                    <span className="text-neutral-600">Zero security incidents</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Total Impact */}
+            <div className="border border-neutral-200 p-6 mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <p className="text-sm text-violet-600 font-medium">Combined impact if all three succeed</p>
+                  <p className="text-3xl font-semibold text-neutral-900 mt-1">$20.6M annual value</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-neutral-600">8,850 hours/week recovered</p>
+                  <p className="text-sm text-neutral-600">820 employees enabled</p>
+                  <p className="text-sm text-neutral-600">Gap closed from 33pts → ~12pts</p>
+                </div>
+              </div>
+              <div className="pt-4 border-t border-neutral-200">
+                <p className="text-sm text-neutral-600">
+                  <strong className="text-neutral-900">Sequencing matters:</strong> Priority 1 builds momentum and identifies champions. Priority 2 spreads knowledge. Priority 3 removes infrastructure barriers. Don&apos;t start #3 until #1 shows results — you need the organizational buy-in.
+                </p>
+              </div>
+            </div>
+
+            {/* Next step callout */}
+            <div className="border-b-2 border-neutral-900 py-6">
+              <div className="flex items-start gap-4">
+                <span className="text-2xl text-neutral-900">→</span>
+                <div>
+                  <h3 className="font-semibold text-lg text-neutral-900 mb-2">Immediate next step</h3>
+                  <p className="text-neutral-600 mb-4">Schedule 30-minute interviews with the 23 Admin pioneers and 31 Policy/Finance pioneers identified in this survey. They&apos;ve already solved the adoption problem — your job is to document and scale their approaches.</p>
+                  <div className="flex gap-3">
+                    <span className="px-3 py-1.5 bg-neutral-900 text-white rounded-full text-sm font-medium cursor-pointer hover:bg-neutral-800">Export pioneer list</span>
+                    <span className="px-3 py-1.5 bg-neutral-100 text-neutral-700 rounded-full text-sm cursor-pointer hover:bg-neutral-200">Interview template</span>
                   </div>
                 </div>
               </div>
@@ -737,6 +1535,14 @@ export default function LeaderDashboard() {
           </Link>
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="border-t border-neutral-100 mt-12">
+        <div className="px-6 sm:px-8 max-w-5xl mx-auto py-4 flex items-center justify-between text-sm text-neutral-400">
+          <span>1,847 survey responses</span>
+          <span>Methodology: Elondou et al. (2023) + Anthropic Economic Index</span>
+        </div>
+      </footer>
     </div>
   );
 }
