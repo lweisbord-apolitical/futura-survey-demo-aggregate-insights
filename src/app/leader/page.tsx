@@ -80,7 +80,7 @@ const RESKILLING_ROLES = [
 ];
 
 // Chart component for Opportunity Matrix
-function OpportunityMatrixChart({ exposureYear }: { exposureYear: "2026" | "2033" }) {
+function OpportunityMatrixChart({ exposureYear }: { exposureYear: "2026" | "2030" }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<unknown>(null);
 
@@ -131,8 +131,8 @@ function OpportunityMatrixChart({ exposureYear }: { exposureYear: "2026" | "2033
         ]
       };
 
-      // 2033: Projected state - agents, multimodal AI, better integration
-      const tasks2033 = {
+      // 2030: Projected state - agents, multimodal AI, better integration
+      const tasks2030 = {
         untapped: [
           {x: 96, y: 12, r: 12, name: 'Customer emails'},
           {x: 94, y: 6, r: 10, name: 'Meeting notes'},
@@ -142,7 +142,7 @@ function OpportunityMatrixChart({ exposureYear }: { exposureYear: "2026" | "2033
           {x: 94, y: 32, r: 10, name: 'Resume screening'},
           {x: 88, y: 4, r: 10, name: 'Document filing'},
           {x: 92, y: 25, r: 11, name: 'Budget reports'},
-          // Tasks that become exposed by 2033 (were manual in 2026)
+          // Tasks that become exposed by 2030 (were manual in 2026)
           {x: 72, y: 6, r: 11, name: 'Stakeholder meetings'},
           {x: 65, y: 4, r: 11, name: 'Employee interviews'},
           {x: 58, y: 3, r: 8, name: 'Field inspections'},
@@ -156,7 +156,7 @@ function OpportunityMatrixChart({ exposureYear }: { exposureYear: "2026" | "2033
           {x: 96, y: 72, r: 9, name: 'Press releases'},
           {x: 94, y: 65, r: 8, name: 'Code review'},
           {x: 92, y: 62, r: 9, name: 'SQL queries'},
-          // Tasks that move to "realized" by 2033
+          // Tasks that move to "realized" by 2030
           {x: 88, y: 58, r: 10, name: 'Policy research'},
           {x: 85, y: 52, r: 9, name: 'Budget analysis'},
         ],
@@ -173,7 +173,7 @@ function OpportunityMatrixChart({ exposureYear }: { exposureYear: "2026" | "2033
         ]
       };
 
-      const tasks = exposureYear === "2033" ? tasks2033 : tasks2026;
+      const tasks = exposureYear === "2030" ? tasks2030 : tasks2026;
 
       chartRef.current = new ChartJS(canvasRef.current, {
         type: 'bubble',
@@ -471,7 +471,7 @@ function PioneerMapChart() {
 
 export default function LeaderDashboard() {
   const [activeTab, setActiveTab] = useState<TabId>("now");
-  const [exposureYear, setExposureYear] = useState<"2026" | "2033">("2026");
+  const [exposureYear, setExposureYear] = useState<"2026" | "2030">("2026");
 
   return (
     <div className="min-h-screen bg-white">
@@ -556,11 +556,11 @@ export default function LeaderDashboard() {
                   </div>
                 </div>
                 <div className="group relative border-b-2 border-violet-200 pb-4 cursor-help">
-                  <p className="text-sm text-neutral-500 mb-1">2033 exposure</p>
+                  <p className="text-sm text-neutral-500 mb-1">2030 exposure</p>
                   <p className="text-3xl font-semibold text-neutral-900">57%</p>
                   <p className="text-xs text-neutral-400 mt-1 cursor-help">Projected capability</p>
                   <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
-                    <strong className="text-white">What AI could do by ~2033.</strong><br /><br />
+                    <strong className="text-white">What AI could do by ~2030.</strong><br /><br />
                     Projected AI capability based on technology trajectory — the theoretical ceiling of tasks that could be AI-assisted with continued advancement.
                   </div>
                 </div>
@@ -572,7 +572,7 @@ export default function LeaderDashboard() {
                   <div>
                     <p className="text-sm text-neutral-500">Total gap</p>
                     <p className="text-lg text-neutral-900">
-                      <span className="font-semibold">33 points</span> between usage and 2033 exposure
+                      <span className="font-semibold">33 points</span> between usage and 2030 exposure
                     </p>
                   </div>
                   <div className="text-right">
@@ -895,12 +895,12 @@ export default function LeaderDashboard() {
                     2026
                   </button>
                   <button
-                    onClick={() => setExposureYear("2033")}
+                    onClick={() => setExposureYear("2030")}
                     className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
-                      exposureYear === "2033" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-700"
+                      exposureYear === "2030" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-700"
                     }`}
                   >
-                    2033
+                    2030
                   </button>
                 </div>
               </div>
@@ -1011,7 +1011,7 @@ export default function LeaderDashboard() {
             <div className="mb-10">
               <p className="text-sm text-neutral-400 mb-2">Based on AI capability research & industry forecasts</p>
               <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
-                How AI exposure will evolve through 2033.
+                How AI exposure will evolve through 2030.
               </h1>
               <p className="text-neutral-500 mt-3">These projections combine current AI benchmarks with research from Anthropic, OpenAI, and academic studies on task automation potential.</p>
             </div>
@@ -1019,7 +1019,7 @@ export default function LeaderDashboard() {
             {/* Key insight */}
             <div className="bg-violet-50 border border-violet-100 rounded-lg p-4 mb-8">
               <p className="text-sm text-violet-900">
-                <strong>Key insight:</strong> Your workforce currently uses AI for 24% of exposed tasks. By 2033, the exposure ceiling rises from 57% to 85% — but the real opportunity is closing today&apos;s 33-point gap before the ceiling rises further.
+                <strong>Key insight:</strong> Your workforce currently uses AI for 24% of exposed tasks. By 2030, the exposure ceiling rises from 57% to 85% — but the real opportunity is closing today&apos;s 33-point gap before the ceiling rises further.
               </p>
             </div>
 
@@ -1044,7 +1044,7 @@ export default function LeaderDashboard() {
                 <div className="flex justify-between text-xs mt-2">
                   <span className="text-violet-600 font-medium">78% today</span>
                   <span className="text-neutral-400">90% by 2028</span>
-                  <span className="text-neutral-500 font-medium">95% by 2033</span>
+                  <span className="text-neutral-500 font-medium">95% by 2030</span>
                 </div>
                 <p className="text-xs text-neutral-400 mt-1">Emails, reports, documentation, social content — already highly automatable with current LLMs</p>
               </div>
@@ -1066,7 +1066,7 @@ export default function LeaderDashboard() {
                 <div className="flex justify-between text-xs mt-2">
                   <span className="text-neutral-600 font-medium">58% today</span>
                   <span className="text-neutral-400">78% by 2028</span>
-                  <span className="text-neutral-500 font-medium">88% by 2033</span>
+                  <span className="text-neutral-500 font-medium">88% by 2030</span>
                 </div>
                 <p className="text-xs text-neutral-400 mt-1">Data analysis, research synthesis, budget review — requires AI + tool integration (coming 2025-2028)</p>
               </div>
@@ -1088,7 +1088,7 @@ export default function LeaderDashboard() {
                 <div className="flex justify-between text-xs mt-2">
                   <span className="text-blue-600 font-medium">35% today</span>
                   <span className="text-neutral-400">55% by 2028</span>
-                  <span className="text-neutral-500 font-medium">72% by 2033</span>
+                  <span className="text-neutral-500 font-medium">72% by 2030</span>
                 </div>
                 <p className="text-xs text-neutral-400 mt-1">Meeting scheduling, stakeholder updates, project tracking — AI agents will transform this category</p>
               </div>
@@ -1110,7 +1110,7 @@ export default function LeaderDashboard() {
                 <div className="flex justify-between text-xs mt-2">
                   <span className="text-neutral-600 font-medium">15% today</span>
                   <span className="text-neutral-400">25% by 2028</span>
-                  <span className="text-neutral-500 font-medium">40% by 2033</span>
+                  <span className="text-neutral-500 font-medium">40% by 2030</span>
                 </div>
                 <p className="text-xs text-neutral-400 mt-1">Site visits, in-person meetings, mentoring — human presence remains essential, AI assists with prep/follow-up</p>
               </div>
@@ -1138,7 +1138,7 @@ export default function LeaderDashboard() {
               </div>
               <div className="text-center py-4 border-b-2 border-violet-500">
                 <p className="text-2xl font-semibold text-violet-600">85%</p>
-                <p className="text-xs text-neutral-500">2033</p>
+                <p className="text-xs text-neutral-500">2030</p>
                 <p className="text-xs text-violet-600 mt-1">Technical ceiling</p>
               </div>
             </div>
