@@ -5,14 +5,14 @@ import { ArrowRight } from "lucide-react";
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header - matches survey pages */}
-      <header className="sticky top-0 z-50 bg-white">
-        <div className="px-6 sm:px-8 py-1.5">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-white border-b border-neutral-100">
+        <div className="px-6 sm:px-8 py-3 flex items-center">
           <Image
             src="/apolitical-logo.png"
             alt="Apolitical"
-            width={200}
-            height={47}
+            width={160}
+            height={38}
             priority
           />
         </div>
