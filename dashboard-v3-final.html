@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workforce AI Readiness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neutral: {
+                            50: '#fafafa',
+                            100: '#f5f5f5',
+                            200: '#e5e5e5',
+                            300: '#d4d4d4',
+                            400: '#a3a3a3',
+                            500: '#737373',
+                            600: '#525252',
+                            700: '#404040',
+                            800: '#262626',
+                            900: '#171717',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', system-ui, sans-serif; }
+        .tab-btn { transition: all 0.2s; }
+        .tab-btn.active { border-bottom-color: #7c3aed; color: #171717; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .treemap-cell { transition: all 0.15s ease; }
+        .treemap-cell:hover { transform: scale(1.02); z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .has-tip { position: relative; cursor: help; }
+        .has-tip .tip {
+            visibility: hidden; opacity: 0; position: absolute; bottom: calc(100% + 8px); left: 0;
+            background: #171717; color: #e5e5e5; padding: 10px 12px; border-radius: 6px;
+            font-size: 12px; line-height: 1.5; width: 280px; z-index: 50; transition: opacity 0.15s;
+            pointer-events: none; font-weight: 400; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .has-tip:hover .tip { visibility: visible; opacity: 1; }
+        .tip strong { color: #fff; }
+        .tip a { color: #a78bfa; text-decoration: underline; }
+    </style>
+</head>
+<body class="min-h-screen bg-white">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white border-b border-neutral-100">
+        <div class="px-6 sm:px-8 max-w-5xl mx-auto py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-sm text-neutral-400">Acme Corporation</span>
+                <span class="text-neutral-300">·</span>
+                <span class="text-lg font-semibold text-neutral-900">Workforce AI Readiness</span>
+            </div>
+            <div class="text-sm text-neutral-400">1,847 responses • Updated today</div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="border-b border-neutral-100 bg-white">
+        <div class="px-6 sm:px-8 max-w-5xl mx-auto flex gap-8">
+            <button class="tab-btn active py-3 text-sm font-medium border-b-2 border-transparent text-neutral-500" data-tab="now">Where we are</button>
+            <button class="tab-btn py-3 text-sm font-medium border-b-2 border-transparent text-neutral-400" data-tab="matrix">Opportunity map</button>
+            <button class="tab-btn py-3 text-sm font-medium border-b-2 border-transparent text-neutral-400" data-tab="trajectory">5-year outlook</button>
+            <button class="tab-btn py-3 text-sm font-medium border-b-2 border-transparent text-neutral-400" data-tab="action">Recommendations</button>
+        </div>
+    </nav>
+
+    <main class="px-6 sm:px-8 max-w-5xl mx-auto py-8 sm:py-12">
+
+        <!-- ======================= -->
+        <!-- TAB 1: WHERE WE ARE NOW -->
+        <!-- ======================= -->
+        <div class="tab-content active" id="tab-now">
+
+            <!-- Page headline -->
+            <div class="mb-10">
+                <p class="text-sm text-neutral-400 mb-2">The headline</p>
+                <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
+                    Your workforce is using AI for 24% of the work it could.
+                </h1>
+            </div>
+
+            <!-- Exposure Gap -->
+            <div class="mb-10">
+                <h2 class="text-lg font-medium text-neutral-900 mb-4">Exposure gap</h2>
+
+                <!-- The bar -->
+                <div class="relative h-8 bg-neutral-100 rounded-full overflow-hidden mb-8">
+                    <!-- 2033 layer -->
+                    <div class="absolute inset-y-0 left-0 bg-violet-200" style="width: 57%"></div>
+                    <!-- 2026 layer -->
+                    <div class="absolute inset-y-0 left-0 bg-violet-400" style="width: 38%"></div>
+                    <!-- Current usage -->
+                    <div class="absolute inset-y-0 left-0 bg-violet-600" style="width: 24%"></div>
+                </div>
+
+                <!-- Three metrics -->
+                <div class="grid grid-cols-3 gap-8">
+                    <!-- Current usage -->
+                    <div class="has-tip border-b-2 border-violet-600 pb-4">
+                        <p class="text-sm text-neutral-500 mb-1">Current usage</p>
+                        <p class="text-3xl font-semibold text-neutral-900">24%</p>
+                        <p class="text-xs text-neutral-400 mt-1">Survey responses</p>
+                        <div class="tip">
+                            <strong>What people actually do today.</strong><br><br>
+                            Tasks where respondents report using AI "often" or "always".
+                        </div>
+                    </div>
+
+                    <!-- 2026 exposure -->
+                    <div class="has-tip border-b-2 border-violet-400 pb-4">
+                        <p class="text-sm text-neutral-500 mb-1">2026 exposure</p>
+                        <p class="text-3xl font-semibold text-neutral-900">38%</p>
+                        <p class="text-xs text-neutral-400 mt-1">Anthropic Economic Index</p>
+                        <div class="tip">
+                            <strong>What AI can do right now.</strong><br><br>
+                            Based on real-world Claude usage patterns across occupations.
+                        </div>
+                    </div>
+
+                    <!-- 2033 exposure -->
+                    <div class="has-tip border-b-2 border-violet-200 pb-4">
+                        <p class="text-sm text-neutral-500 mb-1">2033 exposure</p>
+                        <p class="text-3xl font-semibold text-neutral-900">57%</p>
+                        <p class="text-xs text-neutral-400 mt-1">Elondou et al. · 7yr horizon</p>
+                        <div class="tip">
+                            <strong>What AI could do by ~2033.</strong><br><br>
+                            Based on GPT-4 exposure research. Technical ceiling.<br><br>
+                            <a href="#">View methodology →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gap summary -->
+                <div class="mt-8 pt-8 border-t border-neutral-100">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-neutral-500">Total gap</p>
+                            <p class="text-lg text-neutral-900"><span class="font-semibold">33 points</span> between usage and 2033 exposure</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm text-neutral-400">~358k hrs/yr addressable</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden Workload Treemap -->
+            <div class="mb-10">
+                <h2 class="text-lg font-medium text-neutral-900 mb-1">Where the hours go</h2>
+                <p class="text-sm text-neutral-500 mb-4">Size = total hours across org. Color = AI adoption rate.</p>
+
+                <div class="border border-neutral-100 p-4">
+                    <div class="grid gap-1" style="grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(6, 48px);">
+                        <!-- Row 1-2: Email (largest) -->
+                        <div class="treemap-cell bg-neutral-300 hover:bg-neutral-400 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 5; grid-row: span 2;"
+                             data-task="Email responses" data-hours="186,400" data-adoption="12">
+                            <div class="text-center px-2">
+                                <p class="text-sm font-medium text-neutral-700">Email responses</p>
+                                <p class="text-xs text-neutral-500">186k hrs • 12% AI</p>
+                            </div>
+                        </div>
+                        <!-- Meetings -->
+                        <div class="treemap-cell bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 4; grid-row: span 2;"
+                             data-task="Meetings & calls" data-hours="152,200" data-adoption="6">
+                            <div class="text-center px-2">
+                                <p class="text-sm font-medium text-neutral-600">Meetings & calls</p>
+                                <p class="text-xs text-neutral-400">152k hrs • 6% AI</p>
+                            </div>
+                        </div>
+                        <!-- Code (high adoption) -->
+                        <div class="treemap-cell bg-violet-400 hover:bg-violet-500 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 3; grid-row: span 2;"
+                             data-task="Software development" data-hours="94,600" data-adoption="72">
+                            <div class="text-center px-2">
+                                <p class="text-sm font-medium text-white">Code</p>
+                                <p class="text-xs text-violet-100">95k hrs • 72% AI</p>
+                            </div>
+                        </div>
+                        <!-- Row 3-4 -->
+                        <div class="treemap-cell bg-neutral-300 hover:bg-neutral-400 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 3; grid-row: span 2;"
+                             data-task="Briefing documents" data-hours="78,400" data-adoption="18">
+                            <div class="text-center px-2">
+                                <p class="text-sm font-medium text-neutral-700">Briefings</p>
+                                <p class="text-xs text-neutral-500">78k hrs • 18% AI</p>
+                            </div>
+                        </div>
+                        <div class="treemap-cell bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 3; grid-row: span 2;"
+                             data-task="Calendar management" data-hours="68,200" data-adoption="8">
+                            <div class="text-center px-2">
+                                <p class="text-sm font-medium text-neutral-600">Calendar</p>
+                                <p class="text-xs text-neutral-400">68k hrs • 8% AI</p>
+                            </div>
+                        </div>
+                        <div class="treemap-cell bg-violet-500 hover:bg-violet-600 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 2; grid-row: span 2;"
+                             data-task="Technical documentation" data-hours="52,800" data-adoption="78">
+                            <div class="text-center px-2">
+                                <p class="text-sm font-medium text-white">Docs</p>
+                                <p class="text-xs text-violet-100">53k • 78%</p>
+                            </div>
+                        </div>
+                        <div class="treemap-cell bg-violet-400 hover:bg-violet-500 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 2; grid-row: span 2;"
+                             data-task="Social content" data-hours="42,600" data-adoption="75">
+                            <div class="text-center px-2">
+                                <p class="text-sm font-medium text-white">Social</p>
+                                <p class="text-xs text-violet-100">43k • 75%</p>
+                            </div>
+                        </div>
+                        <div class="treemap-cell bg-neutral-300 hover:bg-neutral-400 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 2; grid-row: span 2;"
+                             data-task="Data analysis" data-hours="38,400" data-adoption="28">
+                            <div class="text-center px-2">
+                                <p class="text-sm font-medium text-neutral-700">Analysis</p>
+                                <p class="text-xs text-neutral-500">38k • 28%</p>
+                            </div>
+                        </div>
+                        <!-- Row 5-6: Smaller tasks -->
+                        <div class="treemap-cell bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 2; grid-row: span 2;"
+                             data-task="Meeting notes" data-hours="34,200" data-adoption="6">
+                            <div class="text-center px-1">
+                                <p class="text-xs font-medium text-neutral-600">Notes</p>
+                                <p class="text-xs text-neutral-400">34k • 6%</p>
+                            </div>
+                        </div>
+                        <div class="treemap-cell bg-neutral-300 hover:bg-neutral-400 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 2; grid-row: span 2;"
+                             data-task="Budget reports" data-hours="32,800" data-adoption="22">
+                            <div class="text-center px-1">
+                                <p class="text-xs font-medium text-neutral-700">Budget</p>
+                                <p class="text-xs text-neutral-500">33k • 22%</p>
+                            </div>
+                        </div>
+                        <div class="treemap-cell bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 2; grid-row: span 2;"
+                             data-task="Filing & admin" data-hours="28,600" data-adoption="4">
+                            <div class="text-center px-1">
+                                <p class="text-xs font-medium text-neutral-600">Filing</p>
+                                <p class="text-xs text-neutral-400">29k • 4%</p>
+                            </div>
+                        </div>
+                        <div class="treemap-cell bg-violet-300 hover:bg-violet-400 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 2; grid-row: span 2;"
+                             data-task="Research synthesis" data-hours="26,400" data-adoption="52">
+                            <div class="text-center px-1">
+                                <p class="text-xs font-medium text-violet-800">Research</p>
+                                <p class="text-xs text-violet-600">26k • 52%</p>
+                            </div>
+                        </div>
+                        <div class="treemap-cell bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 2; grid-row: span 2;"
+                             data-task="Stakeholder coordination" data-hours="22,200" data-adoption="8">
+                            <div class="text-center px-1">
+                                <p class="text-xs font-medium text-neutral-600">Coord</p>
+                                <p class="text-xs text-neutral-400">22k • 8%</p>
+                            </div>
+                        </div>
+                        <div class="treemap-cell bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+                             style="grid-column: span 2; grid-row: span 2;"
+                             data-task="Other tasks" data-hours="18,400" data-adoption="15">
+                            <div class="text-center px-1">
+                                <p class="text-xs font-medium text-neutral-600">Other</p>
+                                <p class="text-xs text-neutral-400">18k • 15%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-neutral-200">
+                        <div class="flex items-center gap-4 text-xs">
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-neutral-200 rounded"></span>
+                                <span class="text-neutral-500">0-20% AI</span>
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-neutral-300 rounded"></span>
+                                <span class="text-neutral-500">20-40% AI</span>
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-violet-300 rounded"></span>
+                                <span class="text-neutral-500">40-60% AI</span>
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-violet-500 rounded"></span>
+                                <span class="text-neutral-500">60%+ AI</span>
+                            </span>
+                        </div>
+                        <p class="text-xs text-neutral-400">Click any task for details</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 pl-4 border-l-2 border-neutral-200">
+                    <p class="text-sm text-neutral-500">
+                        <strong class="text-neutral-700">Insight:</strong> Email + Meetings + Calendar = 406,800 hours/year at &lt;12% AI adoption. That's 358,000 hours of manual work that could be augmented.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Two Column: Working vs Not Working -->
+            <div class="grid sm:grid-cols-2 gap-6 mb-10">
+
+                <!-- Where AI IS being used -->
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-medium text-neutral-900">Where AI is working</h2>
+                        <span class="text-xs text-violet-600 bg-violet-50 px-2 py-1 rounded-full">High adoption</span>
+                    </div>
+                    <p class="text-sm text-neutral-500 mb-4">Tasks where employees report using AI "Often" or "Always"</p>
+
+                    <div class="space-y-3">
+                        <div class="py-4 border-b-2 border-neutral-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-neutral-900">Write technical documentation</p>
+                                    <p class="text-xs text-neutral-400 mt-0.5">Software Engineering • Content</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-semibold text-violet-600">78%</p>
+                                    <p class="text-xs text-neutral-400">adoption</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="py-4 border-b-2 border-neutral-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-neutral-900">Create social media content</p>
+                                    <p class="text-xs text-neutral-400 mt-0.5">Communications • Content</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-semibold text-violet-600">75%</p>
+                                    <p class="text-xs text-neutral-400">adoption</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="py-4 border-b-2 border-neutral-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-neutral-900">Develop software code</p>
+                                    <p class="text-xs text-neutral-400 mt-0.5">Software Engineering • Content</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-semibold text-violet-600">72%</p>
+                                    <p class="text-xs text-neutral-400">adoption</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="py-4 border-b-2 border-neutral-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-neutral-900">Draft press releases</p>
+                                    <p class="text-xs text-neutral-400 mt-0.5">Communications • Content</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-semibold text-violet-600">68%</p>
+                                    <p class="text-xs text-neutral-400">adoption</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pl-4 border-l-2 border-neutral-200">
+                        <p class="text-sm text-neutral-500">
+                            <strong class="text-neutral-700">Pattern:</strong> Tech & Comms teams adopted first — 3x ahead of org average.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Where AI is NOT being used -->
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-medium text-neutral-900">Where AI should be used</h2>
+                        <span class="text-xs text-violet-600 bg-violet-50 px-2 py-1 rounded-full">High gap</span>
+                    </div>
+                    <p class="text-sm text-neutral-500 mb-4">Tasks with high Elondou exposure but low reported AI usage</p>
+
+                    <div class="space-y-3">
+                        <div class="py-4 border-b-2 border-neutral-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-neutral-900">Prepare meeting notes</p>
+                                    <p class="text-xs text-neutral-400 mt-0.5">Administrative • Content</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-semibold text-neutral-900">79pt</p>
+                                    <p class="text-xs text-neutral-400">85% exp → 6% adopt</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="py-4 border-b-2 border-neutral-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-neutral-900">Respond to customer emails</p>
+                                    <p class="text-xs text-neutral-400 mt-0.5">Administrative • Content</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-semibold text-neutral-900">76pt</p>
+                                    <p class="text-xs text-neutral-400">88% exp → 12% adopt</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="py-4 border-b-2 border-neutral-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-neutral-900">Schedule meetings & calendars</p>
+                                    <p class="text-xs text-neutral-400 mt-0.5">Administrative • Content</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-semibold text-neutral-900">64pt</p>
+                                    <p class="text-xs text-neutral-400">72% exp → 8% adopt</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="py-4 border-b-2 border-neutral-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-neutral-900">Prepare briefing documents</p>
+                                    <p class="text-xs text-neutral-400 mt-0.5">Policy & Strategy • Content</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-semibold text-neutral-900">64pt</p>
+                                    <p class="text-xs text-neutral-400">82% exp → 18% adopt</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pl-4 border-l-2 border-neutral-200">
+                        <p class="text-sm text-neutral-500">
+                            <strong class="text-neutral-700">Pattern:</strong> Admin & Policy teams need enablement — same tasks, 10x less AI usage.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- By Work Activity Category -->
+            <div class="mb-10">
+                <h2 class="text-lg font-medium text-neutral-900 mb-1">Gap by work activity type</h2>
+                <p class="text-sm text-neutral-500 mb-6">Grouped by the type of work being performed</p>
+
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between text-sm mb-2">
+                            <span class="text-neutral-700 font-medium">Creating & producing</span>
+                            <span class="text-neutral-500">24 tasks • <span class="text-neutral-700 font-medium">36pt gap</span></span>
+                        </div>
+                        <div class="h-3 flex rounded-full overflow-hidden bg-neutral-100">
+                            <div class="bg-violet-500" style="width: 42%"></div>
+                            <div class="bg-neutral-300" style="width: 36%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>42% using AI</span>
+                            <span>78% exposed</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between text-sm mb-2">
+                            <span class="text-neutral-700 font-medium">Analyzing & deciding</span>
+                            <span class="text-neutral-500">12 tasks • <span class="text-neutral-700 font-medium">30pt gap</span></span>
+                        </div>
+                        <div class="h-3 flex rounded-full overflow-hidden bg-neutral-100">
+                            <div class="bg-violet-500" style="width: 28%"></div>
+                            <div class="bg-neutral-300" style="width: 30%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>28% using AI</span>
+                            <span>58% exposed</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between text-sm mb-2">
+                            <span class="text-neutral-700 font-medium">Research & gathering</span>
+                            <span class="text-neutral-500">8 tasks • <span class="text-neutral-700 font-medium">30pt gap</span></span>
+                        </div>
+                        <div class="h-3 flex rounded-full overflow-hidden bg-neutral-100">
+                            <div class="bg-violet-500" style="width: 22%"></div>
+                            <div class="bg-neutral-300" style="width: 30%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>22% using AI</span>
+                            <span>52% exposed</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between text-sm mb-2">
+                            <span class="text-neutral-700 font-medium">Collaborating & communicating</span>
+                            <span class="text-neutral-500">10 tasks • <span class="text-neutral-700 font-medium">18pt gap</span></span>
+                        </div>
+                        <div class="h-3 flex rounded-full overflow-hidden bg-neutral-100">
+                            <div class="bg-violet-500" style="width: 6%"></div>
+                            <div class="bg-neutral-300" style="width: 18%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>6% using AI</span>
+                            <span>24% exposed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Tools in Use -->
+            <div>
+                <h2 class="text-lg font-medium text-neutral-900 mb-1">AI tools being used</h2>
+
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <span class="px-3 py-1.5 rounded-full text-sm bg-neutral-900 text-white">ChatGPT <span class="text-neutral-400 ml-1">67%</span></span>
+                    <span class="px-3 py-1.5 rounded-full text-sm bg-neutral-100 text-neutral-600">Microsoft Copilot <span class="text-neutral-400 ml-1">42%</span></span>
+                    <span class="px-3 py-1.5 rounded-full text-sm bg-neutral-100 text-neutral-600">Claude <span class="text-neutral-400 ml-1">28%</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================= -->
+        <!-- TAB 2: OPPORTUNITY MAP -->
+        <!-- ======================= -->
+        <div class="tab-content" id="tab-matrix">
+
+            <!-- Page headline -->
+            <div class="mb-10">
+                <p class="text-sm text-neutral-400 mb-2">Opportunity map</p>
+                <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
+                    Where to focus next.
+                </h1>
+            </div>
+
+            <!-- Task Opportunity Chart -->
+            <div class="mb-10">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-lg font-medium text-neutral-900">Task opportunities</h2>
+                    <div class="inline-flex rounded-full bg-neutral-100 p-0.5">
+                        <button id="toggle-2026" class="exposure-toggle px-3 py-1.5 text-xs font-medium rounded-full bg-neutral-900 text-white" data-year="2026">
+                            2026
+                        </button>
+                        <button id="toggle-2033" class="exposure-toggle px-3 py-1.5 text-xs font-medium rounded-full text-neutral-500 hover:text-neutral-700" data-year="2033">
+                            2033
+                        </button>
+                    </div>
+                </div>
+                <p class="text-sm text-neutral-500 mb-4">Tasks plotted by AI exposure (x) vs current adoption (y). Bubble size = hours.</p>
+
+                <div class="border border-neutral-100 p-6">
+                    <div class="relative" style="height: 420px;">
+                        <canvas id="opportunity-matrix"></canvas>
+                    </div>
+                    <div class="flex items-center gap-6 mt-4 pt-4 border-t border-neutral-100 text-xs">
+                        <span class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full" style="background: #f97316;"></span>
+                            <span class="text-neutral-600">Opportunity — high exposure, low adoption</span>
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-violet-500"></span>
+                            <span class="text-neutral-600">Already adopting</span>
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-neutral-300"></span>
+                            <span class="text-neutral-500">Low exposure</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pioneer Map -->
+            <div class="mb-10">
+                <h2 class="text-lg font-medium text-neutral-900 mb-1">Find your pioneers</h2>
+                <p class="text-sm text-neutral-500 mb-4">Each dot is a person. Dots above the line are ahead of their role's average — your internal champions.</p>
+
+                <div class="border border-neutral-100 p-6">
+                    <div class="relative" style="height: 360px;">
+                        <canvas id="pioneer-map"></canvas>
+                    </div>
+                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-neutral-200">
+                        <div class="flex items-center gap-4 text-xs">
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-violet-500 rounded-full"></span>
+                                <span class="text-neutral-500">Pioneers (above line)</span>
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 bg-neutral-400 rounded-full"></span>
+                                <span class="text-neutral-500">At or below average</span>
+                            </span>
+                        </div>
+                        <p class="text-xs text-neutral-400">Sample view • 1,847 total responses</p>
+                    </div>
+                </div>
+
+                <!-- Pioneer callouts -->
+                <div class="grid sm:grid-cols-3 gap-4 mt-4">
+                    <div class="py-4 px-5 border-b-2 border-violet-400">
+                        <p class="text-2xl font-semibold text-violet-600">127</p>
+                        <p class="text-sm text-neutral-600">Pioneers identified</p>
+                        <p class="text-xs text-neutral-400 mt-1">2x+ ahead of role average</p>
+                    </div>
+                    <div class="py-4 px-5 border-b-2 border-neutral-200">
+                        <p class="text-2xl font-semibold text-neutral-900">Engineering, Admin, Policy</p>
+                        <p class="text-sm text-neutral-600">Roles with most pioneers</p>
+                        <p class="text-xs text-neutral-400 mt-1">68 pioneers across high-gap roles</p>
+                    </div>
+                    <div class="py-4 px-5 border-b-2 border-violet-200">
+                        <p class="text-2xl font-semibold text-violet-600">Email, Notes, Briefings</p>
+                        <p class="text-sm text-neutral-600">Tasks pioneers cracked</p>
+                        <p class="text-xs text-neutral-400 mt-1">Interview them for playbooks</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role Analysis -->
+            <div class="mb-10">
+                <h2 class="text-lg font-medium text-neutral-900 mb-1">Gap by role</h2>
+                <p class="text-sm text-neutral-500 mb-6">Ranked by gap size — where enablement will have the biggest impact</p>
+
+                <div class="space-y-4">
+                    <div class="py-4 border-b-2 border-neutral-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <p class="text-sm font-medium text-neutral-900">Administrative Assistant</p>
+                                <p class="text-xs text-neutral-400">Operations • 12 employees</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-semibold text-neutral-900">74pt</p>
+                                <p class="text-xs text-neutral-400">gap</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-violet-500 rounded-full" style="width: 8%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>8% using AI</span>
+                            <span>82% exposed</span>
+                        </div>
+                    </div>
+
+                    <div class="py-4 border-b-2 border-neutral-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <p class="text-sm font-medium text-neutral-900">Financial Analyst</p>
+                                <p class="text-xs text-neutral-400">Finance • 12 employees</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-semibold text-neutral-900">43pt</p>
+                                <p class="text-xs text-neutral-400">gap</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-violet-500 rounded-full" style="width: 25%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>25% using AI</span>
+                            <span>68% exposed</span>
+                        </div>
+                    </div>
+
+                    <div class="py-4 border-b-2 border-neutral-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <p class="text-sm font-medium text-neutral-900">Senior Advisor</p>
+                                <p class="text-xs text-neutral-400">Policy & Strategy • 8 employees</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-semibold text-neutral-900">40pt</p>
+                                <p class="text-xs text-neutral-400">gap</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-violet-500 rounded-full" style="width: 15%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>15% using AI</span>
+                            <span>55% exposed</span>
+                        </div>
+                    </div>
+
+                    <div class="py-4 border-b-2 border-neutral-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <p class="text-sm font-medium text-neutral-900">HR Specialist</p>
+                                <p class="text-xs text-neutral-400">Human Resources • 10 employees</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-semibold text-neutral-900">36pt</p>
+                                <p class="text-xs text-neutral-400">gap</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-violet-500 rounded-full" style="width: 22%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>22% using AI</span>
+                            <span>58% exposed</span>
+                        </div>
+                    </div>
+
+                    <div class="py-4 border-b-2 border-neutral-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <p class="text-sm font-medium text-neutral-900">Policy Analyst</p>
+                                <p class="text-xs text-neutral-400">Policy & Strategy • 18 employees</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-semibold text-neutral-600">34pt</p>
+                                <p class="text-xs text-neutral-400">gap</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-violet-500 rounded-full" style="width: 28%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>28% using AI</span>
+                            <span>62% exposed</span>
+                        </div>
+                    </div>
+
+                    <div class="py-4 border-b-2 border-neutral-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <p class="text-sm font-medium text-neutral-900">Data Analyst</p>
+                                <p class="text-xs text-neutral-400">Technology • 8 employees</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-semibold text-neutral-600">31pt</p>
+                                <p class="text-xs text-neutral-400">gap</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-violet-500 rounded-full" style="width: 41%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>41% using AI</span>
+                            <span>72% exposed</span>
+                        </div>
+                    </div>
+
+                    <div class="py-4 border-b-2 border-neutral-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <p class="text-sm font-medium text-neutral-900">Software Engineer</p>
+                                <p class="text-xs text-neutral-400">Technology • 14 employees</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-semibold text-violet-600">26pt</p>
+                                <p class="text-xs text-neutral-400">gap</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-violet-500 rounded-full" style="width: 52%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>52% using AI</span>
+                            <span>78% exposed</span>
+                        </div>
+                    </div>
+
+                    <div class="py-4 border-b-2 border-neutral-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <p class="text-sm font-medium text-neutral-900">Content Writer</p>
+                                <p class="text-xs text-neutral-400">Communications • 5 employees</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-semibold text-violet-600">23pt</p>
+                                <p class="text-xs text-neutral-400">gap</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-violet-500 rounded-full" style="width: 62%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-neutral-400 mt-1">
+                            <span>62% using AI</span>
+                            <span>85% exposed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================= -->
+        <!-- TAB 3: 5-YEAR TRAJECTORY -->
+        <!-- ======================= -->
+        <div class="tab-content" id="tab-trajectory">
+
+            <!-- Headline -->
+            <div class="mb-10">
+                <p class="text-sm text-neutral-400 mb-2">5-year outlook</p>
+                <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
+                    Today's 57% exposure becomes 85% by 2033.
+                </h1>
+            </div>
+
+            <!-- Timeline Visual -->
+            <div class="border border-neutral-100 p-6 sm:p-8 mb-10">
+                <div class="flex justify-between text-sm text-neutral-400 mb-6">
+                    <span class="font-medium text-neutral-700">2026</span>
+                    <span>2028</span>
+                    <span>2030</span>
+                    <span>2033</span>
+                    <span class="font-medium text-neutral-700">2036</span>
+                </div>
+
+                <!-- E1: Writing tasks -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-between text-sm mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="font-medium text-neutral-900">Writing & Content</span>
+                            <span class="text-xs bg-violet-50 text-violet-600 px-2 py-0.5 rounded-full">E1 - Direct LLM</span>
+                        </div>
+                        <span class="text-neutral-500">42% of work hours</span>
+                    </div>
+                    <div class="relative h-4 bg-neutral-200 rounded-full overflow-hidden">
+                        <div class="absolute inset-y-0 left-0 bg-violet-500 rounded-full" style="width: 78%"></div>
+                        <div class="absolute inset-y-0 bg-violet-400 rounded-full" style="left: 78%; width: 7%"></div>
+                        <div class="absolute inset-y-0 bg-violet-300 rounded-full" style="left: 85%; width: 5%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-neutral-400 mt-2">
+                        <span class="text-violet-600 font-medium">78% exposed today</span>
+                        <span>→ 85% by 2028</span>
+                        <span>→ 90%+ by 2033</span>
+                    </div>
+                </div>
+
+                <!-- E2: Analysis tasks -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-between text-sm mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="font-medium text-neutral-900">Analysis & Processing</span>
+                            <span class="text-xs bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-full">E2 - LLM + Tools</span>
+                        </div>
+                        <span class="text-neutral-500">28% of work hours</span>
+                    </div>
+                    <div class="relative h-4 bg-neutral-200 rounded-full overflow-hidden">
+                        <div class="absolute inset-y-0 left-0 bg-neutral-500 rounded-full" style="width: 58%"></div>
+                        <div class="absolute inset-y-0 bg-neutral-400 rounded-full" style="left: 58%; width: 17%"></div>
+                        <div class="absolute inset-y-0 bg-neutral-300 rounded-full" style="left: 75%; width: 13%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-neutral-400 mt-2">
+                        <span class="text-neutral-600 font-medium">58% exposed today</span>
+                        <span>→ 75% by 2028</span>
+                        <span>→ 88% by 2033</span>
+                    </div>
+                </div>
+
+                <!-- E0: Physical/interpersonal -->
+                <div>
+                    <div class="flex items-center justify-between text-sm mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="font-medium text-neutral-900">Physical & Interpersonal</span>
+                            <span class="text-xs bg-neutral-200 text-neutral-600 px-2 py-0.5 rounded-full">E0 - Limited</span>
+                        </div>
+                        <span class="text-neutral-500">22% of work hours</span>
+                    </div>
+                    <div class="relative h-4 bg-neutral-200 rounded-full overflow-hidden">
+                        <div class="absolute inset-y-0 left-0 bg-neutral-400 rounded-full" style="width: 24%"></div>
+                        <div class="absolute inset-y-0 bg-violet-300 rounded-full" style="left: 24%; width: 8%"></div>
+                        <div class="absolute inset-y-0 bg-violet-400 rounded-full" style="left: 32%; width: 33%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-neutral-400 mt-2">
+                        <span class="text-neutral-600 font-medium">24% exposed today</span>
+                        <span>→ 32% by 2028</span>
+                        <span class="text-violet-600 font-medium">→ 65% by 2033 (agents, robotics)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projection Summary -->
+            <div class="grid grid-cols-4 gap-4 mb-10">
+                <div class="text-center py-4 border-b-2 border-neutral-900">
+                    <p class="text-2xl font-semibold text-neutral-900">57%</p>
+                    <p class="text-xs text-neutral-400">Today</p>
+                </div>
+                <div class="text-center py-4 border-b-2 border-neutral-200">
+                    <p class="text-2xl font-semibold text-neutral-700">68%</p>
+                    <p class="text-xs text-neutral-400">2028</p>
+                </div>
+                <div class="text-center py-4 border-b-2 border-neutral-200">
+                    <p class="text-2xl font-semibold text-neutral-700">78%</p>
+                    <p class="text-xs text-neutral-400">2030</p>
+                </div>
+                <div class="text-center py-4 border-b-2 border-violet-500">
+                    <p class="text-2xl font-semibold text-violet-600">85%</p>
+                    <p class="text-xs text-neutral-400">2033</p>
+                </div>
+            </div>
+
+            <!-- Roles Most Affected -->
+            <div class="grid sm:grid-cols-2 gap-6">
+                <div>
+                    <h2 class="text-lg font-medium text-neutral-900 mb-4">Roles most affected by 2030</h2>
+                    <div class="space-y-3">
+                        <div class="py-3 border-b-2 border-neutral-200 flex items-center justify-between">
+                            <span class="text-sm text-neutral-700">Administrative Assistant</span>
+                            <span class="text-sm"><span class="text-neutral-400">82% →</span> <span class="font-semibold text-neutral-900">94%</span></span>
+                        </div>
+                        <div class="py-3 border-b-2 border-neutral-200 flex items-center justify-between">
+                            <span class="text-sm text-neutral-700">Content Writer</span>
+                            <span class="text-sm"><span class="text-neutral-400">85% →</span> <span class="font-semibold text-neutral-900">95%</span></span>
+                        </div>
+                        <div class="py-3 border-b-2 border-neutral-200 flex items-center justify-between">
+                            <span class="text-sm text-neutral-700">Data Analyst</span>
+                            <span class="text-sm"><span class="text-neutral-400">72% →</span> <span class="font-semibold text-neutral-900">88%</span></span>
+                        </div>
+                        <div class="py-3 border-b-2 border-neutral-200 flex items-center justify-between">
+                            <span class="text-sm text-neutral-700">Financial Analyst</span>
+                            <span class="text-sm"><span class="text-neutral-400">68% →</span> <span class="font-semibold text-neutral-900">85%</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-medium text-neutral-900 mb-4">Tasks becoming exposed (2026-2030)</h2>
+                    <div class="space-y-3">
+                        <div class="py-3 border-b-2 border-neutral-200">
+                            <p class="text-sm font-medium text-neutral-900">Conduct user interviews</p>
+                            <p class="text-xs text-neutral-400">18% → 55% (AI transcription + synthesis)</p>
+                        </div>
+                        <div class="py-3 border-b-2 border-neutral-200">
+                            <p class="text-sm font-medium text-neutral-900">Collect field samples</p>
+                            <p class="text-xs text-neutral-400">15% → 42% (sensor automation)</p>
+                        </div>
+                        <div class="py-3 border-b-2 border-neutral-200">
+                            <p class="text-sm font-medium text-neutral-900">Facilitate workshops</p>
+                            <p class="text-xs text-neutral-400">32% → 58% (AI facilitation tools)</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pl-4 border-l-2 border-neutral-200">
+                        <p class="text-sm text-neutral-500">
+                            <strong class="text-neutral-700">Driver:</strong> Multimodal AI + autonomous agents will expose interpersonal and collaborative tasks.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reskilling Priorities -->
+            <div class="mt-10 pt-10 border-t border-neutral-100">
+                <h2 class="text-lg font-medium text-neutral-900 mb-1">Reskilling priorities</h2>
+                <p class="text-sm text-neutral-500 mb-6">Roles with 85%+ exposure by 2030 — consider proactive skill development</p>
+
+                <div class="space-y-6">
+                    <!-- Admin Assistant -->
+                    <div class="border border-neutral-100 p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <p class="text-base font-medium text-neutral-900">Administrative Assistant</p>
+                                    <span class="text-xs bg-violet-50 text-violet-600 px-2 py-0.5 rounded-full">94% by 2030</span>
+                                </div>
+                                <p class="text-sm text-neutral-500 mt-1">12 employees • Operations</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs text-neutral-400">Current exposure</p>
+                                <p class="text-lg font-semibold text-neutral-900">82%</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <p class="text-xs text-neutral-500 mb-2">Most exposed tasks</p>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-1 bg-neutral-50 rounded text-xs text-neutral-600">Email responses (88%)</span>
+                                <span class="px-2 py-1 bg-neutral-50 rounded text-xs text-neutral-600">Meeting notes (85%)</span>
+                                <span class="px-2 py-1 bg-neutral-50 rounded text-xs text-neutral-600">Calendar mgmt (72%)</span>
+                            </div>
+                        </div>
+
+                        <div class="pl-4 border-l-2 border-neutral-200">
+                            <p class="text-xs text-neutral-500 mb-1">Suggested reskilling pathways</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">→ Project Coordinator</span>
+                                <span class="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">→ Operations Analyst</span>
+                                <span class="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">→ AI Tool Specialist</span>
+                            </div>
+                            <p class="text-xs text-neutral-400 mt-2">Adjacent skills: stakeholder communication, process optimization, tool configuration</p>
+                        </div>
+                    </div>
+
+                    <!-- Content Writer -->
+                    <div class="border border-neutral-100 p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <p class="text-base font-medium text-neutral-900">Content Writer</p>
+                                    <span class="text-xs bg-violet-50 text-violet-600 px-2 py-0.5 rounded-full">95% by 2030</span>
+                                </div>
+                                <p class="text-sm text-neutral-500 mt-1">5 employees • Communications</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs text-neutral-400">Current exposure</p>
+                                <p class="text-lg font-semibold text-neutral-900">85%</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <p class="text-xs text-neutral-500 mb-2">Most exposed tasks</p>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-1 bg-neutral-50 rounded text-xs text-neutral-600">Social content (92%)</span>
+                                <span class="px-2 py-1 bg-neutral-50 rounded text-xs text-neutral-600">Press releases (88%)</span>
+                                <span class="px-2 py-1 bg-neutral-50 rounded text-xs text-neutral-600">Proofreading (85%)</span>
+                            </div>
+                        </div>
+
+                        <div class="pl-4 border-l-2 border-neutral-200">
+                            <p class="text-xs text-neutral-500 mb-1">Suggested reskilling pathways</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">→ Content Strategist</span>
+                                <span class="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">→ Brand Manager</span>
+                                <span class="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">→ AI Prompt Engineer</span>
+                            </div>
+                            <p class="text-xs text-neutral-400 mt-2">Adjacent skills: editorial judgment, brand voice, AI output curation</p>
+                        </div>
+                    </div>
+
+                    <!-- Data Analyst -->
+                    <div class="border border-neutral-100 p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <p class="text-base font-medium text-neutral-900">Data Analyst</p>
+                                    <span class="text-xs bg-violet-50 text-violet-600 px-2 py-0.5 rounded-full">88% by 2030</span>
+                                </div>
+                                <p class="text-sm text-neutral-500 mt-1">8 employees • Technology</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs text-neutral-400">Current exposure</p>
+                                <p class="text-lg font-semibold text-neutral-900">72%</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <p class="text-xs text-neutral-500 mb-2">Most exposed tasks</p>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="px-2 py-1 bg-neutral-50 rounded text-xs text-neutral-600">SQL queries (82%)</span>
+                                <span class="px-2 py-1 bg-neutral-50 rounded text-xs text-neutral-600">Visualizations (78%)</span>
+                                <span class="px-2 py-1 bg-neutral-50 rounded text-xs text-neutral-600">Reports (75%)</span>
+                            </div>
+                        </div>
+
+                        <div class="pl-4 border-l-2 border-neutral-200">
+                            <p class="text-xs text-neutral-500 mb-1">Suggested reskilling pathways</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">→ Data Scientist</span>
+                                <span class="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">→ ML Engineer</span>
+                                <span class="px-2.5 py-1 bg-neutral-50 rounded-full text-xs font-medium text-neutral-700">→ Analytics Manager</span>
+                            </div>
+                            <p class="text-xs text-neutral-400 mt-2">Adjacent skills: statistical modeling, machine learning, stakeholder insight translation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pl-4 border-l-2 border-neutral-200">
+                    <p class="text-sm text-neutral-500">
+                        <strong class="text-neutral-700">Methodology:</strong> Reskilling pathways based on skill adjacency analysis and projected skill demand growth.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================= -->
+        <!-- TAB 4: RECOMMENDATIONS -->
+        <!-- ======================= -->
+        <div class="tab-content" id="tab-action">
+
+            <!-- Headline -->
+            <div class="mb-10">
+                <p class="text-sm text-neutral-400 mb-2">Recommendations</p>
+                <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
+                    Three priorities to close the gap.
+                </h1>
+            </div>
+
+            <!-- Priority 1 -->
+            <div class="mb-10 border border-neutral-200">
+                <div class="px-6 py-4 border-b border-neutral-100">
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 bg-neutral-900 text-white rounded-full flex items-center justify-center font-semibold flex-shrink-0">1</span>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-lg font-semibold text-neutral-900">Launch an AI pilot for Administrative teams</h2>
+                                <span class="text-xs bg-violet-50 text-violet-600 px-2.5 py-1 rounded-full font-medium">Highest ROI</span>
+                            </div>
+                            <p class="text-sm text-neutral-600 mt-1">74-point gap between exposure and adoption — the largest in the organization</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <!-- Why this matters -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-medium text-neutral-900 mb-2">Why this matters</h3>
+                        <p class="text-sm text-neutral-600">Admin Assistants spend 186,400 hours/year on email alone — at 12% AI adoption. The same task in Tech teams runs at 68% adoption. This isn't a capability gap; it's an enablement gap. We identified <strong class="text-violet-600">23 pioneers</strong> in Admin roles already using AI effectively — they're proving it works.</p>
+                    </div>
+
+                    <!-- Impact metrics -->
+                    <div class="grid grid-cols-4 gap-3 mb-6">
+                        <div class="border-b-2 border-neutral-200 p-3 text-center">
+                            <p class="text-xl font-semibold text-neutral-900">186</p>
+                            <p class="text-xs text-neutral-500">People affected</p>
+                        </div>
+                        <div class="border-b-2 border-neutral-200 p-3 text-center">
+                            <p class="text-xl font-semibold text-neutral-900">4,200</p>
+                            <p class="text-xs text-neutral-500">Hours/week recoverable</p>
+                        </div>
+                        <div class="border-b-2 border-violet-400 p-3 text-center">
+                            <p class="text-xl font-semibold text-violet-600">$9.8M</p>
+                            <p class="text-xs text-neutral-500">Annual value</p>
+                        </div>
+                        <div class="border-b-2 border-violet-200 p-3 text-center">
+                            <p class="text-xl font-semibold text-violet-600">4 wks</p>
+                            <p class="text-xs text-neutral-500">To first results</p>
+                        </div>
+                    </div>
+
+                    <!-- Action steps -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-medium text-neutral-900 mb-3">Action steps</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3 py-3 border-b border-neutral-100">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">1</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Interview the 23 Admin pioneers identified in the survey</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">Document their workflows, prompts, and workarounds. Create a playbook.</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Week 1</span>
+                            </div>
+                            <div class="flex items-start gap-3 py-3 border-b border-neutral-100">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">2</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Deploy meeting transcription + summary tools org-wide</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">Microsoft Copilot or Otter.ai. No integration required — just turn it on.</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Week 2</span>
+                            </div>
+                            <div class="flex items-start gap-3 py-3 border-b border-neutral-100">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">3</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Run 2-hour "AI for Email" workshops led by pioneers</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">Peer-led training. Cover: drafting replies, summarizing threads, extracting action items.</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Week 3-4</span>
+                            </div>
+                            <div class="flex items-start gap-3 py-3">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">4</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Measure adoption weekly via pulse survey</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">Track ai_frequency for email, meetings, calendar tasks. Target: 40% adoption in 8 weeks.</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Ongoing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Success metrics -->
+                    <div class="border-t border-neutral-100 pt-4">
+                        <h3 class="text-sm font-medium text-neutral-900 mb-2">Success looks like</h3>
+                        <div class="flex flex-wrap gap-4 text-sm">
+                            <span class="text-neutral-600">Admin AI adoption: <strong>12% → 45%</strong> in 90 days</span>
+                            <span class="text-neutral-600">Avg email time: <strong>-35%</strong></span>
+                            <span class="text-neutral-600">Meeting notes: <strong>auto-generated for 80%</strong> of meetings</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Priority 2 -->
+            <div class="mb-10 border border-neutral-200">
+                <div class="px-6 py-4 border-b border-neutral-100">
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 bg-neutral-700 text-white rounded-full flex items-center justify-center font-semibold flex-shrink-0">2</span>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-lg font-semibold text-neutral-900">Cross-pollinate from Tech to Policy & Finance</h2>
+                                <span class="text-xs bg-neutral-100 text-neutral-600 px-2.5 py-1 rounded-full font-medium">Knowledge transfer</span>
+                            </div>
+                            <p class="text-sm text-neutral-600 mt-1">Same writing tasks, 3x adoption difference — this is a sharing problem, not a tool problem</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <!-- Why this matters -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-medium text-neutral-900 mb-2">Why this matters</h3>
+                        <p class="text-sm text-neutral-600">Policy Analysts and Software Engineers both write documents, synthesize research, and create briefings. But Tech is at 68% adoption while Policy is at 28%. The survey shows Policy teams <em>want</em> to use AI (72% expressed interest) but lack guidance on how to apply it to their specific work. We found <strong class="text-violet-600">31 pioneers</strong> in Policy/Finance who've figured it out.</p>
+                    </div>
+
+                    <!-- Impact metrics -->
+                    <div class="grid grid-cols-4 gap-3 mb-6">
+                        <div class="border-b-2 border-neutral-200 p-3 text-center">
+                            <p class="text-xl font-semibold text-neutral-900">380</p>
+                            <p class="text-xs text-neutral-500">People affected</p>
+                        </div>
+                        <div class="border-b-2 border-neutral-200 p-3 text-center">
+                            <p class="text-xl font-semibold text-neutral-900">2,800</p>
+                            <p class="text-xs text-neutral-500">Hours/week recoverable</p>
+                        </div>
+                        <div class="border-b-2 border-violet-400 p-3 text-center">
+                            <p class="text-xl font-semibold text-violet-600">$6.5M</p>
+                            <p class="text-xs text-neutral-500">Annual value</p>
+                        </div>
+                        <div class="border-b-2 border-violet-200 p-3 text-center">
+                            <p class="text-xl font-semibold text-violet-600">8 wks</p>
+                            <p class="text-xs text-neutral-500">To first results</p>
+                        </div>
+                    </div>
+
+                    <!-- Action steps -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-medium text-neutral-900 mb-3">Action steps</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3 py-3 border-b border-neutral-100">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">1</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Create a "Prompt Library" for policy-specific tasks</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">Briefing summaries, legislative analysis, stakeholder mapping. Curate from pioneer interviews.</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Week 1-2</span>
+                            </div>
+                            <div class="flex items-start gap-3 py-3 border-b border-neutral-100">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">2</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Pair 10 Policy Analysts with Tech mentors for 4 weeks</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">30-min weekly check-ins. Focus on their actual current projects, not hypotheticals.</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Week 2-6</span>
+                            </div>
+                            <div class="flex items-start gap-3 py-3 border-b border-neutral-100">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">3</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Run "Show & Tell" sessions — 15 min demos of real work</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">Weekly, open to all. "Here's how I used AI on the climate brief last week."</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Week 3+</span>
+                            </div>
+                            <div class="flex items-start gap-3 py-3">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">4</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Embed AI usage into existing workflows</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">Add "AI-assisted?" checkbox to briefing templates. Normalize the behavior.</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Week 4</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Success metrics -->
+                    <div class="border-t border-neutral-100 pt-4">
+                        <h3 class="text-sm font-medium text-neutral-900 mb-2">Success looks like</h3>
+                        <div class="flex flex-wrap gap-4 text-sm">
+                            <span class="text-neutral-600">Policy/Finance adoption: <strong>26% → 50%</strong> in 90 days</span>
+                            <span class="text-neutral-600">Prompt library: <strong>50+ vetted prompts</strong></span>
+                            <span class="text-neutral-600">Cross-team pairs: <strong>20 active mentorships</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Priority 3 -->
+            <div class="mb-10 border border-neutral-200">
+                <div class="px-6 py-4 border-b border-neutral-100">
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 bg-neutral-500 text-white rounded-full flex items-center justify-center font-semibold flex-shrink-0">3</span>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-lg font-semibold text-neutral-900">Build AI infrastructure for analysis tasks</h2>
+                                <span class="text-xs bg-neutral-100 text-neutral-600 px-2.5 py-1 rounded-full font-medium">Requires IT</span>
+                            </div>
+                            <p class="text-sm text-neutral-600 mt-1">Data analysis, financial modeling, and compliance tasks need AI connected to internal systems</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <!-- Why this matters -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-medium text-neutral-900 mb-2">Why this matters</h3>
+                        <p class="text-sm text-neutral-600">Analysis tasks show a 30-point gap, but the barrier isn't training — it's access. Data Analysts can't use ChatGPT on proprietary data. Financial Analysts need AI that connects to your ERP. This requires IT investment, but unlocks the highest-value work: the 38,400 hours/year spent on analysis could be 60% faster with proper tooling.</p>
+                    </div>
+
+                    <!-- Impact metrics -->
+                    <div class="grid grid-cols-4 gap-3 mb-6">
+                        <div class="border-b-2 border-neutral-200 p-3 text-center">
+                            <p class="text-xl font-semibold text-neutral-900">254</p>
+                            <p class="text-xs text-neutral-500">People affected</p>
+                        </div>
+                        <div class="border-b-2 border-neutral-200 p-3 text-center">
+                            <p class="text-xl font-semibold text-neutral-900">1,850</p>
+                            <p class="text-xs text-neutral-500">Hours/week recoverable</p>
+                        </div>
+                        <div class="border-b-2 border-violet-400 p-3 text-center">
+                            <p class="text-xl font-semibold text-violet-600">$4.3M</p>
+                            <p class="text-xs text-neutral-500">Annual value</p>
+                        </div>
+                        <div class="border-b-2 border-violet-200 p-3 text-center">
+                            <p class="text-xl font-semibold text-violet-600">16 wks</p>
+                            <p class="text-xs text-neutral-500">To first results</p>
+                        </div>
+                    </div>
+
+                    <!-- Action steps -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-medium text-neutral-900 mb-3">Action steps</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3 py-3 border-b border-neutral-100">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">1</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Audit data access requirements for top 5 analysis tasks</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">SQL queries, budget reports, compliance monitoring. Map data sources and sensitivity levels.</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Week 1-2</span>
+                            </div>
+                            <div class="flex items-start gap-3 py-3 border-b border-neutral-100">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">2</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Pilot GitHub Copilot for Data team (8 users)</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">Low-risk starting point. Measure: time-to-complete for standard queries.</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Week 3-6</span>
+                            </div>
+                            <div class="flex items-start gap-3 py-3 border-b border-neutral-100">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">3</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Evaluate enterprise AI platforms with data connectors</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">Microsoft Copilot for M365, Claude for Enterprise, or custom RAG solution. RFP process.</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Week 4-10</span>
+                            </div>
+                            <div class="flex items-start gap-3 py-3">
+                                <span class="w-6 h-6 bg-neutral-100 rounded-full flex items-center justify-center text-xs font-medium text-neutral-600 flex-shrink-0">4</span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-neutral-900">Deploy to Finance for budget analysis pilot</p>
+                                    <p class="text-xs text-neutral-500 mt-0.5">Connect AI to ERP read-only access. Start with variance analysis and forecasting support.</p>
+                                </div>
+                                <span class="text-xs text-neutral-400">Week 12-16</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blockers callout -->
+                    <div class="border-l-2 border-neutral-300 pl-4 mb-6">
+                        <h3 class="text-sm font-medium text-neutral-700 mb-2">Potential blockers</h3>
+                        <ul class="text-sm text-neutral-600 space-y-1">
+                            <li>• Security review for data access (start early — can take 6+ weeks)</li>
+                            <li>• Budget approval for enterprise licensing (~$30-50/user/month)</li>
+                            <li>• IT capacity for integration work</li>
+                        </ul>
+                    </div>
+
+                    <!-- Success metrics -->
+                    <div class="border-t border-neutral-100 pt-4">
+                        <h3 class="text-sm font-medium text-neutral-900 mb-2">Success looks like</h3>
+                        <div class="flex flex-wrap gap-4 text-sm">
+                            <span class="text-neutral-600">Analysis task adoption: <strong>28% → 55%</strong> in 6 months</span>
+                            <span class="text-neutral-600">Query time: <strong>-40%</strong> for standard reports</span>
+                            <span class="text-neutral-600">Zero security incidents</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Impact -->
+            <div class="border border-neutral-200 p-6 mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <p class="text-sm text-violet-600 font-medium">Combined impact if all three succeed</p>
+                        <p class="text-3xl font-semibold text-neutral-900 mt-1">$20.6M annual value</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-neutral-600">8,850 hours/week recovered</p>
+                        <p class="text-sm text-neutral-600">820 employees enabled</p>
+                        <p class="text-sm text-neutral-600">Gap closed from 33pts → ~12pts</p>
+                    </div>
+                </div>
+                <div class="pt-4 border-t border-neutral-200">
+                    <p class="text-sm text-neutral-600">
+                        <strong class="text-neutral-900">Sequencing matters:</strong> Priority 1 builds momentum and identifies champions. Priority 2 spreads knowledge. Priority 3 removes infrastructure barriers. Don't start #3 until #1 shows results — you need the organizational buy-in.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Next step callout -->
+            <div class="border-b-2 border-neutral-900 py-6">
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl text-neutral-900">→</span>
+                    <div>
+                        <h3 class="font-semibold text-lg text-neutral-900 mb-2">Immediate next step</h3>
+                        <p class="text-neutral-600 mb-4">Schedule 30-minute interviews with the 23 Admin pioneers and 31 Policy/Finance pioneers identified in this survey. They've already solved the adoption problem — your job is to document and scale their approaches.</p>
+                        <div class="flex gap-3">
+                            <span class="px-3 py-1.5 bg-neutral-900 text-white rounded-full text-sm font-medium">Export pioneer list</span>
+                            <span class="px-3 py-1.5 bg-neutral-100 text-neutral-700 rounded-full text-sm">Interview template</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-neutral-100 mt-12">
+        <div class="px-6 sm:px-8 max-w-5xl mx-auto py-4 flex items-center justify-between text-sm text-neutral-400">
+            <span>1,847 survey responses</span>
+            <span>Methodology: Elondou et al. (2023) + Anthropic Economic Index</span>
+        </div>
+    </footer>
+
+    <script>
+        // Tab navigation
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('text-neutral-400');
+                    b.classList.remove('text-neutral-500');
+                });
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                btn.classList.remove('text-neutral-400');
+                btn.classList.add('text-neutral-500');
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+
+                // Initialize chart when matrix tab is shown
+                if (btn.dataset.tab === 'matrix' && !window.matrixInitialized) {
+                    initOpportunityMatrix();
+                    initPioneerMap();
+                }
+            });
+        });
+
+        // Opportunity Matrix Chart
+        Chart.defaults.font.family = 'Inter';
+        window.matrixInitialized = false;
+        window.matrixChart = null;
+        window.currentExposureYear = '2026';
+
+        // Data for 2026 (current)
+        const tasks2026 = {
+            untapped: [
+                {x: 88, y: 12, r: 12, name: 'Customer emails'},
+                {x: 85, y: 6, r: 10, name: 'Meeting notes'},
+                {x: 72, y: 8, r: 11, name: 'Calendar management'},
+                {x: 82, y: 18, r: 9, name: 'Briefing docs'},
+                {x: 78, y: 18, r: 10, name: 'Legislative monitoring'},
+                {x: 82, y: 35, r: 10, name: 'Resume screening'},
+                {x: 68, y: 4, r: 10, name: 'Document filing'},
+                {x: 78, y: 28, r: 11, name: 'Budget reports'},
+            ],
+            realized: [
+                {x: 92, y: 78, r: 8, name: 'Technical docs'},
+                {x: 92, y: 75, r: 10, name: 'Social content'},
+                {x: 88, y: 72, r: 14, name: 'Software code'},
+                {x: 88, y: 68, r: 9, name: 'Press releases'},
+                {x: 85, y: 58, r: 8, name: 'Code review'},
+                {x: 82, y: 62, r: 9, name: 'SQL queries'},
+                {x: 85, y: 62, r: 8, name: 'Media monitoring'},
+            ],
+            unexpected: [
+                {x: 35, y: 38, r: 6, name: 'Team coordination'},
+                {x: 42, y: 32, r: 5, name: 'Stakeholder comms'},
+            ],
+            manual: [
+                {x: 25, y: 8, r: 11, name: 'Stakeholder meetings'},
+                {x: 8, y: 0, r: 8, name: 'Greeting visitors'},
+                {x: 18, y: 2, r: 11, name: 'Employee interviews'},
+                {x: 15, y: 5, r: 8, name: 'Field samples'},
+                {x: 12, y: 0, r: 7, name: 'Site inspections'},
+                {x: 15, y: 2, r: 8, name: 'Mentoring'},
+                {x: 32, y: 5, r: 9, name: 'Workshops'},
+                {x: 28, y: 5, r: 8, name: 'Strategic guidance'},
+            ]
+        };
+
+        // Data for 2033 (projected) - E0 tasks shift right, E1/E2 near ceiling
+        const tasks2033 = {
+            untapped: [
+                {x: 95, y: 12, r: 12, name: 'Customer emails'},
+                {x: 92, y: 6, r: 10, name: 'Meeting notes'},
+                {x: 88, y: 8, r: 11, name: 'Calendar management'},
+                {x: 90, y: 18, r: 9, name: 'Briefing docs'},
+                {x: 88, y: 18, r: 10, name: 'Legislative monitoring'},
+                {x: 92, y: 35, r: 10, name: 'Resume screening'},
+                {x: 85, y: 4, r: 10, name: 'Document filing'},
+                {x: 90, y: 28, r: 11, name: 'Budget reports'},
+                // E0 tasks moving into untapped
+                {x: 65, y: 8, r: 11, name: 'Stakeholder meetings'},
+                {x: 58, y: 2, r: 11, name: 'Employee interviews'},
+                {x: 55, y: 5, r: 8, name: 'Field samples'},
+                {x: 72, y: 5, r: 9, name: 'Workshops'},
+            ],
+            realized: [
+                {x: 95, y: 78, r: 8, name: 'Technical docs'},
+                {x: 95, y: 75, r: 10, name: 'Social content'},
+                {x: 92, y: 72, r: 14, name: 'Software code'},
+                {x: 92, y: 68, r: 9, name: 'Press releases'},
+                {x: 90, y: 58, r: 8, name: 'Code review'},
+                {x: 88, y: 62, r: 9, name: 'SQL queries'},
+                {x: 90, y: 62, r: 8, name: 'Media monitoring'},
+            ],
+            unexpected: [
+                {x: 58, y: 38, r: 6, name: 'Team coordination'},
+                {x: 62, y: 32, r: 5, name: 'Stakeholder comms'},
+            ],
+            manual: [
+                {x: 28, y: 0, r: 8, name: 'Greeting visitors'},
+                {x: 42, y: 0, r: 7, name: 'Site inspections'},
+                {x: 45, y: 2, r: 8, name: 'Mentoring'},
+                {x: 48, y: 5, r: 8, name: 'Strategic guidance'},
+            ]
+        };
+
+        function getTaskData(year) {
+            return year === '2033' ? tasks2033 : tasks2026;
+        }
+
+        function initOpportunityMatrix() {
+            const ctx = document.getElementById('opportunity-matrix');
+            const tasks = getTaskData(window.currentExposureYear);
+
+            window.matrixChart = new Chart(ctx, {
+                type: 'bubble',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Opportunity',
+                            data: tasks.untapped,
+                            backgroundColor: 'rgba(249, 115, 22, 0.7)',
+                            borderColor: 'rgba(234, 88, 12, 0.9)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Adopting',
+                            data: tasks.realized,
+                            backgroundColor: 'rgba(139, 92, 246, 0.65)',
+                            borderColor: 'rgba(124, 58, 237, 0.85)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Adopting',
+                            data: tasks.unexpected,
+                            backgroundColor: 'rgba(167, 139, 250, 0.6)',
+                            borderColor: 'rgba(139, 92, 246, 0.8)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Low exposure',
+                            data: tasks.manual,
+                            backgroundColor: 'rgba(212, 212, 212, 0.5)',
+                            borderColor: 'rgba(163, 163, 163, 0.6)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: { padding: { top: 10, right: 10, bottom: 10, left: 10 } },
+                    scales: {
+                        x: {
+                            min: 0,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'AI Exposure →',
+                                color: '#737373',
+                                font: { size: 12, weight: '500' }
+                            },
+                            grid: { color: '#e5e5e5' },
+                            ticks: {
+                                callback: v => v + '%',
+                                color: '#a3a3a3',
+                                font: { size: 11 }
+                            }
+                        },
+                        y: {
+                            min: 0,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '↑ Current Adoption',
+                                color: '#737373',
+                                font: { size: 12, weight: '500' }
+                            },
+                            grid: { color: '#e5e5e5' },
+                            ticks: {
+                                callback: v => v + '%',
+                                color: '#a3a3a3',
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#171717',
+                            titleColor: '#fff',
+                            bodyColor: '#d4d4d4',
+                            titleFont: { size: 13, weight: '600' },
+                            bodyFont: { size: 12 },
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: false,
+                            callbacks: {
+                                title: function(context) {
+                                    return context[0].raw.name;
+                                },
+                                label: function(context) {
+                                    const gap = context.raw.x - context.raw.y;
+                                    return [
+                                        `Exposure: ${context.raw.x}%`,
+                                        `Adoption: ${context.raw.y}%`,
+                                        `Gap: ${gap} pts`
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            window.matrixInitialized = true;
+        }
+
+        function initPioneerMap() {
+            const ctx = document.getElementById('pioneer-map');
+
+            // Generate ~350 sampled data points (representing 1847 total)
+            const generatePeople = () => {
+                const roles = [
+                    { name: 'Admin Assistant', avg: 12, count: 32 },
+                    { name: 'Policy Analyst', avg: 28, count: 38 },
+                    { name: 'Software Engineer', avg: 68, count: 28 },
+                    { name: 'Data Analyst', avg: 45, count: 18 },
+                    { name: 'HR Specialist', avg: 22, count: 22 },
+                    { name: 'Financial Analyst', avg: 25, count: 26 },
+                    { name: 'Content Writer', avg: 62, count: 12 },
+                    { name: 'Project Manager', avg: 35, count: 24 },
+                    { name: 'Senior Advisor', avg: 18, count: 18 },
+                    { name: 'Communications', avg: 58, count: 14 },
+                    { name: 'Legal Counsel', avg: 15, count: 12 },
+                    { name: 'Executive', avg: 20, count: 10 },
+                    { name: 'Research Officer', avg: 42, count: 20 },
+                    { name: 'Operations', avg: 16, count: 24 }
+                ];
+
+                const pioneers = [];
+                const others = [];
+
+                // Box-Muller transform for more natural gaussian distribution
+                const gaussian = (mean, std) => {
+                    const u1 = Math.random();
+                    const u2 = Math.random();
+                    const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+                    return mean + z * std;
+                };
+
+                roles.forEach(role => {
+                    for (let i = 0; i < role.count; i++) {
+                        const isPioneer = Math.random() < 0.08;
+                        let personal;
+
+                        if (isPioneer) {
+                            // Pioneers: clearly above their role average
+                            personal = Math.min(98, role.avg + 25 + Math.random() * 35);
+                        } else {
+                            // Natural clustering with gaussian distribution
+                            const std = 12 + (role.avg < 30 ? 8 : 0); // more variance in low-adoption roles
+                            personal = gaussian(role.avg, std);
+                            personal = Math.max(2, Math.min(92, personal));
+                        }
+
+                        // Add organic jitter to x position
+                        const xJitter = gaussian(0, 3);
+
+                        const point = {
+                            x: Math.max(5, Math.min(75, role.avg + xJitter)),
+                            y: personal,
+                            role: role.name
+                        };
+
+                        if (personal > role.avg + 15 && personal > 35) {
+                            pioneers.push(point);
+                        } else {
+                            others.push(point);
+                        }
+                    }
+                });
+
+                return { pioneers, others };
+            };
+
+            const { pioneers, others } = generatePeople();
+
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [
+                        {
+                            label: 'At/below average',
+                            data: others,
+                            backgroundColor: 'rgba(180, 180, 180, 0.45)',
+                            borderColor: 'rgba(140, 140, 140, 0.5)',
+                            borderWidth: 1,
+                            pointRadius: 5,
+                            pointHoverRadius: 8
+                        },
+                        {
+                            label: 'Pioneers',
+                            data: pioneers,
+                            backgroundColor: 'rgba(139, 92, 246, 0.75)',
+                            borderColor: 'rgba(124, 58, 237, 0.9)',
+                            borderWidth: 1,
+                            pointRadius: 6,
+                            pointHoverRadius: 9
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            min: 0,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Role Average Adoption (%)',
+                                color: '#737373',
+                                font: { size: 12, weight: '500' }
+                            },
+                            grid: { color: '#e5e5e5' },
+                            ticks: {
+                                callback: v => v + '%',
+                                color: '#a3a3a3',
+                                font: { size: 11 }
+                            }
+                        },
+                        y: {
+                            min: 0,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Personal Adoption (%)',
+                                color: '#737373',
+                                font: { size: 12, weight: '500' }
+                            },
+                            grid: { color: '#e5e5e5' },
+                            ticks: {
+                                callback: v => v + '%',
+                                color: '#a3a3a3',
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#171717',
+                            titleColor: '#fff',
+                            bodyColor: '#d4d4d4',
+                            titleFont: { size: 13, weight: '600' },
+                            bodyFont: { size: 12 },
+                            padding: 12,
+                            cornerRadius: 8,
+                            callbacks: {
+                                title: function(context) {
+                                    return context[0].raw.role;
+                                },
+                                label: function(context) {
+                                    const diff = Math.round(context.raw.y - context.raw.x);
+                                    const sign = diff > 0 ? '+' : '';
+                                    return [
+                                        `Personal: ${Math.round(context.raw.y)}%`,
+                                        `Role avg: ${Math.round(context.raw.x)}%`,
+                                        `${sign}${diff} pts vs peers`
+                                    ];
+                                }
+                            }
+                        },
+                        // Draw diagonal line
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    xMin: 0,
+                                    yMin: 0,
+                                    xMax: 100,
+                                    yMax: 100,
+                                    borderColor: '#a3a3a3',
+                                    borderWidth: 1,
+                                    borderDash: [5, 5]
+                                }
+                            }
+                        }
+                    }
+                },
+                plugins: [{
+                    id: 'diagonalLine',
+                    beforeDraw: (chart) => {
+                        const ctx = chart.ctx;
+                        const xAxis = chart.scales.x;
+                        const yAxis = chart.scales.y;
+
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.moveTo(xAxis.getPixelForValue(0), yAxis.getPixelForValue(0));
+                        ctx.lineTo(xAxis.getPixelForValue(100), yAxis.getPixelForValue(100));
+                        ctx.strokeStyle = '#a3a3a3';
+                        ctx.lineWidth = 1;
+                        ctx.setLineDash([5, 5]);
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }]
+            });
+        }
+
+        function updateMatrixData(year) {
+            if (!window.matrixChart) return;
+
+            const tasks = getTaskData(year);
+            window.matrixChart.data.datasets[0].data = tasks.untapped;
+            window.matrixChart.data.datasets[1].data = tasks.realized;
+            window.matrixChart.data.datasets[2].data = tasks.unexpected;
+            window.matrixChart.data.datasets[3].data = tasks.manual;
+            window.matrixChart.update('active');
+            window.currentExposureYear = year;
+        }
+
+        // Exposure year toggle
+        document.querySelectorAll('.exposure-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.exposure-toggle').forEach(b => {
+                    b.classList.remove('bg-neutral-900', 'text-white');
+                    b.classList.add('text-neutral-500');
+                });
+                btn.classList.add('bg-neutral-900', 'text-white');
+                btn.classList.remove('text-neutral-500');
+
+                updateMatrixData(btn.dataset.year);
+            });
+        });
+    </script>
+
+</body>
+</html>

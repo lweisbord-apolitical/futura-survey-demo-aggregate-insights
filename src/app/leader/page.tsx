@@ -487,7 +487,7 @@ export default function LeaderDashboard() {
               priority
             />
             <div className="h-6 w-px bg-neutral-200" />
-            <span className="text-sm font-medium text-neutral-600">Department of Natural Resources</span>
+            <span className="text-sm font-medium text-neutral-600">Acme Corporation</span>
           </div>
           <div className="text-sm text-neutral-400">1,847 responses • Demo data</div>
         </div>
