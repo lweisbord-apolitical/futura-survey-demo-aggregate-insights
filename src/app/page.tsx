@@ -11,8 +11,8 @@ export default function Home() {
           <Image
             src="/apolitical-logo.png"
             alt="Apolitical"
-            width={160}
-            height={38}
+            width={200}
+            height={47}
             priority
           />
         </div>

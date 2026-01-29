@@ -86,7 +86,7 @@ export default function SurveyLandingPage() {
           {/* Input */}
           <input
             type="text"
-            placeholder="Policy Analyst"
+            placeholder="Financial Manager"
             value={jobTitle}
             onChange={(e) => setJobTitle(e.target.value)}
             className="w-full text-xl sm:text-2xl font-medium text-neutral-900 placeholder:text-neutral-300 border-0 border-b-2 border-neutral-200 focus:border-violet-600 focus:ring-0 bg-transparent py-3 px-0 transition-colors outline-none"
