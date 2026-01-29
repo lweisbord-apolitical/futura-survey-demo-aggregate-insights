@@ -95,75 +95,81 @@ function OpportunityMatrixChart({ exposureYear }: { exposureYear: "2026" | "2033
         (chartRef.current as { destroy: () => void }).destroy();
       }
 
+      // 2026: Current state - based on today's AI capabilities
       const tasks2026 = {
         untapped: [
-          {x: 88, y: 12, r: 12, name: 'Customer emails'},
-          {x: 85, y: 6, r: 10, name: 'Meeting notes'},
-          {x: 72, y: 8, r: 11, name: 'Calendar management'},
-          {x: 82, y: 18, r: 9, name: 'Briefing docs'},
-          {x: 78, y: 18, r: 10, name: 'Legislative monitoring'},
-          {x: 82, y: 35, r: 10, name: 'Resume screening'},
-          {x: 68, y: 4, r: 10, name: 'Document filing'},
-          {x: 78, y: 28, r: 11, name: 'Budget reports'},
+          {x: 85, y: 12, r: 12, name: 'Customer emails'},
+          {x: 82, y: 6, r: 10, name: 'Meeting notes'},
+          {x: 68, y: 8, r: 11, name: 'Calendar management'},
+          {x: 78, y: 18, r: 9, name: 'Briefing docs'},
+          {x: 72, y: 15, r: 10, name: 'Policy research'},
+          {x: 75, y: 32, r: 10, name: 'Resume screening'},
+          {x: 62, y: 4, r: 10, name: 'Document filing'},
+          {x: 70, y: 25, r: 11, name: 'Budget reports'},
         ],
         realized: [
-          {x: 92, y: 78, r: 8, name: 'Technical docs'},
-          {x: 92, y: 75, r: 10, name: 'Social content'},
-          {x: 88, y: 72, r: 14, name: 'Software code'},
-          {x: 88, y: 68, r: 9, name: 'Press releases'},
-          {x: 85, y: 58, r: 8, name: 'Code review'},
-          {x: 82, y: 62, r: 9, name: 'SQL queries'},
-          {x: 85, y: 62, r: 8, name: 'Media monitoring'},
+          {x: 88, y: 78, r: 8, name: 'Technical docs'},
+          {x: 90, y: 75, r: 10, name: 'Social content'},
+          {x: 85, y: 72, r: 14, name: 'Software code'},
+          {x: 82, y: 68, r: 9, name: 'Press releases'},
+          {x: 78, y: 58, r: 8, name: 'Code review'},
+          {x: 75, y: 55, r: 9, name: 'SQL queries'},
         ],
         unexpected: [
-          {x: 35, y: 38, r: 6, name: 'Team coordination'},
-          {x: 42, y: 32, r: 5, name: 'Stakeholder comms'},
+          {x: 32, y: 35, r: 6, name: 'Team coordination'},
+          {x: 38, y: 28, r: 5, name: 'Stakeholder comms'},
         ],
         manual: [
-          {x: 25, y: 8, r: 11, name: 'Stakeholder meetings'},
-          {x: 8, y: 0, r: 8, name: 'Greeting visitors'},
-          {x: 18, y: 2, r: 11, name: 'Employee interviews'},
-          {x: 15, y: 5, r: 8, name: 'Field samples'},
-          {x: 12, y: 0, r: 7, name: 'Site inspections'},
-          {x: 15, y: 2, r: 8, name: 'Mentoring'},
-          {x: 32, y: 5, r: 9, name: 'Workshops'},
-          {x: 28, y: 5, r: 8, name: 'Strategic guidance'},
+          {x: 22, y: 6, r: 11, name: 'Stakeholder meetings'},
+          {x: 8, y: 2, r: 8, name: 'Greeting visitors'},
+          {x: 15, y: 4, r: 11, name: 'Employee interviews'},
+          {x: 12, y: 3, r: 8, name: 'Field inspections'},
+          {x: 18, y: 5, r: 7, name: 'Site visits'},
+          {x: 10, y: 8, r: 8, name: 'Mentoring'},
+          {x: 28, y: 6, r: 9, name: 'Workshops'},
+          {x: 25, y: 12, r: 8, name: 'Strategic planning'},
         ]
       };
 
+      // 2033: Projected state - agents, multimodal AI, better integration
       const tasks2033 = {
         untapped: [
-          {x: 95, y: 12, r: 12, name: 'Customer emails'},
-          {x: 92, y: 6, r: 10, name: 'Meeting notes'},
-          {x: 88, y: 8, r: 11, name: 'Calendar management'},
-          {x: 90, y: 18, r: 9, name: 'Briefing docs'},
-          {x: 88, y: 18, r: 10, name: 'Legislative monitoring'},
-          {x: 92, y: 35, r: 10, name: 'Resume screening'},
-          {x: 85, y: 4, r: 10, name: 'Document filing'},
-          {x: 90, y: 28, r: 11, name: 'Budget reports'},
-          {x: 65, y: 8, r: 11, name: 'Stakeholder meetings'},
-          {x: 58, y: 2, r: 11, name: 'Employee interviews'},
-          {x: 55, y: 5, r: 8, name: 'Field samples'},
-          {x: 72, y: 5, r: 9, name: 'Workshops'},
+          {x: 96, y: 12, r: 12, name: 'Customer emails'},
+          {x: 94, y: 6, r: 10, name: 'Meeting notes'},
+          {x: 92, y: 8, r: 11, name: 'Calendar management'},
+          {x: 95, y: 18, r: 9, name: 'Briefing docs'},
+          {x: 90, y: 15, r: 10, name: 'Policy research'},
+          {x: 94, y: 32, r: 10, name: 'Resume screening'},
+          {x: 88, y: 4, r: 10, name: 'Document filing'},
+          {x: 92, y: 25, r: 11, name: 'Budget reports'},
+          // Tasks that become exposed by 2033 (were manual in 2026)
+          {x: 72, y: 6, r: 11, name: 'Stakeholder meetings'},
+          {x: 65, y: 4, r: 11, name: 'Employee interviews'},
+          {x: 58, y: 3, r: 8, name: 'Field inspections'},
+          {x: 78, y: 6, r: 9, name: 'Workshops'},
+          {x: 68, y: 12, r: 8, name: 'Strategic planning'},
         ],
         realized: [
-          {x: 95, y: 78, r: 8, name: 'Technical docs'},
-          {x: 95, y: 75, r: 10, name: 'Social content'},
-          {x: 92, y: 72, r: 14, name: 'Software code'},
-          {x: 92, y: 68, r: 9, name: 'Press releases'},
-          {x: 90, y: 58, r: 8, name: 'Code review'},
-          {x: 88, y: 62, r: 9, name: 'SQL queries'},
-          {x: 90, y: 62, r: 8, name: 'Media monitoring'},
+          {x: 98, y: 82, r: 8, name: 'Technical docs'},
+          {x: 98, y: 78, r: 10, name: 'Social content'},
+          {x: 95, y: 75, r: 14, name: 'Software code'},
+          {x: 96, y: 72, r: 9, name: 'Press releases'},
+          {x: 94, y: 65, r: 8, name: 'Code review'},
+          {x: 92, y: 62, r: 9, name: 'SQL queries'},
+          // Tasks that move to "realized" by 2033
+          {x: 88, y: 58, r: 10, name: 'Policy research'},
+          {x: 85, y: 52, r: 9, name: 'Budget analysis'},
         ],
         unexpected: [
-          {x: 58, y: 38, r: 6, name: 'Team coordination'},
-          {x: 62, y: 32, r: 5, name: 'Stakeholder comms'},
+          {x: 65, y: 42, r: 6, name: 'Team coordination'},
+          {x: 72, y: 38, r: 5, name: 'Stakeholder comms'},
+          {x: 58, y: 35, r: 7, name: 'Project management'},
         ],
         manual: [
-          {x: 28, y: 0, r: 8, name: 'Greeting visitors'},
-          {x: 42, y: 0, r: 7, name: 'Site inspections'},
-          {x: 45, y: 2, r: 8, name: 'Mentoring'},
-          {x: 48, y: 5, r: 8, name: 'Strategic guidance'},
+          // Only truly physical/human tasks remain low exposure
+          {x: 25, y: 2, r: 8, name: 'Greeting visitors'},
+          {x: 35, y: 5, r: 7, name: 'Site visits'},
+          {x: 42, y: 8, r: 8, name: 'Mentoring'},
         ]
       };
 
@@ -1004,103 +1010,137 @@ export default function LeaderDashboard() {
         {activeTab === "trajectory" && (
           <div>
             <div className="mb-10">
-              <p className="text-sm text-neutral-400 mb-2">5-year outlook</p>
+              <p className="text-sm text-neutral-400 mb-2">Based on AI capability research & industry forecasts</p>
               <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
-                Today&apos;s 57% exposure becomes 85% by 2033.
+                How AI exposure will evolve through 2033.
               </h1>
+              <p className="text-neutral-500 mt-3">These projections combine current AI benchmarks with research from Anthropic, OpenAI, and academic studies on task automation potential.</p>
+            </div>
+
+            {/* Key insight */}
+            <div className="bg-violet-50 border border-violet-100 rounded-lg p-4 mb-8">
+              <p className="text-sm text-violet-900">
+                <strong>Key insight:</strong> Your workforce currently uses AI for 24% of exposed tasks. By 2033, the exposure ceiling rises from 57% to 85% — but the real opportunity is closing today&apos;s 33-point gap before the ceiling rises further.
+              </p>
             </div>
 
             {/* Timeline Visual */}
             <div className="border border-neutral-100 p-6 sm:p-8 mb-10">
-              <div className="flex justify-between text-sm text-neutral-400 mb-6">
-                <span className="font-medium text-neutral-700">2026</span>
-                <span>2028</span>
-                <span>2030</span>
-                <span>2033</span>
-                <span className="font-medium text-neutral-700">2036</span>
-              </div>
+              <h3 className="text-sm font-medium text-neutral-700 mb-4">Projected AI exposure by work category</h3>
 
               {/* Writing tasks */}
               <div className="mb-8">
                 <div className="flex items-center justify-between text-sm mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-neutral-900">Writing & Content</span>
-                    <span className="text-xs bg-violet-50 text-violet-600 px-2 py-0.5 rounded-full">E1 - Direct LLM</span>
+                    <span className="font-medium text-neutral-900">Writing & Content Creation</span>
+                    <span className="text-xs bg-violet-50 text-violet-600 px-2 py-0.5 rounded-full">Highest exposure</span>
                   </div>
-                  <span className="text-neutral-500">42% of work hours</span>
+                  <span className="text-neutral-500">42% of your workforce hours</span>
                 </div>
-                <div className="relative h-4 bg-neutral-200 rounded-full overflow-hidden">
-                  <div className="absolute inset-y-0 left-0 bg-violet-500 rounded-full" style={{ width: "78%" }} />
-                  <div className="absolute inset-y-0 bg-violet-400 rounded-full" style={{ left: "78%", width: "7%" }} />
-                  <div className="absolute inset-y-0 bg-violet-300 rounded-full" style={{ left: "85%", width: "5%" }} />
+                <div className="relative h-5 bg-neutral-100 rounded-full overflow-hidden">
+                  <div className="absolute inset-y-0 left-0 bg-violet-600 rounded-l-full" style={{ width: "78%" }} />
+                  <div className="absolute inset-y-0 left-0 bg-violet-400" style={{ width: "90%", opacity: 0.5 }} />
+                  <div className="absolute inset-y-0 left-0 bg-violet-300" style={{ width: "95%", opacity: 0.3 }} />
                 </div>
-                <div className="flex justify-between text-xs text-neutral-400 mt-2">
-                  <span className="text-violet-600 font-medium">78% exposed today</span>
-                  <span>→ 85% by 2028</span>
-                  <span>→ 90%+ by 2033</span>
+                <div className="flex justify-between text-xs mt-2">
+                  <span className="text-violet-600 font-medium">78% today</span>
+                  <span className="text-neutral-400">90% by 2028</span>
+                  <span className="text-neutral-500 font-medium">95% by 2033</span>
                 </div>
+                <p className="text-xs text-neutral-400 mt-1">Emails, reports, documentation, social content — already highly automatable with current LLMs</p>
               </div>
 
               {/* Analysis tasks */}
               <div className="mb-8">
                 <div className="flex items-center justify-between text-sm mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-neutral-900">Analysis & Processing</span>
-                    <span className="text-xs bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-full">E2 - LLM + Tools</span>
+                    <span className="font-medium text-neutral-900">Analysis & Decision Support</span>
+                    <span className="text-xs bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-full">Growing exposure</span>
                   </div>
-                  <span className="text-neutral-500">28% of work hours</span>
+                  <span className="text-neutral-500">28% of your workforce hours</span>
                 </div>
-                <div className="relative h-4 bg-neutral-200 rounded-full overflow-hidden">
-                  <div className="absolute inset-y-0 left-0 bg-neutral-500 rounded-full" style={{ width: "58%" }} />
-                  <div className="absolute inset-y-0 bg-neutral-400 rounded-full" style={{ left: "58%", width: "17%" }} />
-                  <div className="absolute inset-y-0 bg-neutral-300 rounded-full" style={{ left: "75%", width: "13%" }} />
+                <div className="relative h-5 bg-neutral-100 rounded-full overflow-hidden">
+                  <div className="absolute inset-y-0 left-0 bg-neutral-600 rounded-l-full" style={{ width: "58%" }} />
+                  <div className="absolute inset-y-0 left-0 bg-neutral-400" style={{ width: "78%", opacity: 0.5 }} />
+                  <div className="absolute inset-y-0 left-0 bg-neutral-300" style={{ width: "88%", opacity: 0.3 }} />
                 </div>
-                <div className="flex justify-between text-xs text-neutral-400 mt-2">
-                  <span className="text-neutral-600 font-medium">58% exposed today</span>
-                  <span>→ 75% by 2028</span>
-                  <span>→ 88% by 2033</span>
+                <div className="flex justify-between text-xs mt-2">
+                  <span className="text-neutral-600 font-medium">58% today</span>
+                  <span className="text-neutral-400">78% by 2028</span>
+                  <span className="text-neutral-500 font-medium">88% by 2033</span>
                 </div>
+                <p className="text-xs text-neutral-400 mt-1">Data analysis, research synthesis, budget review — requires AI + tool integration (coming 2025-2028)</p>
+              </div>
+
+              {/* Coordination tasks */}
+              <div className="mb-8">
+                <div className="flex items-center justify-between text-sm mb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-neutral-900">Coordination & Communication</span>
+                    <span className="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full">Emerging exposure</span>
+                  </div>
+                  <span className="text-neutral-500">18% of your workforce hours</span>
+                </div>
+                <div className="relative h-5 bg-neutral-100 rounded-full overflow-hidden">
+                  <div className="absolute inset-y-0 left-0 bg-blue-500 rounded-l-full" style={{ width: "35%" }} />
+                  <div className="absolute inset-y-0 left-0 bg-blue-400" style={{ width: "55%", opacity: 0.5 }} />
+                  <div className="absolute inset-y-0 left-0 bg-blue-300" style={{ width: "72%", opacity: 0.3 }} />
+                </div>
+                <div className="flex justify-between text-xs mt-2">
+                  <span className="text-blue-600 font-medium">35% today</span>
+                  <span className="text-neutral-400">55% by 2028</span>
+                  <span className="text-neutral-500 font-medium">72% by 2033</span>
+                </div>
+                <p className="text-xs text-neutral-400 mt-1">Meeting scheduling, stakeholder updates, project tracking — AI agents will transform this category</p>
               </div>
 
               {/* Physical/interpersonal */}
               <div>
                 <div className="flex items-center justify-between text-sm mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-neutral-900">Physical & Interpersonal</span>
-                    <span className="text-xs bg-neutral-200 text-neutral-600 px-2 py-0.5 rounded-full">E0 - Limited</span>
+                    <span className="font-medium text-neutral-900">Physical & In-Person Work</span>
+                    <span className="text-xs bg-neutral-200 text-neutral-600 px-2 py-0.5 rounded-full">Limited exposure</span>
                   </div>
-                  <span className="text-neutral-500">22% of work hours</span>
+                  <span className="text-neutral-500">12% of your workforce hours</span>
                 </div>
-                <div className="relative h-4 bg-neutral-200 rounded-full overflow-hidden">
-                  <div className="absolute inset-y-0 left-0 bg-neutral-400 rounded-full" style={{ width: "24%" }} />
-                  <div className="absolute inset-y-0 bg-violet-300 rounded-full" style={{ left: "24%", width: "8%" }} />
-                  <div className="absolute inset-y-0 bg-violet-400 rounded-full" style={{ left: "32%", width: "33%" }} />
+                <div className="relative h-5 bg-neutral-100 rounded-full overflow-hidden">
+                  <div className="absolute inset-y-0 left-0 bg-neutral-400 rounded-l-full" style={{ width: "15%" }} />
+                  <div className="absolute inset-y-0 left-0 bg-neutral-300" style={{ width: "25%", opacity: 0.5 }} />
+                  <div className="absolute inset-y-0 left-0 bg-neutral-200" style={{ width: "40%", opacity: 0.3 }} />
                 </div>
-                <div className="flex justify-between text-xs text-neutral-400 mt-2">
-                  <span className="text-neutral-600 font-medium">24% exposed today</span>
-                  <span>→ 32% by 2028</span>
-                  <span className="text-violet-600 font-medium">→ 65% by 2033 (agents, robotics)</span>
+                <div className="flex justify-between text-xs mt-2">
+                  <span className="text-neutral-600 font-medium">15% today</span>
+                  <span className="text-neutral-400">25% by 2028</span>
+                  <span className="text-neutral-500 font-medium">40% by 2033</span>
                 </div>
+                <p className="text-xs text-neutral-400 mt-1">Site visits, in-person meetings, mentoring — human presence remains essential, AI assists with prep/follow-up</p>
               </div>
             </div>
 
             {/* Projection Summary */}
+            <div className="mb-6">
+              <h3 className="text-sm font-medium text-neutral-700 mb-4">Overall workforce AI exposure trajectory</h3>
+            </div>
             <div className="grid grid-cols-4 gap-4 mb-10">
-              <div className="text-center py-4 border-b-2 border-neutral-900">
+              <div className="text-center py-4 border-b-2 border-violet-600">
                 <p className="text-2xl font-semibold text-neutral-900">57%</p>
-                <p className="text-xs text-neutral-400">Today</p>
+                <p className="text-xs text-neutral-500">Today (2026)</p>
+                <p className="text-xs text-violet-600 mt-1">24% adopted</p>
               </div>
-              <div className="text-center py-4 border-b-2 border-neutral-200">
-                <p className="text-2xl font-semibold text-neutral-700">68%</p>
-                <p className="text-xs text-neutral-400">2028</p>
+              <div className="text-center py-4 border-b-2 border-neutral-300">
+                <p className="text-2xl font-semibold text-neutral-700">71%</p>
+                <p className="text-xs text-neutral-500">2028</p>
+                <p className="text-xs text-neutral-400 mt-1">Agents arrive</p>
               </div>
-              <div className="text-center py-4 border-b-2 border-neutral-200">
-                <p className="text-2xl font-semibold text-neutral-700">78%</p>
-                <p className="text-xs text-neutral-400">2030</p>
+              <div className="text-center py-4 border-b-2 border-neutral-300">
+                <p className="text-2xl font-semibold text-neutral-700">80%</p>
+                <p className="text-xs text-neutral-500">2030</p>
+                <p className="text-xs text-neutral-400 mt-1">Tool integration</p>
               </div>
               <div className="text-center py-4 border-b-2 border-violet-500">
                 <p className="text-2xl font-semibold text-violet-600">85%</p>
-                <p className="text-xs text-neutral-400">2033</p>
+                <p className="text-xs text-neutral-500">2033</p>
+                <p className="text-xs text-violet-600 mt-1">Technical ceiling</p>
               </div>
             </div>
 
@@ -1209,10 +1249,11 @@ export default function LeaderDashboard() {
         {activeTab === "action" && (
           <div>
             <div className="mb-10">
-              <p className="text-sm text-neutral-400 mb-2">Recommendations</p>
+              <p className="text-sm text-neutral-400 mb-2">Based on your survey data & comparable public sector organisations</p>
               <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
                 Three priorities to close the gap.
               </h1>
+              <p className="text-neutral-500 mt-3">These recommendations are informed by patterns we&apos;ve seen across 50+ government departments and validated by research from Anthropic, OpenAI, and the Brookings Institution.</p>
             </div>
 
             {/* Priority 1 */}
