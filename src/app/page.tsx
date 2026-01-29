@@ -6,19 +6,19 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white border-b border-neutral-100">
-        <div className="px-6 sm:px-8 py-3 flex items-center">
+      <header className="sticky top-0 z-50 bg-white">
+        <div className="px-6 sm:px-8 py-2 flex items-center">
           <Image
             src="/apolitical-logo.png"
             alt="Apolitical"
-            width={200}
-            height={47}
+            width={160}
+            height={38}
             priority
           />
         </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center px-6 relative overflow-hidden" style={{ minHeight: "calc(100vh - 60px)" }}>
+      <main className="flex-1 flex items-center justify-center px-6 relative overflow-hidden" style={{ minHeight: "calc(100vh - 54px)" }}>
         {/* Subtle gradient accent */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[600px] blur-3xl pointer-events-none"
