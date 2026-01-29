@@ -549,20 +549,19 @@ export default function LeaderDashboard() {
                 <div className="group relative border-b-2 border-violet-400 pb-4 cursor-help">
                   <p className="text-sm text-neutral-500 mb-1">2026 exposure</p>
                   <p className="text-3xl font-semibold text-neutral-900">38%</p>
-                  <p className="text-xs text-neutral-400 mt-1">Anthropic Economic Index</p>
+                  <p className="text-xs text-neutral-400 mt-1 cursor-help">Current AI capability</p>
                   <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
                     <strong className="text-white">What AI can do right now.</strong><br /><br />
-                    Based on real-world Claude usage patterns across occupations.
+                    Based on current AI capabilities for each task type — what percentage of work hours could be meaningfully assisted by AI today.
                   </div>
                 </div>
                 <div className="group relative border-b-2 border-violet-200 pb-4 cursor-help">
                   <p className="text-sm text-neutral-500 mb-1">2033 exposure</p>
                   <p className="text-3xl font-semibold text-neutral-900">57%</p>
-                  <p className="text-xs text-neutral-400 mt-1">Elondou et al. · 7yr horizon</p>
+                  <p className="text-xs text-neutral-400 mt-1 cursor-help">Projected capability</p>
                   <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
                     <strong className="text-white">What AI could do by ~2033.</strong><br /><br />
-                    Based on GPT-4 exposure research. Technical ceiling.<br /><br />
-                    <a href="#" className="text-violet-400 underline">View methodology →</a>
+                    Projected AI capability based on technology trajectory — the theoretical ceiling of tasks that could be AI-assisted with continued advancement.
                   </div>
                 </div>
               </div>
@@ -800,7 +799,7 @@ export default function LeaderDashboard() {
                   <h2 className="text-lg font-medium text-neutral-900">Where AI should be used</h2>
                   <span className="text-xs text-violet-600 bg-violet-50 px-2 py-1 rounded-full">High gap</span>
                 </div>
-                <p className="text-sm text-neutral-500 mb-4">Tasks with high Elondou exposure but low reported AI usage</p>
+                <p className="text-sm text-neutral-500 mb-4">Tasks with high AI potential but low reported AI usage</p>
 
                 <div className="space-y-3">
                   {HIGH_GAP_TASKS.map((item) => (
@@ -1585,7 +1584,7 @@ export default function LeaderDashboard() {
       <footer className="border-t border-neutral-100 mt-12">
         <div className="px-6 sm:px-8 max-w-5xl mx-auto py-4 flex items-center justify-between text-sm text-neutral-400">
           <span>1,847 survey responses</span>
-          <span>Methodology: Elondou et al. (2023) + Anthropic Economic Index</span>
+          <span>Demo data for illustration purposes</span>
         </div>
       </footer>
     </div>
