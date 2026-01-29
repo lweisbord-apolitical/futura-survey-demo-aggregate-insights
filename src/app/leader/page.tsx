@@ -528,19 +528,19 @@ export default function LeaderDashboard() {
                   <span className="text-lg text-neutral-500 ml-2">of work uses AI</span>
                 </div>
 
-                {/* Stacked segments - 10 blocks */}
+                {/* Stacked segments - 10 blocks with gradient fade */}
                 <div className="flex gap-1.5 mb-3">
-                  {/* You: 24% = ~2.4 blocks → 2-3 dark violet */}
+                  {/* You: dark violet fading */}
                   <div className="w-10 h-12 bg-violet-500 rounded-md" />
                   <div className="w-10 h-12 bg-violet-500 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
-                  {/* Typical: 38% = ~1.4 more blocks → medium violet */}
+                  <div className="w-10 h-12 bg-violet-400 rounded-md" />
+                  {/* Typical: medium violet */}
                   <div className="w-10 h-12 bg-violet-300 rounded-md" />
-                  {/* High: 56% = ~1.8 more blocks → light violet */}
+                  <div className="w-10 h-12 bg-violet-300 rounded-md" />
+                  {/* High: light violet */}
                   <div className="w-10 h-12 bg-violet-200 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-100 rounded-md" />
                   {/* Remaining empty */}
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
                   <div className="w-10 h-12 bg-neutral-200 rounded-md" />
                   <div className="w-10 h-12 bg-neutral-200 rounded-md" />
                   <div className="w-10 h-12 bg-neutral-200 rounded-md" />
@@ -575,16 +575,16 @@ export default function LeaderDashboard() {
                   <span className="text-lg text-neutral-500 ml-2">AI-exposed by 2030</span>
                 </div>
 
-                {/* Stacked segments - 10 blocks */}
+                {/* Stacked segments - 10 blocks with gradient fade */}
                 <div className="flex gap-1.5 mb-3">
-                  {/* Today: 24% = ~2.4 blocks → dark violet */}
+                  {/* Today: dark violet fading */}
                   <div className="w-10 h-12 bg-violet-500 rounded-md" />
                   <div className="w-10 h-12 bg-violet-500 rounded-md" />
                   <div className="w-10 h-12 bg-violet-400 rounded-md" />
-                  {/* Gap to 60%: ~3.6 blocks → light violet */}
+                  {/* Gap to 60%: light violet gradient */}
+                  <div className="w-10 h-12 bg-violet-300 rounded-md" />
                   <div className="w-10 h-12 bg-violet-200 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-100 rounded-md" />
                   {/* Beyond 60% */}
                   <div className="w-10 h-12 bg-neutral-200 rounded-md" />
                   <div className="w-10 h-12 bg-neutral-200 rounded-md" />
