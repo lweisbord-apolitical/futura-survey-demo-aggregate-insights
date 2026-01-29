@@ -523,39 +523,45 @@ export default function LeaderDashboard() {
                 <h2 className="text-xs font-medium text-neutral-400 tracking-wide uppercase mb-4">Where you stand</h2>
 
                 {/* Headline */}
-                <div className="mb-6">
+                <div className="mb-5">
                   <span className="text-5xl font-bold text-violet-600">24%</span>
                   <span className="text-lg text-neutral-500 ml-2">of work uses AI</span>
                 </div>
 
-                {/* Horizontal bars */}
-                <div className="space-y-3">
-                  {/* You */}
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm text-neutral-500 w-14 text-right">You</span>
-                    <div className="flex-1 h-3 bg-neutral-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-violet-500 rounded-full" style={{ width: "43%" }} />
-                    </div>
-                    <span className="text-sm font-semibold text-violet-600 w-12">24%</span>
-                  </div>
+                {/* Stacked segments - 10 blocks */}
+                <div className="flex gap-1.5 mb-3">
+                  {/* You: 24% = ~2.4 blocks → 2-3 dark violet */}
+                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
+                  {/* Typical: 38% = ~1.4 more blocks → medium violet */}
+                  <div className="w-10 h-12 bg-violet-300 rounded-md" />
+                  {/* High: 56% = ~1.8 more blocks → light violet */}
+                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
+                  {/* Remaining empty */}
+                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
+                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
+                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
+                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
+                </div>
 
-                  {/* Typical */}
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm text-neutral-400 w-14 text-right">Typical</span>
-                    <div className="flex-1 h-3 bg-neutral-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-neutral-300 rounded-full" style={{ width: "68%" }} />
-                    </div>
-                    <span className="text-sm text-neutral-400 w-12">38%</span>
-                  </div>
-
-                  {/* High */}
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm text-neutral-400 w-14 text-right">High</span>
-                    <div className="flex-1 h-3 bg-neutral-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-neutral-200 rounded-full" style={{ width: "100%" }} />
-                    </div>
-                    <span className="text-sm text-neutral-300 w-12">56%</span>
-                  </div>
+                {/* Legend */}
+                <div className="flex items-center gap-4 text-sm">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 bg-violet-500 rounded-full" />
+                    <span className="text-neutral-600">You</span>
+                  </span>
+                  <span className="text-neutral-300">→</span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 bg-violet-300 rounded-full" />
+                    <span className="text-neutral-400">Typical</span>
+                  </span>
+                  <span className="text-neutral-300">→</span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 bg-violet-200 rounded-full" />
+                    <span className="text-neutral-400">High</span>
+                  </span>
                 </div>
               </div>
 
@@ -564,25 +570,39 @@ export default function LeaderDashboard() {
                 <h2 className="text-xs font-medium text-neutral-400 tracking-wide uppercase mb-4">What&apos;s coming</h2>
 
                 {/* Headline */}
-                <div className="mb-6 text-center">
+                <div className="mb-5">
                   <span className="text-5xl font-bold text-neutral-900">60%</span>
-                  <span className="text-lg text-neutral-500 ml-2">of work AI-exposed by 2030</span>
+                  <span className="text-lg text-neutral-500 ml-2">AI-exposed by 2030</span>
                 </div>
 
-                {/* Segmented bar */}
-                <div className="flex rounded-lg overflow-hidden mb-2">
-                  <div className="bg-violet-500 text-white text-sm font-medium py-2.5 px-4 flex-shrink-0" style={{ width: "40%" }}>
-                    Today
-                  </div>
-                  <div className="bg-violet-100 text-violet-600 text-sm font-medium py-2.5 px-4 flex-1 text-right">
-                    36pt to close
-                  </div>
+                {/* Stacked segments - 10 blocks */}
+                <div className="flex gap-1.5 mb-3">
+                  {/* Today: 24% = ~2.4 blocks → dark violet */}
+                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-400 rounded-md" />
+                  {/* Gap to 60%: ~3.6 blocks → light violet */}
+                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
+                  {/* Beyond 60% */}
+                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
+                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
+                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
+                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
                 </div>
 
-                {/* Labels below */}
-                <div className="flex justify-between text-xs text-neutral-400">
-                  <span>24% ready</span>
-                  <span>~140k hrs/yr opportunity</span>
+                {/* Legend */}
+                <div className="flex items-center gap-4 text-sm">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 bg-violet-500 rounded-full" />
+                    <span className="text-neutral-600">Today 24%</span>
+                  </span>
+                  <span className="text-neutral-400">~140k hrs/yr</span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 bg-violet-200 rounded-full" />
+                    <span className="text-neutral-400">2030 gap</span>
+                  </span>
                 </div>
               </div>
             </div>
