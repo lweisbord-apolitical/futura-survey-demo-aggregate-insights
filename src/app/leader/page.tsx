@@ -538,30 +538,30 @@ export default function LeaderDashboard() {
               {/* Three metrics */}
               <div className="grid grid-cols-3 gap-8">
                 <div className="group relative border-b-2 border-violet-600 pb-4 cursor-help">
-                  <p className="text-sm text-neutral-500 mb-1">Current usage</p>
+                  <p className="text-sm text-neutral-500 mb-1">You</p>
                   <p className="text-3xl font-semibold text-neutral-900">24%</p>
-                  <p className="text-xs text-neutral-400 mt-1">Survey responses</p>
+                  <p className="text-xs text-neutral-400 mt-1">Current AI usage</p>
                   <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
-                    <strong className="text-white">What people actually do today.</strong><br /><br />
-                    Tasks where respondents report using AI &quot;often&quot; or &quot;always&quot;.
+                    <strong className="text-white">Your current AI adoption.</strong><br /><br />
+                    Percentage of tasks where your workforce reports using AI &quot;often&quot; or &quot;always&quot;.
                   </div>
                 </div>
                 <div className="group relative border-b-2 border-violet-400 pb-4 cursor-help">
-                  <p className="text-sm text-neutral-500 mb-1">2026 exposure</p>
+                  <p className="text-sm text-neutral-500 mb-1">Industry comps</p>
                   <p className="text-3xl font-semibold text-neutral-900">38%</p>
-                  <p className="text-xs text-neutral-400 mt-1 cursor-help">Current AI capability</p>
+                  <p className="text-xs text-neutral-400 mt-1 cursor-help">Current exposure</p>
                   <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
-                    <strong className="text-white">What AI can do right now.</strong><br /><br />
-                    Based on current AI capabilities for each task type — what percentage of work hours could be meaningfully assisted by AI today.
+                    <strong className="text-white">Where comparable organizations are today.</strong><br /><br />
+                    Based on current AI capabilities for your task mix — what percentage of work hours could be meaningfully assisted by AI today.
                   </div>
                 </div>
                 <div className="group relative border-b-2 border-violet-200 pb-4 cursor-help">
-                  <p className="text-sm text-neutral-500 mb-1">2030 exposure</p>
+                  <p className="text-sm text-neutral-500 mb-1">Theoretical exposure</p>
                   <p className="text-3xl font-semibold text-neutral-900">57%</p>
-                  <p className="text-xs text-neutral-400 mt-1 cursor-help">Projected capability</p>
+                  <p className="text-xs text-neutral-400 mt-1 cursor-help">Through 2030</p>
                   <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
-                    <strong className="text-white">What AI could do by ~2030.</strong><br /><br />
-                    Projected AI capability based on technology trajectory — the theoretical ceiling of tasks that could be AI-assisted with continued advancement.
+                    <strong className="text-white">Projected industry ceiling by 2030.</strong><br /><br />
+                    The theoretical maximum of tasks that could be AI-assisted based on expected technology advancement.
                   </div>
                 </div>
               </div>
@@ -572,7 +572,7 @@ export default function LeaderDashboard() {
                   <div>
                     <p className="text-sm text-neutral-500">Total gap</p>
                     <p className="text-lg text-neutral-900">
-                      <span className="font-semibold">33 points</span> between usage and 2030 exposure
+                      <span className="font-semibold">33 points</span> between you and industry comps
                     </p>
                   </div>
                   <div className="text-right">
