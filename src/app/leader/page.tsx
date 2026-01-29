@@ -516,68 +516,73 @@ export default function LeaderDashboard() {
         {/* TAB 1: WHERE WE ARE NOW */}
         {activeTab === "now" && (
           <div>
-            {/* Headline */}
-            <div className="mb-10">
-              <p className="text-sm text-neutral-400 mb-2">The headline</p>
-              <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-neutral-900">
-                Your workforce is using AI for 24% of the work it could.
-              </h1>
-            </div>
+            {/* Two-card layout */}
+            <div className="grid md:grid-cols-2 gap-4 mb-8">
+              {/* Left Card - Where You Stand */}
+              <div className="p-6 bg-neutral-50 rounded-xl">
+                <h2 className="text-xs font-medium text-neutral-400 tracking-wide uppercase mb-4">Where you stand</h2>
 
-            {/* Exposure Gap */}
-            <div className="mb-10">
-              <h2 className="text-lg font-medium text-neutral-900 mb-4">Exposure gap</h2>
-
-              {/* The bar */}
-              <div className="relative h-8 bg-neutral-100 rounded-full overflow-hidden mb-8">
-                <div className="absolute inset-y-0 left-0 bg-violet-200" style={{ width: "57%" }} />
-                <div className="absolute inset-y-0 left-0 bg-violet-400" style={{ width: "38%" }} />
-                <div className="absolute inset-y-0 left-0 bg-violet-600" style={{ width: "24%" }} />
-              </div>
-
-              {/* Three metrics */}
-              <div className="grid grid-cols-3 gap-8">
-                <div className="group relative border-b-2 border-violet-600 pb-4 cursor-help">
-                  <p className="text-sm text-neutral-500 mb-1">You</p>
-                  <p className="text-3xl font-semibold text-neutral-900">24%</p>
-                  <p className="text-xs text-neutral-400 mt-1">Current AI usage</p>
-                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
-                    <strong className="text-white">Your current AI adoption.</strong><br /><br />
-                    Percentage of tasks where your workforce reports using AI &quot;often&quot; or &quot;always&quot;.
-                  </div>
+                {/* Headline */}
+                <div className="mb-6">
+                  <span className="text-5xl font-bold text-violet-600">24%</span>
+                  <span className="text-lg text-neutral-500 ml-2">of work uses AI</span>
                 </div>
-                <div className="group relative border-b-2 border-violet-400 pb-4 cursor-help">
-                  <p className="text-sm text-neutral-500 mb-1">Industry comps</p>
-                  <p className="text-3xl font-semibold text-neutral-900">38%</p>
-                  <p className="text-xs text-neutral-400 mt-1 cursor-help">Current exposure</p>
-                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
-                    <strong className="text-white">Where comparable organizations are today.</strong><br /><br />
-                    Based on current AI capabilities for your task mix — what percentage of work hours could be meaningfully assisted by AI today.
+
+                {/* Horizontal bars */}
+                <div className="space-y-3">
+                  {/* You */}
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm text-neutral-500 w-14 text-right">You</span>
+                    <div className="flex-1 h-3 bg-neutral-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-violet-500 rounded-full" style={{ width: "43%" }} />
+                    </div>
+                    <span className="text-sm font-semibold text-violet-600 w-12">24%</span>
                   </div>
-                </div>
-                <div className="group relative border-b-2 border-violet-200 pb-4 cursor-help">
-                  <p className="text-sm text-neutral-500 mb-1">Theoretical exposure</p>
-                  <p className="text-3xl font-semibold text-neutral-900">57%</p>
-                  <p className="text-xs text-neutral-400 mt-1 cursor-help">Through 2030</p>
-                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 absolute bottom-full left-0 mb-2 w-72 bg-neutral-900 text-neutral-200 p-3 rounded-md text-xs leading-relaxed z-50 transition-opacity shadow-lg">
-                    <strong className="text-white">Projected industry ceiling by 2030.</strong><br /><br />
-                    The theoretical maximum of tasks that could be AI-assisted based on expected technology advancement.
+
+                  {/* Typical */}
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm text-neutral-400 w-14 text-right">Typical</span>
+                    <div className="flex-1 h-3 bg-neutral-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-neutral-300 rounded-full" style={{ width: "68%" }} />
+                    </div>
+                    <span className="text-sm text-neutral-400 w-12">38%</span>
+                  </div>
+
+                  {/* High */}
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm text-neutral-400 w-14 text-right">High</span>
+                    <div className="flex-1 h-3 bg-neutral-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-neutral-200 rounded-full" style={{ width: "100%" }} />
+                    </div>
+                    <span className="text-sm text-neutral-300 w-12">56%</span>
                   </div>
                 </div>
               </div>
 
-              {/* Gap summary */}
-              <div className="mt-8 pt-8 border-t border-neutral-100">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-neutral-500">Total gap</p>
-                    <p className="text-lg text-neutral-900">
-                      <span className="font-semibold">33 points</span> between you and industry comps
-                    </p>
+              {/* Right Card - What's Coming */}
+              <div className="p-6 bg-neutral-50 rounded-xl">
+                <h2 className="text-xs font-medium text-neutral-400 tracking-wide uppercase mb-4">What&apos;s coming</h2>
+
+                {/* Headline */}
+                <div className="mb-6 text-center">
+                  <span className="text-5xl font-bold text-neutral-900">60%</span>
+                  <span className="text-lg text-neutral-500 ml-2">of work AI-exposed by 2030</span>
+                </div>
+
+                {/* Segmented bar */}
+                <div className="flex rounded-lg overflow-hidden mb-2">
+                  <div className="bg-violet-500 text-white text-sm font-medium py-2.5 px-4 flex-shrink-0" style={{ width: "40%" }}>
+                    Today
                   </div>
-                  <div className="text-right">
-                    <p className="text-sm text-neutral-400">~358k hrs/yr addressable</p>
+                  <div className="bg-violet-100 text-violet-600 text-sm font-medium py-2.5 px-4 flex-1 text-right">
+                    36pt to close
                   </div>
+                </div>
+
+                {/* Labels below */}
+                <div className="flex justify-between text-xs text-neutral-400">
+                  <span>24% ready</span>
+                  <span>~140k hrs/yr opportunity</span>
                 </div>
               </div>
             </div>
