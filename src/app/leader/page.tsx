@@ -516,94 +516,52 @@ export default function LeaderDashboard() {
         {/* TAB 1: WHERE WE ARE NOW */}
         {activeTab === "now" && (
           <div>
-            {/* Two-card layout */}
-            <div className="grid md:grid-cols-2 gap-4 mb-8">
-              {/* Left Card - Where You Stand */}
-              <div className="p-6 bg-neutral-50 rounded-xl">
-                <h2 className="text-xs font-medium text-neutral-400 tracking-wide uppercase mb-4">Where you stand</h2>
+            {/* AI Readiness Gap - Single Hero Card */}
+            <div className="p-8 bg-neutral-50 rounded-xl mb-8">
+              <h2 className="text-xs font-medium text-violet-600 tracking-wide uppercase mb-6">AI Readiness Gap</h2>
 
-                {/* Headline */}
-                <div className="mb-5">
-                  <span className="text-5xl font-bold text-violet-600">24%</span>
-                  <span className="text-lg text-neutral-500 ml-2">of work uses AI</span>
-                </div>
-
-                {/* Stacked segments - 10 blocks with gradient fade */}
-                <div className="flex gap-1.5 mb-3">
-                  {/* You: dark violet fading */}
-                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-400 rounded-md" />
-                  {/* Typical: medium violet */}
-                  <div className="w-10 h-12 bg-violet-300 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-300 rounded-md" />
-                  {/* High: light violet */}
-                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-100 rounded-md" />
-                  {/* Remaining empty */}
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
-                </div>
-
-                {/* Legend */}
-                <div className="flex items-center gap-4 text-sm">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 bg-violet-500 rounded-full" />
-                    <span className="text-neutral-600">You</span>
-                  </span>
-                  <span className="text-neutral-300">→</span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 bg-violet-300 rounded-full" />
-                    <span className="text-neutral-400">Typical</span>
-                  </span>
-                  <span className="text-neutral-300">→</span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 bg-violet-200 rounded-full" />
-                    <span className="text-neutral-400">High</span>
-                  </span>
-                </div>
+              {/* Headline with arrow */}
+              <div className="mb-2">
+                <span className="text-6xl font-bold text-violet-600">24%</span>
+                <span className="text-3xl text-neutral-400 mx-4">→</span>
+                <span className="text-6xl font-bold text-neutral-900">60%</span>
               </div>
 
-              {/* Right Card - What's Coming */}
-              <div className="p-6 bg-neutral-50 rounded-xl">
-                <h2 className="text-xs font-medium text-neutral-400 tracking-wide uppercase mb-4">What&apos;s coming</h2>
+              {/* Subtitle */}
+              <p className="text-lg text-neutral-600 mb-2">
+                of tasks use AI today <span className="text-neutral-400">→</span> will be AI-exposed by 2030
+              </p>
 
-                {/* Headline */}
-                <div className="mb-5">
-                  <span className="text-5xl font-bold text-neutral-900">60%</span>
-                  <span className="text-lg text-neutral-500 ml-2">AI-exposed by 2030</span>
-                </div>
+              {/* Description */}
+              <p className="text-sm text-neutral-400 mb-6">Based on task-by-task analysis across your workforce</p>
 
-                {/* Stacked segments - 10 blocks with gradient fade */}
-                <div className="flex gap-1.5 mb-3">
-                  {/* Today: dark violet fading */}
-                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-400 rounded-md" />
-                  {/* Gap to 60%: light violet gradient */}
-                  <div className="w-10 h-12 bg-violet-300 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-100 rounded-md" />
-                  {/* Beyond 60% */}
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
-                </div>
+              {/* Visual blocks - 10 total */}
+              <div className="flex gap-2 mb-4">
+                {/* Tasks using AI today (3 blocks = ~24%) - solid purple */}
+                <div className="w-14 h-16 bg-violet-500 rounded-lg" />
+                <div className="w-14 h-16 bg-violet-500 rounded-lg" />
+                <div className="w-14 h-16 bg-violet-500 rounded-lg" />
+                {/* Tasks exposed by 2030 (3 blocks = gap to 60%) - light purple with dashed border */}
+                <div className="w-14 h-16 bg-violet-100 rounded-lg border-2 border-dashed border-violet-300" />
+                <div className="w-14 h-16 bg-violet-100 rounded-lg border-2 border-dashed border-violet-300" />
+                <div className="w-14 h-16 bg-violet-100 rounded-lg border-2 border-dashed border-violet-300" />
+                {/* Not exposed (4 blocks = remaining 40%) - gray */}
+                <div className="w-14 h-16 bg-neutral-200 rounded-lg" />
+                <div className="w-14 h-16 bg-neutral-200 rounded-lg" />
+                <div className="w-14 h-16 bg-neutral-200 rounded-lg" />
+                <div className="w-14 h-16 bg-neutral-200 rounded-lg" />
+              </div>
 
-                {/* Legend */}
-                <div className="flex items-center gap-4 text-sm">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 bg-violet-500 rounded-full" />
-                    <span className="text-neutral-600">Today 24%</span>
-                  </span>
-                  <span className="text-neutral-400">~140k hrs/yr</span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 bg-violet-200 rounded-full" />
-                    <span className="text-neutral-400">2030 gap</span>
-                  </span>
-                </div>
+              {/* Legend */}
+              <div className="flex items-center gap-6 text-sm">
+                <span className="flex items-center gap-2">
+                  <span className="w-3 h-3 bg-violet-500 rounded" />
+                  <span className="text-neutral-600">Tasks using AI today</span>
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-3 h-3 bg-violet-100 rounded border-2 border-dashed border-violet-300" />
+                  <span className="text-neutral-500">Tasks exposed by 2030</span>
+                </span>
               </div>
             </div>
 
