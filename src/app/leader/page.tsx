@@ -519,26 +519,33 @@ export default function LeaderDashboard() {
             {/* Two-column hero layout */}
             <div className="grid md:grid-cols-2 gap-4 mb-8">
               {/* Left Card - AI Readiness Gap */}
-              <div className="p-6 bg-neutral-50 rounded-xl">
-                <h2 className="text-xs font-medium text-violet-600 tracking-wide uppercase mb-4">AI Readiness Gap</h2>
+              <div className="p-6 bg-neutral-50 rounded-xl flex flex-col">
+                <h2 className="text-xs font-medium text-neutral-400 tracking-wide uppercase mb-4">AI Readiness Gap</h2>
 
-                {/* Headline with arrow */}
-                <div className="mb-1">
-                  <span className="text-5xl font-bold text-violet-600">24%</span>
-                  <span className="text-2xl text-neutral-400 mx-2">→</span>
-                  <span className="text-5xl font-bold text-neutral-900">60%</span>
+                {/* Hero number - the gap */}
+                <div className="mb-4">
+                  <span className="text-7xl font-bold text-violet-600">36</span>
+                  <span className="text-2xl text-neutral-400 ml-2">pt gap</span>
                 </div>
 
-                {/* Subtitle */}
-                <p className="text-base text-neutral-600 mb-1">
-                  of tasks use AI today <span className="text-neutral-400">→</span> will be AI-exposed by 2030
-                </p>
+                {/* Breakdown: 24% → 60% */}
+                <div className="flex items-baseline gap-3 mb-2">
+                  <div>
+                    <span className="text-xl font-semibold text-violet-600">24%</span>
+                    <span className="text-sm text-neutral-500 ml-1">using AI today</span>
+                  </div>
+                  <span className="text-neutral-300">→</span>
+                  <div>
+                    <span className="text-xl font-semibold text-neutral-900">60%</span>
+                    <span className="text-sm text-neutral-500 ml-1">exposed by 2030</span>
+                  </div>
+                </div>
 
                 {/* Description */}
-                <p className="text-sm text-neutral-400 mb-4">Based on task-by-task analysis across your workforce</p>
+                <p className="text-sm text-neutral-400 mb-auto">Based on task-by-task analysis across your workforce</p>
 
-                {/* Visual blocks - 10 total */}
-                <div className="flex gap-1.5 mb-3">
+                {/* Visual blocks - 10 total (pushed to bottom) */}
+                <div className="flex gap-1.5 mb-3 mt-6">
                   {/* Tasks using AI today (3 blocks = ~24%) - solid purple */}
                   <div className="w-10 h-12 bg-violet-500 rounded-md" />
                   <div className="w-10 h-12 bg-violet-500 rounded-md" />
@@ -557,11 +564,11 @@ export default function LeaderDashboard() {
                 {/* Legend */}
                 <div className="flex items-center gap-4 text-sm">
                   <span className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 bg-violet-500 rounded" />
+                    <span className="w-2.5 h-2.5 bg-violet-500 rounded-full" />
                     <span className="text-neutral-600">Using AI today</span>
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 bg-violet-100 rounded border border-dashed border-violet-300" />
+                    <span className="w-2.5 h-2.5 bg-violet-200 rounded-full" />
                     <span className="text-neutral-500">Exposed by 2030</span>
                   </span>
                 </div>
@@ -579,17 +586,17 @@ export default function LeaderDashboard() {
                   </button>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-5">
                   {ROLE_GAPS.slice(0, 3).map((item) => (
                     <div key={item.role}>
                       <div className="flex items-start justify-between mb-1">
                         <div>
-                          <p className="text-sm font-medium text-neutral-900">{item.role}</p>
+                          <p className="text-base font-semibold text-neutral-900">{item.role}</p>
                           <p className="text-xs text-neutral-400">{item.dept} • {item.employees} employees</p>
                         </div>
                         <div className="text-right">
-                          <span className="text-lg font-semibold text-neutral-900">{item.gap}</span>
-                          <span className="text-sm text-neutral-400">pt</span>
+                          <span className="text-3xl font-bold text-violet-600">{item.gap}</span>
+                          <span className="text-sm text-neutral-400 ml-1">pt gap</span>
                         </div>
                       </div>
                       {/* Progress bar showing using vs exposed */}
@@ -600,7 +607,7 @@ export default function LeaderDashboard() {
                         />
                       </div>
                       <div className="flex justify-between text-xs text-neutral-400">
-                        <span>{item.using}% using AI</span>
+                        <span>{item.using}% using</span>
                         <span>{item.exposed}% exposed</span>
                       </div>
                     </div>
