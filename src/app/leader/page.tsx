@@ -752,8 +752,8 @@ export default function LeaderDashboard() {
                     style={{ gridColumn: "span 2", gridRow: "span 2" }}
                   >
                     <div className="text-center px-1">
-                      <p className="text-xs font-medium text-violet-800">Research</p>
-                      <p className="text-xs text-violet-600">26k • 52%</p>
+                      <p className="text-sm font-medium text-white">Research</p>
+                      <p className="text-xs text-violet-100">26k • 52%</p>
                     </div>
                   </div>
                   <div
@@ -766,12 +766,12 @@ export default function LeaderDashboard() {
                     </div>
                   </div>
                   <div
-                    className="bg-neutral-200 hover:bg-neutral-300 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
+                    className="bg-violet-300 hover:bg-violet-400 rounded-lg flex items-center justify-center cursor-pointer transition-all hover:scale-[1.02] hover:shadow-lg hover:z-10"
                     style={{ gridColumn: "span 2", gridRow: "span 2" }}
                   >
                     <div className="text-center px-1">
-                      <p className="text-xs font-medium text-neutral-600">Other</p>
-                      <p className="text-xs text-neutral-400">18k • 15%</p>
+                      <p className="text-sm font-medium text-white">Monitoring AI</p>
+                      <p className="text-xs text-violet-100">18k • 45%</p>
                     </div>
                   </div>
                 </div>
@@ -796,7 +796,6 @@ export default function LeaderDashboard() {
                       <span className="text-neutral-500">60%+ AI</span>
                     </span>
                   </div>
-                  <p className="text-xs text-neutral-400">Click any task for details</p>
                 </div>
               </div>
 
