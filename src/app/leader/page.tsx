@@ -80,7 +80,7 @@ const RESKILLING_ROLES = [
 ];
 
 // Chart component for Opportunity Matrix
-function OpportunityMatrixChart({ exposureYear }: { exposureYear: "2026" | "2030" }) {
+function OpportunityMatrixChart() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<unknown>(null);
 
@@ -95,85 +95,63 @@ function OpportunityMatrixChart({ exposureYear }: { exposureYear: "2026" | "2030
         (chartRef.current as { destroy: () => void }).destroy();
       }
 
-      // 2026: Current state - based on today's AI capabilities
-      const tasks2026 = {
+      // Tasks across the full AI exposure/adoption spectrum
+      const tasks = {
+        // High exposure, low adoption = Opportunity (orange)
         untapped: [
-          {x: 85, y: 12, r: 12, name: 'Customer emails'},
-          {x: 82, y: 6, r: 10, name: 'Meeting notes'},
-          {x: 68, y: 8, r: 11, name: 'Calendar management'},
-          {x: 78, y: 18, r: 9, name: 'Briefing docs'},
-          {x: 72, y: 15, r: 10, name: 'Policy research'},
-          {x: 75, y: 32, r: 10, name: 'Resume screening'},
-          {x: 62, y: 4, r: 10, name: 'Document filing'},
-          {x: 70, y: 25, r: 11, name: 'Budget reports'},
+          {x: 92, y: 8, r: 11, name: 'Meeting notes'},
+          {x: 88, y: 12, r: 12, name: 'Customer emails'},
+          {x: 85, y: 6, r: 10, name: 'Document summarization'},
+          {x: 82, y: 18, r: 9, name: 'Briefing docs'},
+          {x: 78, y: 15, r: 10, name: 'Policy research'},
+          {x: 75, y: 28, r: 10, name: 'Resume screening'},
+          {x: 72, y: 8, r: 9, name: 'Document filing'},
+          {x: 70, y: 22, r: 11, name: 'Budget reports'},
+          {x: 68, y: 10, r: 8, name: 'Invoice processing'},
+          {x: 65, y: 5, r: 9, name: 'Data entry'},
+          {x: 62, y: 14, r: 8, name: 'Contract review'},
+          {x: 58, y: 20, r: 7, name: 'Compliance checks'},
         ],
+        // High exposure, high adoption = Already adopting (purple)
         realized: [
-          {x: 88, y: 78, r: 8, name: 'Technical docs'},
-          {x: 90, y: 75, r: 10, name: 'Social content'},
-          {x: 85, y: 72, r: 14, name: 'Software code'},
-          {x: 82, y: 68, r: 9, name: 'Press releases'},
-          {x: 78, y: 58, r: 8, name: 'Code review'},
-          {x: 75, y: 55, r: 9, name: 'SQL queries'},
+          {x: 92, y: 82, r: 8, name: 'Technical docs'},
+          {x: 90, y: 78, r: 10, name: 'Social content'},
+          {x: 88, y: 75, r: 14, name: 'Software code'},
+          {x: 85, y: 70, r: 9, name: 'Press releases'},
+          {x: 82, y: 65, r: 8, name: 'Code review'},
+          {x: 78, y: 58, r: 9, name: 'SQL queries'},
+          {x: 75, y: 52, r: 8, name: 'Blog writing'},
+          {x: 72, y: 48, r: 7, name: 'Email drafts'},
+          {x: 68, y: 55, r: 8, name: 'Presentation slides'},
+          {x: 65, y: 45, r: 7, name: 'Data visualization'},
         ],
+        // Medium exposure, medium adoption (light purple)
         unexpected: [
-          {x: 32, y: 35, r: 6, name: 'Team coordination'},
-          {x: 38, y: 28, r: 5, name: 'Stakeholder comms'},
+          {x: 52, y: 42, r: 7, name: 'Team coordination'},
+          {x: 48, y: 35, r: 6, name: 'Stakeholder comms'},
+          {x: 55, y: 38, r: 8, name: 'Project planning'},
+          {x: 45, y: 32, r: 6, name: 'Meeting facilitation'},
+          {x: 42, y: 45, r: 7, name: 'Feedback synthesis'},
+          {x: 38, y: 28, r: 5, name: 'Interview scheduling'},
         ],
+        // Low exposure, low adoption = Manual (gray)
         manual: [
-          {x: 22, y: 6, r: 11, name: 'Stakeholder meetings'},
-          {x: 8, y: 2, r: 8, name: 'Greeting visitors'},
-          {x: 15, y: 4, r: 11, name: 'Employee interviews'},
-          {x: 12, y: 3, r: 8, name: 'Field inspections'},
-          {x: 18, y: 5, r: 7, name: 'Site visits'},
-          {x: 10, y: 8, r: 8, name: 'Mentoring'},
-          {x: 28, y: 6, r: 9, name: 'Workshops'},
-          {x: 25, y: 12, r: 8, name: 'Strategic planning'},
+          {x: 25, y: 8, r: 11, name: 'Stakeholder meetings'},
+          {x: 8, y: 3, r: 8, name: 'Greeting visitors'},
+          {x: 15, y: 5, r: 11, name: 'Employee interviews'},
+          {x: 12, y: 4, r: 8, name: 'Field inspections'},
+          {x: 18, y: 6, r: 7, name: 'Site visits'},
+          {x: 10, y: 10, r: 8, name: 'Mentoring'},
+          {x: 28, y: 12, r: 9, name: 'Workshops'},
+          {x: 22, y: 15, r: 8, name: 'Strategic planning'},
+          {x: 32, y: 6, r: 7, name: 'Client lunches'},
+          {x: 5, y: 2, r: 6, name: 'Facility tours'},
+          {x: 20, y: 18, r: 8, name: 'Team building'},
+          {x: 35, y: 10, r: 7, name: 'Negotiation'},
+          {x: 30, y: 22, r: 6, name: 'Conflict resolution'},
+          {x: 15, y: 12, r: 7, name: 'Performance reviews'},
         ]
       };
-
-      // 2030: Projected state - agents, multimodal AI, better integration
-      const tasks2030 = {
-        untapped: [
-          {x: 96, y: 12, r: 12, name: 'Customer emails'},
-          {x: 94, y: 6, r: 10, name: 'Meeting notes'},
-          {x: 92, y: 8, r: 11, name: 'Calendar management'},
-          {x: 95, y: 18, r: 9, name: 'Briefing docs'},
-          {x: 90, y: 15, r: 10, name: 'Policy research'},
-          {x: 94, y: 32, r: 10, name: 'Resume screening'},
-          {x: 88, y: 4, r: 10, name: 'Document filing'},
-          {x: 92, y: 25, r: 11, name: 'Budget reports'},
-          // Tasks that become exposed by 2030 (were manual in 2026)
-          {x: 72, y: 6, r: 11, name: 'Stakeholder meetings'},
-          {x: 65, y: 4, r: 11, name: 'Employee interviews'},
-          {x: 58, y: 3, r: 8, name: 'Field inspections'},
-          {x: 78, y: 6, r: 9, name: 'Workshops'},
-          {x: 68, y: 12, r: 8, name: 'Strategic planning'},
-        ],
-        realized: [
-          {x: 98, y: 82, r: 8, name: 'Technical docs'},
-          {x: 98, y: 78, r: 10, name: 'Social content'},
-          {x: 95, y: 75, r: 14, name: 'Software code'},
-          {x: 96, y: 72, r: 9, name: 'Press releases'},
-          {x: 94, y: 65, r: 8, name: 'Code review'},
-          {x: 92, y: 62, r: 9, name: 'SQL queries'},
-          // Tasks that move to "realized" by 2030
-          {x: 88, y: 58, r: 10, name: 'Policy research'},
-          {x: 85, y: 52, r: 9, name: 'Budget analysis'},
-        ],
-        unexpected: [
-          {x: 65, y: 42, r: 6, name: 'Team coordination'},
-          {x: 72, y: 38, r: 5, name: 'Stakeholder comms'},
-          {x: 58, y: 35, r: 7, name: 'Project management'},
-        ],
-        manual: [
-          // Only truly physical/human tasks remain low exposure
-          {x: 25, y: 2, r: 8, name: 'Greeting visitors'},
-          {x: 35, y: 5, r: 7, name: 'Site visits'},
-          {x: 42, y: 8, r: 8, name: 'Mentoring'},
-        ]
-      };
-
-      const tasks = exposureYear === "2030" ? tasks2030 : tasks2026;
 
       chartRef.current = new ChartJS(canvasRef.current, {
         type: 'bubble',
@@ -280,7 +258,7 @@ function OpportunityMatrixChart({ exposureYear }: { exposureYear: "2026" | "2030
         (chartRef.current as { destroy: () => void }).destroy();
       }
     };
-  }, [exposureYear]);
+  }, []);
 
   return <canvas ref={canvasRef} />;
 }
@@ -330,45 +308,53 @@ function PioneerMapChart() {
         const numPioneers = Math.round(cluster.count * cluster.pioneerRatio);
         const numOthers = cluster.count - numPioneers;
 
-        // Generate pioneers (significantly above their role average)
+        // Generate pioneers (clearly above the diagonal - y much greater than x)
         for (let i = 0; i < numPioneers; i++) {
           const roleAvg = cluster.avgAdoption + gaussRandom() * (cluster.spread * 0.3);
-          const clampedRoleAvg = Math.max(5, Math.min(85, roleAvg));
-          // Pioneers are 1.5x to 3x their role average
-          const multiplier = 1.5 + Math.random() * 1.5;
-          const individual = Math.min(98, clampedRoleAvg * multiplier + gaussRandom() * 8);
+          const clampedRoleAvg = Math.max(5, Math.min(70, roleAvg));
+          // Pioneers are 20-50 points above their role average, clustered in upper region
+          const aboveAmount = 20 + Math.random() * 35;
+          const individual = Math.min(98, clampedRoleAvg + aboveAmount + gaussRandom() * 5);
           pioneers.push({
             x: clampedRoleAvg,
-            y: Math.max(clampedRoleAvg + 10, individual),
+            y: Math.max(65, individual), // Ensure they're in the upper portion of the chart
             r: 2.5 + Math.random() * 2.5
           });
         }
 
-        // Generate others (at or below role average, with natural variation)
+        // Generate others (spread around role average with natural variation)
         for (let i = 0; i < numOthers; i++) {
           const roleAvg = cluster.avgAdoption + gaussRandom() * cluster.spread;
           const clampedRoleAvg = Math.max(3, Math.min(80, roleAvg));
-          // Most people cluster around their role average, some below
-          const variance = gaussRandom() * 12;
-          const individual = clampedRoleAvg + variance - 5; // Slight downward bias
-          others.push({
+          // Natural distribution: some above, some below, fewer exactly on the line
+          const variance = gaussRandom() * 18; // Wider spread
+          const bias = (Math.random() < 0.6) ? -8 : 4; // More below than above, but still varied
+          const individual = Math.max(0, Math.min(95, clampedRoleAvg + variance + bias));
+          const point = {
             x: clampedRoleAvg,
-            y: Math.max(0, Math.min(clampedRoleAvg + 8, individual)),
+            y: individual,
             r: 2 + Math.random() * 2
-          });
+          };
+          // Anyone over 80% adoption is a pioneer (purple)
+          if (individual > 80) {
+            pioneers.push({ ...point, r: 2.5 + Math.random() * 2.5 });
+          } else {
+            others.push(point);
+          }
         }
       });
 
       // Add some outliers for realism
-      // Low adopters in high-adoption roles
-      for (let i = 0; i < 30; i++) {
+      // Low adopters in high-adoption roles (below the line)
+      for (let i = 0; i < 25; i++) {
         const roleAvg = 45 + Math.random() * 25;
-        others.push({ x: roleAvg, y: Math.random() * 15, r: 2 + Math.random() * 1.5 });
+        others.push({ x: roleAvg, y: Math.random() * 20, r: 2 + Math.random() * 1.5 });
       }
-      // High adopters who are exactly at average (not pioneers, just consistent)
-      for (let i = 0; i < 40; i++) {
-        const roleAvg = 30 + Math.random() * 40;
-        others.push({ x: roleAvg, y: roleAvg + (Math.random() - 0.5) * 6, r: 2 + Math.random() * 2 });
+      // Some people moderately above their role average (but not pioneers, capped at 80)
+      for (let i = 0; i < 20; i++) {
+        const roleAvg = 20 + Math.random() * 35;
+        const above = roleAvg + 8 + Math.random() * 15;
+        others.push({ x: roleAvg, y: Math.min(above, 78), r: 2 + Math.random() * 2 });
       }
 
       chartRef.current = new ChartJS(canvasRef.current, {
@@ -471,7 +457,6 @@ function PioneerMapChart() {
 
 export default function LeaderDashboard() {
   const [activeTab, setActiveTab] = useState<TabId>("now");
-  const [exposureYear, setExposureYear] = useState<"2026" | "2030">("2026");
 
   return (
     <div className="min-h-screen bg-white">
@@ -910,32 +895,12 @@ export default function LeaderDashboard() {
 
             {/* Task Opportunity Chart */}
             <div className="mb-10">
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="text-lg font-medium text-neutral-900">Task opportunities</h2>
-                <div className="inline-flex rounded-full bg-neutral-100 p-0.5">
-                  <button
-                    onClick={() => setExposureYear("2026")}
-                    className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
-                      exposureYear === "2026" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-700"
-                    }`}
-                  >
-                    2026
-                  </button>
-                  <button
-                    onClick={() => setExposureYear("2030")}
-                    className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
-                      exposureYear === "2030" ? "bg-neutral-900 text-white" : "text-neutral-500 hover:text-neutral-700"
-                    }`}
-                  >
-                    2030
-                  </button>
-                </div>
-              </div>
+              <h2 className="text-lg font-medium text-neutral-900 mb-2">Task opportunities</h2>
               <p className="text-sm text-neutral-500 mb-4">Tasks plotted by AI exposure (x) vs current adoption (y). Bubble size = hours.</p>
 
               <div className="border border-neutral-100 p-6">
                 <div className="relative" style={{ height: "420px" }}>
-                  <OpportunityMatrixChart exposureYear={exposureYear} />
+                  <OpportunityMatrixChart />
                 </div>
                 <div className="flex items-center gap-6 mt-4 pt-4 border-t border-neutral-100 text-xs">
                   <span className="flex items-center gap-2">
