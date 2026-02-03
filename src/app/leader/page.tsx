@@ -553,15 +553,23 @@ export default function LeaderDashboard() {
                 </div>
 
                 {/* Gap annotation under exposed unused blocks */}
+                <div className="flex gap-1.5 mb-1">
+                  {/* Invisible spacers matching first 2 solid blocks */}
+                  <div className="w-10 h-2" />
+                  <div className="w-10 h-2" />
+                  {/* Bracket segments matching the 3 light purple blocks */}
+                  <div className="w-10 h-2 border-b-2 border-l-2 border-violet-300 rounded-bl" />
+                  <div className="w-10 h-2 border-b-2 border-violet-300" />
+                  <div className="w-10 h-2 border-b-2 border-r-2 border-violet-300 rounded-br" />
+                </div>
                 <div className="flex gap-1.5 mb-3">
-                  {/* Spacer for first 2 solid blocks */}
                   <div className="w-10" />
                   <div className="w-10" />
-                  {/* Bracket under exposed unused blocks */}
-                  <div className="flex flex-col items-center" style={{width: 'calc(3 * 2.5rem + 2 * 0.375rem)'}}>
-                    <div className="w-full border-b-2 border-l-2 border-r-2 border-neutral-300 rounded-b h-2" />
-                    <span className="text-xs text-neutral-500 mt-0.5">32 pt gap</span>
+                  <div className="w-10" />
+                  <div className="w-10 flex justify-center">
+                    <span className="text-xs text-violet-400 font-medium whitespace-nowrap">32 pt gap</span>
                   </div>
+                  <div className="w-10" />
                 </div>
 
                 {/* Legend */}
@@ -572,7 +580,7 @@ export default function LeaderDashboard() {
                   </span>
                   <span className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 bg-violet-200 rounded-full" />
-                    <span className="text-neutral-500">Exposed (unused)</span>
+                    <span className="text-neutral-500">2026 exposure</span>
                   </span>
                   <span className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 bg-violet-100 rounded-full" />
@@ -584,8 +592,6 @@ export default function LeaderDashboard() {
                   </span>
                 </div>
 
-                {/* Sources */}
-                <p className="text-xs text-neutral-400">Sources: Eloundou et al. (exposure) · AEI (adoption)</p>
               </div>
 
               {/* Right Card - Biggest Role Gaps */}
