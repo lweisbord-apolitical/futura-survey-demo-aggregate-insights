@@ -507,49 +507,85 @@ export default function LeaderDashboard() {
               <div className="p-6 bg-neutral-50 rounded-xl">
                 <h2 className="text-xs font-medium text-violet-600 tracking-wide uppercase mb-4">AI Readiness Gap</h2>
 
-                {/* Headline with arrow */}
-                <div className="mb-2">
-                  <span className="text-5xl font-bold text-violet-600">24%</span>
-                  <span className="text-2xl text-neutral-400 mx-2">→</span>
-                  <span className="text-5xl font-bold text-neutral-900">60%</span>
+                {/* Headline - gap number */}
+                <div className="mb-1">
+                  <span className="text-5xl font-bold text-violet-600">32</span>
+                  <span className="text-2xl font-bold text-violet-600">pt</span>
                 </div>
 
                 {/* Subtitle */}
-                <p className="text-base text-neutral-600 mb-1">
-                  of tasks use AI today <span className="text-neutral-400">→</span> will be AI-exposed by 2030
+                <p className="text-base text-neutral-600 mb-4">
+                  gap between exposure and adoption today
                 </p>
 
-                {/* Description */}
-                <p className="text-sm text-neutral-400 mb-4">Based on task-by-task analysis across your workforce</p>
+                {/* Stat row */}
+                <div className="flex gap-8 mb-4">
+                  <div>
+                    <p className="text-xs text-neutral-400 uppercase tracking-wide">Adoption</p>
+                    <p className="text-lg font-semibold text-violet-600">22%</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-neutral-400 uppercase tracking-wide">Exposed Today</p>
+                    <p className="text-lg font-semibold text-violet-300">54%</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-neutral-400 uppercase tracking-wide">Exposed 2030</p>
+                    <p className="text-lg font-semibold text-neutral-400">72%</p>
+                  </div>
+                </div>
 
                 {/* Visual blocks - 10 total */}
+                <div className="flex gap-1.5 mb-1">
+                  {/* Using AI (2 blocks = 22%) - solid purple */}
+                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
+                  {/* Exposed unused (3 blocks = 32% gap to 54%) - light purple */}
+                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-200 rounded-md" />
+                  {/* 2030 additional exposure (2 blocks = 18% more to 72%) - very light purple */}
+                  <div className="w-10 h-12 bg-violet-100 rounded-md" />
+                  <div className="w-10 h-12 bg-violet-100 rounded-md" />
+                  {/* Not exposed (3 blocks = 28%) - gray */}
+                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
+                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
+                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
+                </div>
+
+                {/* Gap annotation under exposed unused blocks */}
                 <div className="flex gap-1.5 mb-3">
-                  {/* Tasks using AI today (3 blocks = ~24%) - solid purple */}
-                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
-                  <div className="w-10 h-12 bg-violet-500 rounded-md" />
-                  {/* Tasks exposed by 2030 (3 blocks = gap to 60%) - light purple with dashed border */}
-                  <div className="w-10 h-12 bg-violet-100 rounded-md border-2 border-dashed border-violet-300" />
-                  <div className="w-10 h-12 bg-violet-100 rounded-md border-2 border-dashed border-violet-300" />
-                  <div className="w-10 h-12 bg-violet-100 rounded-md border-2 border-dashed border-violet-300" />
-                  {/* Not exposed (4 blocks = remaining 40%) - gray */}
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
-                  <div className="w-10 h-12 bg-neutral-200 rounded-md" />
+                  {/* Spacer for first 2 solid blocks */}
+                  <div className="w-10" />
+                  <div className="w-10" />
+                  {/* Bracket under exposed unused blocks */}
+                  <div className="flex flex-col items-center" style={{width: 'calc(3 * 2.5rem + 2 * 0.375rem)'}}>
+                    <div className="w-full border-b-2 border-l-2 border-r-2 border-neutral-300 rounded-b h-2" />
+                    <span className="text-xs text-neutral-500 mt-0.5">32 pt gap</span>
+                  </div>
                 </div>
 
                 {/* Legend */}
-                <div className="flex items-center gap-4 text-sm">
+                <div className="flex items-center gap-3 text-sm mb-3 flex-wrap">
                   <span className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 bg-violet-500 rounded-full" />
-                    <span className="text-neutral-600">Using AI today</span>
+                    <span className="text-neutral-600">Using AI</span>
                   </span>
                   <span className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 bg-violet-200 rounded-full" />
-                    <span className="text-neutral-500">Exposed by 2030</span>
+                    <span className="text-neutral-500">Exposed (unused)</span>
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 bg-violet-100 rounded-full" />
+                    <span className="text-neutral-500">2030</span>
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 bg-neutral-200 rounded-full" />
+                    <span className="text-neutral-500">Not exposed</span>
                   </span>
                 </div>
+
+                {/* Sources */}
+                <p className="text-xs text-neutral-400">Sources: Eloundou et al. (exposure) · AEI (adoption)</p>
               </div>
 
               {/* Right Card - Biggest Role Gaps */}
